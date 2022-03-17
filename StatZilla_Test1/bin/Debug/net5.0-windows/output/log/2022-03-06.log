@@ -1,0 +1,73 @@
+[2022-03-06T16:36:18.5695758-06:00] INFO      Program Setup Complete
+[2022-03-06T16:36:37.1410531-06:00] INFO      Second form Loading
+[2022-03-06T16:44:14.1424481-06:00] INFO      Second form Loading
+[2022-03-06T16:44:26.3037800-06:00] INFO      Initalizing Ftp
+[2022-03-06T16:44:29.2416437-06:00] ERROR     One or more errors occurred. (No such host is known.)
+[2022-03-06T16:44:29.2418014-06:00] INFO      Initalizing Ftp
+[2022-03-06T16:44:31.5546650-06:00] ERROR     One or more errors occurred. (No such host is known.)
+[2022-03-06T16:44:40.5206065-06:00] INFO      Second form Loading
+[2022-03-06T17:28:44.4059839-06:00] INFO      Program Setup Complete
+[2022-03-06T17:28:48.0070467-06:00] INFO      Second form Loading
+[2022-03-06T17:48:43.4310356-06:00] INFO      Program Setup Complete
+[2022-03-06T17:48:46.6430153-06:00] INFO      Second form Loading
+[2022-03-06T18:35:32.1135248-06:00] INFO      Program Setup Complete
+[2022-03-06T18:35:34.9593023-06:00] INFO      Next form Loading
+[2022-03-06T18:52:52.6097312-06:00] INFO      Program Setup Complete
+[2022-03-06T18:52:59.8445211-06:00] INFO      Next form Loading
+[2022-03-06T18:53:39.7174568-06:00] INFO      Program Setup Complete
+[2022-03-06T18:53:46.1661622-06:00] INFO      Next form Loading
+[2022-03-06T18:55:08.1094209-06:00] INFO      Program Setup Complete
+[2022-03-06T18:55:10.8083729-06:00] INFO      Next form Loading
+[2022-03-06T18:59:20.8925987-06:00] INFO      Program Setup Complete
+[2022-03-06T18:59:25.8015567-06:00] INFO      Next form Loading
+[2022-03-06T19:02:06.9969047-06:00] INFO      Program Setup Complete
+[2022-03-06T19:02:37.6299496-06:00] INFO      Next form Loading
+[2022-03-06T19:10:14.5022775-06:00] INFO      Program Setup Complete
+[2022-03-06T19:10:17.2720354-06:00] INFO      Next form Loading
+[2022-03-06T19:10:43.6279003-06:00] INFO      Updating FTP Method abc
+[2022-03-06T19:14:18.3783600-06:00] INFO      Program Setup Complete
+[2022-03-06T19:14:29.6973514-06:00] INFO      Next form Loading
+[2022-03-06T19:14:45.5100796-06:00] INFO      Updating FTP Method test1
+[2022-03-06T19:15:07.7625654-06:00] INFO      Next form Loading
+[2022-03-06T19:15:23.1614471-06:00] INFO      Updating FTP Method what
+[2022-03-06T21:09:36.8084028-06:00] INFO      Program Setup Complete
+[2022-03-06T21:09:39.8546557-06:00] INFO      Next form Loading
+[2022-03-06T21:10:11.5513852-06:00] INFO      Updating FTP Method www.this.com
+[2022-03-06T21:10:23.5573001-06:00] INFO      Updating FTP Method www.this.com
+[2022-03-06T21:10:30.7734885-06:00] INFO      Next form Loading
+[2022-03-06T21:10:36.1011297-06:00] INFO      Updating FTP Method qwer
+[2022-03-06T21:10:39.2547234-06:00] INFO      Updating FTP Method www.this.com
+[2022-03-06T21:10:43.0412301-06:00] INFO      Updating FTP Method qwer
+[2022-03-06T21:10:45.2914653-06:00] INFO      Updating FTP Method www.this.com
+[2022-03-06T21:10:47.8201746-06:00] INFO      Updating FTP Method www.this.com
+[2022-03-06T21:10:49.5527213-06:00] INFO      Updating FTP Method qwer
+[2022-03-06T21:41:47.0256147-06:00] INFO      Program Setup Complete
+[2022-03-06T21:41:49.2967817-06:00] INFO      Next form Loading
+[2022-03-06T21:42:01.4120187-06:00] INFO      Updating FTP Method ada
+[2022-03-06T21:51:36.0425209-06:00] INFO      Program Setup Complete
+[2022-03-06T21:51:38.2401136-06:00] INFO      Next form Loading
+[2022-03-06T21:53:29.0592270-06:00] INFO      Program Setup Complete
+[2022-03-06T21:53:31.3689336-06:00] INFO      Next form Loading
+[2022-03-06T21:54:30.2132350-06:00] INFO      Program Setup Complete
+[2022-03-06T21:54:32.5261407-06:00] INFO      Next form Loading
+[2022-03-06T21:54:57.4065320-06:00] INFO      Program Setup Complete
+[2022-03-06T21:54:59.1757765-06:00] INFO      Next form Loading
+[2022-03-06T21:55:45.1549479-06:00] INFO      Program Setup Complete
+[2022-03-06T21:55:47.0432864-06:00] INFO      Next form Loading
+[2022-03-06T21:57:46.4591833-06:00] INFO      Program Setup Complete
+[2022-03-06T21:57:48.8154295-06:00] INFO      Next form Loading
+[2022-03-06T21:58:46.8196829-06:00] INFO      Program Setup Complete
+[2022-03-06T21:58:49.4003932-06:00] INFO      Next form Loading
+[2022-03-06T22:01:39.2963481-06:00] INFO      Program Setup Complete
+[2022-03-06T22:01:41.3261533-06:00] INFO      Next form Loading
+[2022-03-06T22:01:59.1240480-06:00] INFO      Next form Loading
+[2022-03-06T22:06:13.4729900-06:00] INFO      Program Setup Complete
+[2022-03-06T22:37:34.1133504-06:00] INFO      Program Setup Complete
+[2022-03-06T22:37:36.2498277-06:00] INFO      Next form Loading
+[2022-03-06T22:38:14.8397200-06:00] INFO      Updating FTP Method abc
+[2022-03-06T22:38:41.7084984-06:00] INFO      Next form Loading
+[2022-03-06T22:39:00.7546545-06:00] INFO      Updating FTP Method abc
+[2022-03-06T22:41:36.1381369-06:00] INFO      Program Setup Complete
+[2022-03-06T22:41:38.3975608-06:00] INFO      Next form Loading
+[2022-03-06T22:41:50.9564995-06:00] INFO      Next form Loading
+[2022-03-06T22:42:04.1973719-06:00] INFO      Updating FTP Method test1
