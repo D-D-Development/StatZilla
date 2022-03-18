@@ -72,7 +72,7 @@ namespace StatZilla_Test1
                 try
                 {
                     Formlog.WriteLine(Log.Type.INFO, "Initalizing Ftp");
-                    ftpSend send = new ftpSend(f.Value.ftpdomain, f.Value.user, f.Value.pass);
+                    ftpSend send = new ftpSend(f.Value.ftpDomain, f.Value.user, f.Value.pass);
                     send.Send();
                 }
                 catch(Exception ex)
@@ -120,35 +120,35 @@ namespace StatZilla_Test1
 
         private void updateFTPMethod(Models.Ftp item)
         {
-            Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpdomain);
-            Source.MethodSelect currentMethod = new Source.MethodSelect(item);
+            Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpDomain);
+            Source.MethodSelect methodSelected = new Source.MethodSelect(item);
             
             // Open the form
-            currentMethod.ShowDialog();
+            methodSelected.ShowDialog();
 
             // Call Selected method with 
+            createNewMethod(methodSelected.Type);
 
+            //// Hold updated ftp method 
+            //Models.Ftp updated = new Models.Ftp();
 
-            // Hold updated ftp method 
-            Models.Ftp updated = new Models.Ftp();
-
-            updated.ftpdomain = currentMethod.domainField;
-            updated.user = currentMethod.userNameField;
-            updated.name = currentMethod.Name;
-            updated.pass = currentMethod.pswField;
+            //updated.ftpDomain = currentMethod.;
+            //updated.user = currentMethod.userNameField;
+            //updated.name = currentMethod.Name;
+            //updated.pass = currentMethod.pswField;
 
             // Update the list with new item
-            updateItemList(updated.ftpdomain, updated.user, fileName,filePath, "Now");
+            //updateItemList(updated.ftpDomain, updated.user, fileName,filePath, "Now");
 
             // Update the Ftp table data set
-            updateFTPTable(item,updated);
+            //updateFTPTable(item,updated);
         }
 
         private void updateFTPTable(Models.Ftp item, Models.Ftp newItem)
         {
-            ftpTable.Remove(item.ftpdomain);
+            ftpTable.Remove(item.ftpDomain);
 
-            ftpTable.Add(newItem.ftpdomain, newItem);
+            ftpTable.Add(newItem.ftpDomain, newItem);
         }
 
         private void addNewFTPMethod()
@@ -165,23 +165,15 @@ namespace StatZilla_Test1
             // Create new method 
             createNewMethod(newMethod.Type);
 
-            newFtp.ftpdomain = newMethod.domainField;       //StatZilla_Test1.Source.methodAdd.domainTextBox.Text;
-            newFtp.user = newMethod.userNameField;          //StatZilla_Test1.Source.methodAdd.userTextBox.Text;
-            newFtp.pass = newMethod.pswField;
-            newFtp.filenamePath = filePath;//newMethod.fileNamePath;
+            //newFtp.ftpdomain = newMethod.domainField;       //StatZilla_Test1.Source.methodAdd.domainTextBox.Text;
+            //newFtp.user = newMethod.userNameField;          //StatZilla_Test1.Source.methodAdd.userTextBox.Text;
+            //newFtp.pass = newMethod.pswField;
+            //newFtp.filenamePath = filePath;//newMethod.fileNamePath;
 
             string[] path = filePath.Split(',');
             fileName = path[path.Length - 1];
 
-            //StatZilla_Test1.Source.methodAdd.passTextBox.Text;
-            if (!(newFtp.ftpdomain == null || newFtp.user == null || newFtp.pass == null))
-            {
-                // Add new ftp method to the list of ftps then store the key in a dictionary 
-                // Key is used to find values of the item 
-                ftpTable.Add(newFtp.ftpdomain, newFtp);
-                addToList(newFtp.ftpdomain, newFtp.user, fileName, filePath, "Now");
-                //ftps.Add(newFtp);
-            }
+
         }
 
         private MethodType createNewMethod(int type)
@@ -190,12 +182,30 @@ namespace StatZilla_Test1
 
             MethodType currentType = MethodType.FTP;
 
-            if (index == 1) { currentType = MethodType.S3; }
-            else if (index == 2) { currentType = MethodType.SCP; }
-            else if (index == 3) { currentType = MethodType.OBJECT; }
+            if (index == 0) {
+                FtpProtocol newFtpMethod = new FtpProtocol();
+                newFtpMethod.ShowDialog();
+
+                //StatZilla_Test1.Source.methodAdd.passTextBox.Text;
+                Ftp newFtp = newFtpMethod.ftpMethod;
+                {
+                    // Add new ftp method to the list of ftps then store the key in a dictionary 
+                    // Key is used to find values of the item 
+                    ftpTable.Add(newFtp.ftpDomain, newFtp);
+                    addToList(newFtp.ftpDomain, newFtp.user, fileName, filePath, "Now");
+                    //ftps.Add(newFtp);
+                }
+            }
+            else if (index == 1) {
+                SCPMethod newScpMethod = new SCPMethod();
+                newScpMethod.ShowDialog();
+             }
+            else if (index == 2) {
+                S3Method newS3Method = new S3Method();
+                newS3Method.ShowDialog();
+            }
 
             return currentType;
-
         }
 
         private void addToList(string domainName, string userName, string fileName, string path, string lastUpdated)

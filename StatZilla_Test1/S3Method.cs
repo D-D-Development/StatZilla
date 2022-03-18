@@ -21,5 +21,45 @@ namespace StatZilla_Test1
         {
 
         }
+
+        private void accessKeyBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pathLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void awsAccessKeyLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void secretKeyBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pathBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void profileNameBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void awsProfileLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

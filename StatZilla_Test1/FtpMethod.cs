@@ -13,7 +13,7 @@ namespace StatZilla_Test1
 {
     public partial class FtpProtocol : Form
     {
-       Ftp ftpMethod { set; get;  }
+        public Ftp ftpMethod {  get; set; }
         public FtpProtocol()
         {
             InitializeComponent();
@@ -28,12 +28,15 @@ namespace StatZilla_Test1
         {
             if (textBox_Validator())
             {
-
+                Ftp newFtp = new Ftp(hostBox.Text, usernameBox.Text, passwdBox.Text, hostDestinationPath.Text);
                 // Save values in the FTP class
-                this.ftpMethod.user = usernameBox.Text;
-                this.ftpMethod.pass = passwdBox.Text;
-                this.ftpMethod.ftpDomain = hostBox.Text;
-                this.ftpMethod.domainDestinatoonPath = hostDestinationPath.Text;
+
+                ftpMethod = newFtp;
+
+                //this.ftpMethod.user = usernameBox.Text;
+                //this.ftpMethod.pass = passwdBox.Text;
+               // this.ftpMethod.ftpDomain = hostBox.Text;
+                //this.ftpMethod.domainDestinationPath = hostDestinationPath.Text;
 
                 this.Close();
             }
@@ -51,5 +54,24 @@ namespace StatZilla_Test1
             return true;
         }
 
+        private void pswdLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwdBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hostPathLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hostDestinationPath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
