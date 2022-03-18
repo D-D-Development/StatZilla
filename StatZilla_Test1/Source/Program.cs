@@ -11,7 +11,7 @@ namespace StatZilla_Test1
 {
     static class Program
     {
-
+        // This is a test Comment
         public static Log Log;
         static string logFilePath;
         static Stream logFileStream;
