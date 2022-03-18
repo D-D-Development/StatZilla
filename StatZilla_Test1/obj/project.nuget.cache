@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qrhzrMdnjtfBjwZ2+c+VXkNHZemboOeuzZVSqs/0hnZcG9qr141SU/RwIjBUBEcLx2olMXLMZ2ns5W4dmGpGPA==",
+  "dgSpecHash": "3P8F6lj4Dw/4uM4By+avYBWcuIt7RthJqMOhYozE3MGxlcjNXVBDWzZr9ZHhgGlF5osW9oiofpSNuhIxqDYBHA==",
   "success": true,
-  "projectFilePath": "C:\\Git\\StatZilla\\StatZilla_Test1\\StatZilla_Test1.csproj",
+  "projectFilePath": "C:\\Git\\StatZilla\\StatZilla_Test1\\StatZilla.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aniru\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\aniru\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

@@ -5445,9 +5445,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Git\\StatZilla\\StatZilla_Test1\\StatZilla_Test1.csproj",
-      "projectName": "StatZilla_Test1",
-      "projectPath": "C:\\Git\\StatZilla\\StatZilla_Test1\\StatZilla_Test1.csproj",
+      "projectUniqueName": "C:\\Git\\StatZilla\\StatZilla_Test1\\StatZilla.csproj",
+      "projectName": "StatZilla",
+      "projectPath": "C:\\Git\\StatZilla\\StatZilla_Test1\\StatZilla.csproj",
       "packagesPath": "C:\\Users\\aniru\\.nuget\\packages\\",
       "outputPath": "C:\\Git\\StatZilla\\StatZilla_Test1\\obj\\",
       "projectStyle": "PackageReference",

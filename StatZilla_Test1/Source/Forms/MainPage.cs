@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using StatZilla_Test1.Models;
-using StatZilla_Test1.Services;
-using StatZilla_Test1.Utility;
+using StatZilla.Models;
+using StatZilla.Services;
+using StatZilla.Utility;
 
-namespace StatZilla_Test1
+namespace StatZilla.Forms
 {
     enum MethodType
     {
@@ -121,13 +121,13 @@ namespace StatZilla_Test1
         private void updateFTPMethod(Models.Ftp item)
         {
             Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpDomain);
-            Source.MethodSelect methodSelected = new Source.MethodSelect(item);
+            MethodSelect methodSelected = new MethodSelect();
             
             // Open the form
             methodSelected.ShowDialog();
 
             // Call Selected method with 
-            createNewMethod(methodSelected.Type);
+            createNewMethod(methodSelected);
 
             //// Hold updated ftp method 
             //Models.Ftp updated = new Models.Ftp();
@@ -154,19 +154,19 @@ namespace StatZilla_Test1
         private void addNewFTPMethod()
         {
             Formlog.WriteLine(Log.Type.INFO, "Next form Loading");
-            Models.Ftp newFtp = new Models.Ftp();
+            //.Ftp newFtp = new Models.Ftp();
 
             // Open a new Form to insert new FTP method variables 
-            StatZilla_Test1.Source.MethodSelect newMethod = new StatZilla_Test1.Source.MethodSelect(newFtp);
+            MethodSelect newMethod = new MethodSelect();
 
 
             newMethod.ShowDialog();
 
             // Create new method 
-            createNewMethod(newMethod.Type);
+            createNewMethod(newMethod);
 
-            //newFtp.ftpdomain = newMethod.domainField;       //StatZilla_Test1.Source.methodAdd.domainTextBox.Text;
-            //newFtp.user = newMethod.userNameField;          //StatZilla_Test1.Source.methodAdd.userTextBox.Text;
+            //newFtp.ftpdomain = newMethod.domainField;       //StatZilla.Source.methodAdd.domainTextBox.Text;
+            //newFtp.user = newMethod.userNameField;          //StatZilla.Source.methodAdd.userTextBox.Text;
             //newFtp.pass = newMethod.pswField;
             //newFtp.filenamePath = filePath;//newMethod.fileNamePath;
 
@@ -176,9 +176,9 @@ namespace StatZilla_Test1
 
         }
 
-        private MethodType createNewMethod(int type)
+        private MethodType createNewMethod(Forms.MethodSelect method)
         {
-            int index = type;
+            int index = method.Type;
 
             MethodType currentType = MethodType.FTP;
 
@@ -186,23 +186,27 @@ namespace StatZilla_Test1
                 FtpProtocol newFtpMethod = new FtpProtocol();
                 newFtpMethod.ShowDialog();
 
-                //StatZilla_Test1.Source.methodAdd.passTextBox.Text;
+                //StatZilla.Source.methodAdd.passTextBox.Text;
                 Ftp newFtp = newFtpMethod.ftpMethod;
                 {
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
                     ftpTable.Add(newFtp.ftpDomain, newFtp);
                     addToList(newFtp.ftpDomain, newFtp.user, fileName, filePath, "Now");
+                    //JSON function will go here
                     //ftps.Add(newFtp);
                 }
             }
             else if (index == 1) {
                 SCPMethod newScpMethod = new SCPMethod();
                 newScpMethod.ShowDialog();
-             }
+
+                //JSON function will go here
+            }
             else if (index == 2) {
                 S3Method newS3Method = new S3Method();
                 newS3Method.ShowDialog();
+                //JSON function will go here
             }
 
             return currentType;

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using StatZilla_Test1.Models;
+using StatZilla.Models;
 
-namespace StatZilla_Test1
+namespace StatZilla.Forms
 {
     public partial class FtpProtocol : Form
     {

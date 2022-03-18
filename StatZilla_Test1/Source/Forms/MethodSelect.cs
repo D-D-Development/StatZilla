@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;       // For SCP Transfer
 using System.IO;
-using StatZilla_Test1.Models;
+using StatZilla.Models;
 
-namespace StatZilla_Test1.Source
+namespace StatZilla.Forms
 {
   
 
@@ -20,7 +20,7 @@ namespace StatZilla_Test1.Source
         public string Name { get; set; }
         public int Type { get; set; }
 
-        public MethodSelect(Models.Ftp currentItem)
+        public MethodSelect()
         {
             InitializeComponent();
         }
@@ -52,6 +52,11 @@ namespace StatZilla_Test1.Source
         }
 
         private void TypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MethodSelect_Load(object sender, EventArgs e)
         {
 
         }

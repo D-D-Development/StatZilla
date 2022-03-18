@@ -1,5 +1,5 @@
 ﻿
-namespace StatZilla_Test1
+namespace StatZilla.Forms
 {
     partial class FtpProtocol
     {

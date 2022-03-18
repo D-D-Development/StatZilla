@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StatZilla_Test1.Models
+namespace StatZilla.Models
 {
     public class Ftp
     {

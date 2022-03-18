@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StatZilla_Test1
+namespace StatZilla.Forms
 {
     public partial class S3Method : Form
     {
