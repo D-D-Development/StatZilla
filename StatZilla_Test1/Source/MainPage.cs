@@ -14,15 +14,22 @@ using StatZilla_Test1.Utility;
 
 namespace StatZilla_Test1
 {
+    enum MethodType
+    {
+        FTP,
+        SCP,
+        S3,
+        OBJECT
+    }
     public partial class MainPage : Form
     {
-        public List<Ftp> ftps = new List<Ftp>();
+        public List<Models.Ftp> ftps = new List<Models.Ftp>();
         // Create Dictionary.
-        Dictionary<string, Ftp> ftpTable = new Dictionary<string, Ftp>();
+        Dictionary<string, Models.Ftp> ftpTable = new Dictionary<string, Models.Ftp>();
         public Log Formlog;
         OpenFileDialog fileSelector = new OpenFileDialog();
         string filePath, fileName;
-
+  
         public MainPage(Log log)
         {
             Formlog = log;
@@ -60,7 +67,7 @@ namespace StatZilla_Test1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach(KeyValuePair<string, Ftp> f in ftpTable)
+            foreach(KeyValuePair<string, Models.Ftp> f in ftpTable)
             {
                 try
                 {
@@ -74,8 +81,6 @@ namespace StatZilla_Test1
                 }
             }
         }
-
-    
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -113,7 +118,7 @@ namespace StatZilla_Test1
       
         }
 
-        private void updateFTPMethod(Ftp item)
+        private void updateFTPMethod(Models.Ftp item)
         {
             Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpdomain);
             Source.MethodSelect currentMethod = new Source.MethodSelect(item);
@@ -121,8 +126,11 @@ namespace StatZilla_Test1
             // Open the form
             currentMethod.ShowDialog();
 
+            // Call Selected method with 
+
+
             // Hold updated ftp method 
-            Ftp updated = new Ftp();
+            Models.Ftp updated = new Models.Ftp();
 
             updated.ftpdomain = currentMethod.domainField;
             updated.user = currentMethod.userNameField;
@@ -136,7 +144,7 @@ namespace StatZilla_Test1
             updateFTPTable(item,updated);
         }
 
-        private void updateFTPTable(Ftp item, Ftp newItem)
+        private void updateFTPTable(Models.Ftp item, Models.Ftp newItem)
         {
             ftpTable.Remove(item.ftpdomain);
 
@@ -146,11 +154,17 @@ namespace StatZilla_Test1
         private void addNewFTPMethod()
         {
             Formlog.WriteLine(Log.Type.INFO, "Next form Loading");
-            Ftp newFtp = new Ftp();
+            Models.Ftp newFtp = new Models.Ftp();
 
             // Open a new Form to insert new FTP method variables 
             StatZilla_Test1.Source.MethodSelect newMethod = new StatZilla_Test1.Source.MethodSelect(newFtp);
+
+
             newMethod.ShowDialog();
+
+            // Create new method 
+            createNewMethod(newMethod.Type);
+
             newFtp.ftpdomain = newMethod.domainField;       //StatZilla_Test1.Source.methodAdd.domainTextBox.Text;
             newFtp.user = newMethod.userNameField;          //StatZilla_Test1.Source.methodAdd.userTextBox.Text;
             newFtp.pass = newMethod.pswField;
@@ -168,6 +182,20 @@ namespace StatZilla_Test1
                 addToList(newFtp.ftpdomain, newFtp.user, fileName, filePath, "Now");
                 //ftps.Add(newFtp);
             }
+        }
+
+        private MethodType createNewMethod(int type)
+        {
+            int index = type;
+
+            MethodType currentType = MethodType.FTP;
+
+            if (index == 1) { currentType = MethodType.S3; }
+            else if (index == 2) { currentType = MethodType.SCP; }
+            else if (index == 3) { currentType = MethodType.OBJECT; }
+
+            return currentType;
+
         }
 
         private void addToList(string domainName, string userName, string fileName, string path, string lastUpdated)
@@ -193,6 +221,7 @@ namespace StatZilla_Test1
             if (MessageBox.Show("Are you sure you want to delete this? ", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 listviewTransferList.Items.RemoveAt(listviewTransferList.SelectedIndices[0]);
         }
+
 
         private void selectorBox_TextChanged(object sender, EventArgs e)
         {

@@ -10,8 +10,9 @@ namespace StatZilla_Test1.Models
     {
         public bool isActive { get; set; }
         public string name { get; set; }
-        public string ftpdomain { get; set; }
+        public string ftpDomain { get; set; }
         public string user { get; set; }
         public string pass { get; set; }
+        public string domainDestinatoonPath { get; set; }
     }
 }
