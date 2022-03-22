@@ -9,10 +9,11 @@ namespace StatZilla.Models
     public class Ftp
     {
         public bool isActive { get; set; }
-        public string name { get; set; }
-        public string ftpDomain { get; set; }
+       
         public string user { get; set; }
         public string pass { get; set; }
+
+        public string ftpDomain { get; set; }
         public string domainDestinationPath { get; set; }
 
         public Ftp() { }

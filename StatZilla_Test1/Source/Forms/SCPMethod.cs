@@ -11,11 +11,15 @@ using StatZilla.Models;
 
 namespace StatZilla.Forms
 {
-    public partial class SCPMethod : Form
+    public partial class SCP_Protocol : Form
     {
-        private Scp scpMethod { set; get; }
+        public Scp scpMethod { set; get; }
 
-        public SCPMethod()
+        public SCP_Protocol(Scp currentMethod)
+        {
+            scpMethod = currentMethod;
+        }
+        public SCP_Protocol()
         {
             InitializeComponent();
         }
@@ -32,13 +36,21 @@ namespace StatZilla.Forms
 
         private void addMethodButton_Click(object sender, EventArgs e)
         {
-            scpMethod.user = usernameBox.Text;
-            scpMethod.password = passwdBox.Text;
-            scpMethod.host = hostBox.Text;
-            scpMethod.path = pathBox.Text;
-            scpMethod.port = portBox.Text;
+            Scp temp = new Scp(usernameBox.Text, passwdBox.Text, hostBox.Text, pathBox.Text, portBox.Text);
+
+            scpMethod = temp;
 
             this.Close();
+        }
+
+        void displayMethod()
+        {
+            usernameBox.Text = scpMethod.user;
+            passwdBox.Text = scpMethod.password;
+            hostBox.Text = scpMethod.host;
+            pathBox.Text = scpMethod.path;
+            portBox.Text = scpMethod.port;
+
         }
     }
 }

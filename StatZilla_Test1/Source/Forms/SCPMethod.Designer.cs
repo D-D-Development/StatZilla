@@ -1,7 +1,7 @@
 ﻿
 namespace StatZilla.Forms
 {
-    partial class SCPMethod
+    partial class SCP_Protocol
     {
         /// <summary>
         /// Required designer variable.

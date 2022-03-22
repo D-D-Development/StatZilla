@@ -19,13 +19,15 @@ namespace StatZilla.Forms
         FTP,
         SCP,
         S3,
-        OBJECT
     }
     public partial class MainPage : Form
     {
         public List<Models.Ftp> ftps = new List<Models.Ftp>();
-        // Create Dictionary.
-        Dictionary<string, Models.Ftp> ftpTable = new Dictionary<string, Models.Ftp>();
+        // Create Dictionary of all methods 
+        Dictionary<string, Ftp> ftpTable = new Dictionary<string, Ftp>();
+        Dictionary<string, Scp> scpTable = new Dictionary<string, Scp>();
+        Dictionary<string, S3Bucket> s3Buckets = new Dictionary<string, S3Bucket>();
+
         public Log Formlog;
         OpenFileDialog fileSelector = new OpenFileDialog();
         string filePath, fileName;
@@ -107,27 +109,65 @@ namespace StatZilla.Forms
             /// Look up the item in the list of ftps and open the a form with its value in the 
 
             // Get the currently selected item in the transfer list
-            string searchedItem = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString(); 
+            string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+         
+
+            if (searchedItemType == "FTP")
+            {
+                // Find the selected item values using as a key the session name  
+                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+                var selected = ftpTable[itemName];
+
+                // Open selected form with values from the Dictionary List
+                FtpProtocol editFTP = new FtpProtocol(selected);
+                editFTP.displayMethod();
+                editFTP.ShowDialog();
+
+                // Update list of FTP 
+                updateFTPTable(ftpTable[itemName], editFTP.ftpMethod);
+            }
+            else if(searchedItemType == "SCP")
+            {
+                // Find the selected item values using as a key the session name  
+                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+                var selected = scpTable[itemName];
+
+                // Open selected form with values from the Dictionary List
+                SCP_Protocol editSCP = new SCP_Protocol();
+                editSCP.ShowDialog();
+
+                // Update list of FTP 
+                    //updateSCPTable(scpTable[itemName], editSCP.scpMethod);
+            }
+            else if(searchedItemType == "S3")
+            {
+                // Find the selected item values using as a key the session name  
+                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+                var selected = s3Buckets[itemName];
+
+                S3_Protocol editS3 = new S3_Protocol();
+
+                //updateS3Table(scpTable[itemName], editS3.newS3Buckets);
+                editS3.ShowDialog();
+            }
 
             // Find values of the item 
-            var selectedItem = ftpTable[searchedItem];
+            // var selectedItem = ftpTable[searchedItem];
 
             // Open form to edit the selection
-            updateFTPMethod(selectedItem);
-
-      
+            //  updateFTPMethod(selectedItem);
         }
 
-        private void updateFTPMethod(Models.Ftp item)
+        private void updateFTPMethod(Ftp item)
         {
             Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpDomain);
-            MethodSelect methodSelected = new MethodSelect();
+            //MethodSelect methodSelected = new MethodSelect();
             
             // Open the form
-            methodSelected.ShowDialog();
+            //methodSelected.ShowDialog();
 
             // Call Selected method with 
-            createNewMethod(methodSelected);
+            //createNewMethod();
 
             //// Hold updated ftp method 
             //Models.Ftp updated = new Models.Ftp();
@@ -144,7 +184,7 @@ namespace StatZilla.Forms
             //updateFTPTable(item,updated);
         }
 
-        private void updateFTPTable(Models.Ftp item, Models.Ftp newItem)
+        private void updateFTPTable(Ftp item, Ftp newItem)
         {
             ftpTable.Remove(item.ftpDomain);
 
@@ -156,31 +196,31 @@ namespace StatZilla.Forms
             Formlog.WriteLine(Log.Type.INFO, "Next form Loading");
             //.Ftp newFtp = new Models.Ftp();
 
-            // Open a new Form to insert new FTP method variables 
-            MethodSelect newMethod = new MethodSelect();
-
-
-            newMethod.ShowDialog();
+           
 
             // Create new method 
-            createNewMethod(newMethod);
+            createNewMethod();
 
             //newFtp.ftpdomain = newMethod.domainField;       //StatZilla.Source.methodAdd.domainTextBox.Text;
             //newFtp.user = newMethod.userNameField;          //StatZilla.Source.methodAdd.userTextBox.Text;
             //newFtp.pass = newMethod.pswField;
             //newFtp.filenamePath = filePath;//newMethod.fileNamePath;
 
-            string[] path = filePath.Split(',');
-            fileName = path[path.Length - 1];
-
 
         }
 
-        private MethodType createNewMethod(Forms.MethodSelect method)
+        private MethodType createNewMethod()
         {
-            int index = method.Type;
+       
 
             MethodType currentType = MethodType.FTP;
+
+            // Open a new Form to insert new FTP method variables 
+            MethodSelect newMethod = new MethodSelect();
+            newMethod.ShowDialog();
+
+            int index = newMethod.Type;
+            string sessionName = newMethod.Name.ToString();
 
             if (index == 0) {
                 FtpProtocol newFtpMethod = new FtpProtocol();
@@ -191,22 +231,34 @@ namespace StatZilla.Forms
                 {
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
-                    ftpTable.Add(newFtp.ftpDomain, newFtp);
-                    addToList(newFtp.ftpDomain, newFtp.user, fileName, filePath, "Now");
+                    ftpTable.Add(sessionName, newFtp);
+                    addToList(sessionName,  fileName,"FTP", "Now","OFF");
                     //JSON function will go here
                     //ftps.Add(newFtp);
                 }
             }
             else if (index == 1) {
-                SCPMethod newScpMethod = new SCPMethod();
+                SCP_Protocol newScpMethod = new SCP_Protocol();
                 newScpMethod.ShowDialog();
 
+                // Add newly created SCP method to the list
+                {
+                    Scp newSCP = newScpMethod.scpMethod;
+                    //ftpTable.Add(sessionName, newFtp);
+                    addToList(sessionName,  fileName, "SCP", "Now", "OFF");
+
+                }
                 //JSON function will go here
             }
             else if (index == 2) {
-                S3Method newS3Method = new S3Method();
+                S3_Protocol newS3Method = new S3_Protocol();
                 newS3Method.ShowDialog();
-                //JSON function will go here
+
+                // Add newly created S3 method to the list 
+                {
+                    S3Bucket newS3 = newS3Method.newS3Buckets;
+                    addToList(sessionName, fileName, "S3", "Now", "OFF");
+                }
             }
 
             return currentType;
@@ -263,8 +315,9 @@ namespace StatZilla.Forms
 
         private void selectorBox_Enter(object sender, EventArgs e)
         {
-            if(!fileSelectorValidator())
-                    MessageBox.Show("Select a valid File.");
+            if (!fileSelectorValidator())
+                MessageBox.Show("Select a valid File.");
+            
         }
 
         private void selectorBox_Validating(object sender, CancelEventArgs e)
@@ -278,7 +331,10 @@ namespace StatZilla.Forms
             {
                 selectorBox.Text = fileSelector.FileName;
                 filePath = fileSelector.FileName;
-            
+
+                // Parse the file path for filename 
+                string[] path = filePath.Split('\\');
+                fileName = path[path.Length - 1];
             }
         }
 
