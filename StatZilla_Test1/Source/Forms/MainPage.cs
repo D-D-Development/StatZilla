@@ -36,8 +36,16 @@ namespace StatZilla.Forms
         {
             Formlog = log;
             InitializeComponent();
+            //SetMyButtonIcon();
         }
-
+        private void SetMyButtonIcon()
+        {
+            // Assign an image to the button.
+            playButton.Image = Image.FromFile("C:\\source\\My.ico");
+            // Align the image and text on the button.
+            playButton.ImageAlign = ContentAlignment.MiddleRight;
+            playButton.TextAlign = ContentAlignment.MiddleLeft;
+        }
         private void addMethod_Click(object sender, EventArgs e)
         {
             if (fileSelectorValidator()) {
@@ -59,7 +67,8 @@ namespace StatZilla.Forms
 
         private void MainPage_Load(object sender, EventArgs e)
         {
-          
+            resizeListViewColumns();
+            
         }
 
         public void MyrefeshMethod()
@@ -124,7 +133,7 @@ namespace StatZilla.Forms
                 editFTP.ShowDialog();
 
                 // Update list of FTP 
-                updateFTPTable(ftpTable[itemName], editFTP.ftpMethod);
+                updateFTPTable(itemName, editFTP.ftpMethod);
             }
             else if(searchedItemType == "SCP")
             {
@@ -184,19 +193,17 @@ namespace StatZilla.Forms
             //updateFTPTable(item,updated);
         }
 
-        private void updateFTPTable(Ftp item, Ftp newItem)
+        private void updateFTPTable(string item, Ftp newItem)
         {
-            ftpTable.Remove(item.ftpDomain);
-
-            ftpTable.Add(newItem.ftpDomain, newItem);
+            // Replace ftp element with new edited values 
+            ftpTable[item] = newItem;
+            //ftpTable.Add(newItem.ftpDomain, newItem);
         }
 
         private void addNewFTPMethod()
         {
             Formlog.WriteLine(Log.Type.INFO, "Next form Loading");
             //.Ftp newFtp = new Models.Ftp();
-
-           
 
             // Create new method 
             createNewMethod();
@@ -205,8 +212,6 @@ namespace StatZilla.Forms
             //newFtp.user = newMethod.userNameField;          //StatZilla.Source.methodAdd.userTextBox.Text;
             //newFtp.pass = newMethod.pswField;
             //newFtp.filenamePath = filePath;//newMethod.fileNamePath;
-
-
         }
 
         private MethodType createNewMethod()
@@ -232,7 +237,7 @@ namespace StatZilla.Forms
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
                     ftpTable.Add(sessionName, newFtp);
-                    addToList(sessionName,  fileName,"FTP", "Now","OFF");
+                    addToList(sessionName,  fileName, "FTP", "OFF", "Now");
                     //JSON function will go here
                     //ftps.Add(newFtp);
                 }
@@ -245,8 +250,7 @@ namespace StatZilla.Forms
                 {
                     Scp newSCP = newScpMethod.scpMethod;
                     //ftpTable.Add(sessionName, newFtp);
-                    addToList(sessionName,  fileName, "SCP", "Now", "OFF");
-
+                    addToList(sessionName,  fileName, "SCP", "OFF", "Now");
                 }
                 //JSON function will go here
             }
@@ -257,28 +261,40 @@ namespace StatZilla.Forms
                 // Add newly created S3 method to the list 
                 {
                     S3Bucket newS3 = newS3Method.newS3Buckets;
-                    addToList(sessionName, fileName, "S3", "Now", "OFF");
+                    addToList(sessionName, fileName, "S3", "OFF", "Now");
                 }
             }
 
             return currentType;
         }
 
-        private void addToList(string domainName, string userName, string fileName, string path, string lastUpdated)
+
+        private void resizeListViewColumns() {
+            // Auto resize column
+            this.listviewTransferList.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.ColumnContent);
+            this.listviewTransferList.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        private void addToList(string sessionName, string fileName, string type, string status, string lastUpdated)
         {
-            string[] row = { domainName, userName, fileName, path, lastUpdated };
+            // Create an array of containing information about session to add a new row in the list of sessions 
+            string[] row = { sessionName, fileName, type, status, lastUpdated };
 
             ListViewItem item = new ListViewItem(row);
 
+            // Add the new row to the list
             listviewTransferList.Items.Add(item);
+            resizeListViewColumns();
+            
         }
 
-        private void updateItemList(string domainName, string userName, string file, string path, string lastUpdate)
+        private void updateItemList(string session_name, string file_name, string type, string status, string lastUpdate)
         {
-            listviewTransferList.SelectedItems[0].SubItems[0].Text = domainName;
-            listviewTransferList.SelectedItems[0].SubItems[1].Text = userName;
-            listviewTransferList.SelectedItems[0].SubItems[2].Text = file;
-            listviewTransferList.SelectedItems[0].SubItems[3].Text = path;
+            // Replace the selected row value by new value entered 
+            listviewTransferList.SelectedItems[0].SubItems[0].Text = session_name;
+            listviewTransferList.SelectedItems[0].SubItems[1].Text = file_name;
+            listviewTransferList.SelectedItems[0].SubItems[2].Text = type;
+            listviewTransferList.SelectedItems[0].SubItems[3].Text = status;
             listviewTransferList.SelectedItems[0].SubItems[4].Text = lastUpdate;
         }
 

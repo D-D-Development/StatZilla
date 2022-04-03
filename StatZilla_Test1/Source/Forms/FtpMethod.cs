@@ -65,7 +65,7 @@ namespace StatZilla.Forms
         {
             usernameBox.Text = ftpMethod.user;
             passwdBox.Text = ftpMethod.pass;
-            hostBox.Text = ftpMethod.domainDestinationPath;
+            hostBox.Text = ftpMethod.ftpDomain;
             hostDestinationPath.Text = ftpMethod.domainDestinationPath;
         }
 
