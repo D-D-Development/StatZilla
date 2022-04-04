@@ -46,6 +46,7 @@ namespace StatZilla.Forms
             this.browseButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
+            this.lockButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addMethodButton
@@ -121,11 +122,12 @@ namespace StatZilla.Forms
             this.listviewTransferList.HideSelection = false;
             this.listviewTransferList.Location = new System.Drawing.Point(32, 250);
             this.listviewTransferList.Name = "listviewTransferList";
-            this.listviewTransferList.Size = new System.Drawing.Size(802, 219);
+            this.listviewTransferList.Size = new System.Drawing.Size(763, 219);
             this.listviewTransferList.TabIndex = 11;
             this.listviewTransferList.UseCompatibleStateImageBehavior = false;
             this.listviewTransferList.View = System.Windows.Forms.View.Details;
             this.listviewTransferList.DoubleClick += new System.EventHandler(this.fileTransferList);
+            this.listviewTransferList.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.enterClickedLV);
             // 
             // sessionName
             // 
@@ -140,7 +142,7 @@ namespace StatZilla.Forms
             // methodTypeHeader
             // 
             this.methodTypeHeader.Text = "Type";
-            this.methodTypeHeader.Width = 100;
+            this.methodTypeHeader.Width = 2;
             // 
             // statusHeader
             // 
@@ -166,7 +168,7 @@ namespace StatZilla.Forms
             // 
             this.selectorBox.Enabled = false;
             this.selectorBox.Location = new System.Drawing.Point(32, 162);
-            this.selectorBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.selectorBox.Margin = new System.Windows.Forms.Padding(2);
             this.selectorBox.Name = "selectorBox";
             this.selectorBox.Size = new System.Drawing.Size(539, 31);
             this.selectorBox.TabIndex = 13;
@@ -176,7 +178,7 @@ namespace StatZilla.Forms
             // 
             this.browseButton.Enabled = false;
             this.browseButton.Location = new System.Drawing.Point(613, 158);
-            this.browseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.browseButton.Margin = new System.Windows.Forms.Padding(2);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(100, 35);
             this.browseButton.TabIndex = 12;
@@ -186,9 +188,10 @@ namespace StatZilla.Forms
             // 
             // playButton
             // 
+            this.playButton.Enabled = false;
             this.playButton.Image = ((System.Drawing.Image)(resources.GetObject("playButton.Image")));
             this.playButton.Location = new System.Drawing.Point(760, 158);
-            this.playButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.playButton.Margin = new System.Windows.Forms.Padding(2);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(35, 35);
             this.playButton.TabIndex = 15;
@@ -196,19 +199,33 @@ namespace StatZilla.Forms
             // 
             // stopButton
             // 
+            this.stopButton.Enabled = false;
             this.stopButton.Image = ((System.Drawing.Image)(resources.GetObject("stopButton.Image")));
             this.stopButton.Location = new System.Drawing.Point(799, 158);
-            this.stopButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(2);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(35, 35);
             this.stopButton.TabIndex = 16;
             this.stopButton.UseVisualStyleBackColor = true;
+            // 
+            // lockButton
+            // 
+            this.lockButton.Enabled = false;
+            this.lockButton.Image = global::StatZilla.Properties.Resources.Lock_Lock_icon;
+            this.lockButton.Location = new System.Drawing.Point(575, 158);
+            this.lockButton.Margin = new System.Windows.Forms.Padding(2);
+            this.lockButton.Name = "lockButton";
+            this.lockButton.Size = new System.Drawing.Size(35, 35);
+            this.lockButton.TabIndex = 18;
+            this.lockButton.UseVisualStyleBackColor = true;
+            this.lockButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lockButton_Click);
             // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1052, 547);
+            this.Controls.Add(this.lockButton);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.playButton);
             this.Controls.Add(this.label1);
@@ -247,6 +264,7 @@ namespace StatZilla.Forms
         private System.Windows.Forms.ColumnHeader statusHeader;
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button stopButton;
+        private System.Windows.Forms.Button lockButton;
     }
 }
 

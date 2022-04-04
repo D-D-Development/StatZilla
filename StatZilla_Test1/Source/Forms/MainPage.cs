@@ -14,7 +14,7 @@ using StatZilla.Utility;
 
 namespace StatZilla.Forms
 {
-    enum MethodType
+    public enum MethodType
     {
         FTP,
         SCP,
@@ -36,15 +36,7 @@ namespace StatZilla.Forms
         {
             Formlog = log;
             InitializeComponent();
-            //SetMyButtonIcon();
-        }
-        private void SetMyButtonIcon()
-        {
-            // Assign an image to the button.
-            playButton.Image = Image.FromFile("C:\\source\\My.ico");
-            // Align the image and text on the button.
-            playButton.ImageAlign = ContentAlignment.MiddleRight;
-            playButton.TextAlign = ContentAlignment.MiddleLeft;
+           
         }
         private void addMethod_Click(object sender, EventArgs e)
         {
@@ -102,6 +94,9 @@ namespace StatZilla.Forms
                 listviewTransferList.Enabled = true;
                 browseButton.Enabled = true;
                 selectorBox.Enabled = true;
+                playButton.Enabled = true;
+                stopButton.Enabled = true;
+                lockButton.Enabled = true;
             }
             else if(masterSwitchButton.Checked == false)
             {
@@ -110,18 +105,33 @@ namespace StatZilla.Forms
                 listviewTransferList.Enabled = false;
                 browseButton.Enabled = false;
                 selectorBox.Enabled = false;
+                playButton.Enabled = false;
+                stopButton.Enabled = false;
+                lockButton.Enabled = false;
+            }
+        }
+        private void enterClickedLV(object sender, PreviewKeyDownEventArgs e)
+        {   
+            // If a session is selected and the key "Enter" is pressed, get the item's type to search in the list else do nothing
+            if (e.KeyCode == Keys.Enter && listviewTransferList.SelectedItems.Count > 0)
+            {
+                string searchedItemType = "";
+                searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+                editSession(searchedItemType);
             }
         }
 
         private void fileTransferList(object sender, EventArgs e)
         {
-            /// Look up the item in the list of ftps and open the a form with its value in the 
-
             // Get the currently selected item in the transfer list
             string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
-         
+            editSession(searchedItemType);
+        }
 
-            if (searchedItemType == "FTP")
+        private void editSession(string type)
+        {
+            /// Look up the item in the list of ftps and open the a form with its value in the 
+            if (type == "FTP")
             {
                 // Find the selected item values using as a key the session name  
                 var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
@@ -134,8 +144,11 @@ namespace StatZilla.Forms
 
                 // Update list of FTP 
                 updateFTPTable(itemName, editFTP.ftpMethod);
+
+                // Update list view
+                
             }
-            else if(searchedItemType == "SCP")
+            else if (type == "SCP")
             {
                 // Find the selected item values using as a key the session name  
                 var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
@@ -146,9 +159,9 @@ namespace StatZilla.Forms
                 editSCP.ShowDialog();
 
                 // Update list of FTP 
-                    //updateSCPTable(scpTable[itemName], editSCP.scpMethod);
+                //updateSCPTable(scpTable[itemName], editSCP.scpMethod);
             }
-            else if(searchedItemType == "S3")
+            else if (type == "S3")
             {
                 // Find the selected item values using as a key the session name  
                 var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
@@ -158,6 +171,8 @@ namespace StatZilla.Forms
 
                 //updateS3Table(scpTable[itemName], editS3.newS3Buckets);
                 editS3.ShowDialog();
+                // Update list view 
+                
             }
 
             // Find values of the item 
@@ -326,7 +341,10 @@ namespace StatZilla.Forms
 
         private void browserClick(object sender, EventArgs e)
         {
-            selectFile();
+            if(selectorBox.Enabled == false)
+                MessageBox.Show("Unlock File Selector before proceeding.");
+            else
+                selectFile();
         }
 
         private void selectorBox_Enter(object sender, EventArgs e)
@@ -341,6 +359,21 @@ namespace StatZilla.Forms
             fileSelectorValidator();
         }
 
+        private void lockButton_Click(object sender, EventArgs e)
+        {
+            if(selectorBox.Enabled == false)
+            {
+ 
+                selectorBox.Enabled = true;
+            }
+            else if(selectorBox.Enabled == true)
+            {
+         
+                selectorBox.Enabled = false;
+            }
+        }
+
+    
         private void selectFile()
         {
             if(fileSelector.ShowDialog() == DialogResult.OK)
