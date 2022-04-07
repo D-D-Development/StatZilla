@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StatZilla.Source.Models;
 
 namespace StatZilla.Models
 {
 
-    public class S3Bucket 
+    public class S3Bucket: Session
     {
         public bool isActive { get; set; }
         private string client { get; set; }
         private string bucketName { get; set; }
-        private string profileName { get; set; }
         private string destinationPath { get; set; }
+
+        private string profileName { get; set; }
         private string secretKey { get; set; }
         private string accessKey { get; set; }
 

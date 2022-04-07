@@ -239,44 +239,66 @@ namespace StatZilla.Forms
             MethodSelect newMethod = new MethodSelect();
             newMethod.ShowDialog();
 
-            int index = newMethod.Type;
+            string index = newMethod.Type;
             string sessionName = newMethod.Name.ToString();
 
-            if (index == 0) {
+            if (index == "FTP") {
                 FtpProtocol newFtpMethod = new FtpProtocol();
                 newFtpMethod.ShowDialog();
 
+           
                 //StatZilla.Source.methodAdd.passTextBox.Text;
                 Ftp newFtp = newFtpMethod.ftpMethod;
                 {
+                    // Initialize Session values
+                    newFtp.sessionName = sessionName;
+                    newFtp.sessionFilename = fileName;
+                    newFtp.sessionType = MethodType.FTP;
+                    newFtp.sessionStatus = false;
+                    newFtp.sessionLastUpdate = 0;
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
-                    ftpTable.Add(sessionName, newFtp);
-                    addToList(sessionName,  fileName, "FTP", "OFF", "Now");
+                    ftpTable.Add(newFtp.sessionName, newFtp);
+                    addToList(newFtp.sessionName, newFtp.sessionFilename, "FTP", "OFF", "Now");
                     //JSON function will go here
                     //ftps.Add(newFtp);
                 }
             }
-            else if (index == 1) {
+            else if (index == "SCP") {
                 SCP_Protocol newScpMethod = new SCP_Protocol();
                 newScpMethod.ShowDialog();
 
                 // Add newly created SCP method to the list
                 {
                     Scp newSCP = newScpMethod.scpMethod;
+                    {
+                        newSCP.sessionName = sessionName;
+                        newSCP.sessionFilename = fileName;
+                        newSCP.sessionType = MethodType.SCP;
+                        newSCP.sessionStatus = false;
+                        newSCP.sessionLastUpdate = 0;
+                    }
+
                     //ftpTable.Add(sessionName, newFtp);
-                    addToList(sessionName,  fileName, "SCP", "OFF", "Now");
+                    addToList(newSCP.sessionName, newSCP.sessionFilename, "SCP", "OFF", "Now");
                 }
                 //JSON function will go here
             }
-            else if (index == 2) {
+            else if (index == "S3") {
                 S3_Protocol newS3Method = new S3_Protocol();
                 newS3Method.ShowDialog();
 
                 // Add newly created S3 method to the list 
                 {
                     S3Bucket newS3 = newS3Method.newS3Buckets;
-                    addToList(sessionName, fileName, "S3", "OFF", "Now");
+                    {
+                        newS3.sessionName = sessionName;
+                        newS3.sessionFilename = fileName;
+                        newS3.sessionType = MethodType.S3;
+                        newS3.sessionStatus = false;
+                        newS3.sessionLastUpdate = 0;
+                    }
+                    addToList(newS3.sessionName, newS3.sessionFilename, "S3", "OFF", "Now");
                 }
             }
 

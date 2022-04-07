@@ -30,74 +30,113 @@ namespace StatZilla.Forms
         private void InitializeComponent()
         {
             this.nextButton = new System.Windows.Forms.Button();
-            this.FileTypeComboBox = new System.Windows.Forms.ComboBox();
             this.DomainNicknameBox = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
             this.Typelabel2 = new System.Windows.Forms.Label();
+            this.ftpRadioButton = new System.Windows.Forms.RadioButton();
+            this.s3radioButton = new System.Windows.Forms.RadioButton();
+            this.scpRadioButton = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // nextButton
             // 
-            this.nextButton.Location = new System.Drawing.Point(1063, 525);
+            this.nextButton.BackColor = System.Drawing.Color.Gold;
+            this.nextButton.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.nextButton.Location = new System.Drawing.Point(899, 518);
             this.nextButton.Margin = new System.Windows.Forms.Padding(9, 10, 9, 10);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(214, 74);
             this.nextButton.TabIndex = 6;
             this.nextButton.Text = "Next";
-            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.UseVisualStyleBackColor = false;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
-            // 
-            // FileTypeComboBox
-            // 
-            this.FileTypeComboBox.FormattingEnabled = true;
-            this.FileTypeComboBox.Items.AddRange(new object[] {
-            "FTP",
-            "S3",
-            "SCP"});
-            this.FileTypeComboBox.Location = new System.Drawing.Point(291, 336);
-            this.FileTypeComboBox.Margin = new System.Windows.Forms.Padding(9, 10, 9, 10);
-            this.FileTypeComboBox.Name = "FileTypeComboBox";
-            this.FileTypeComboBox.Size = new System.Drawing.Size(801, 56);
-            this.FileTypeComboBox.TabIndex = 13;
-            this.FileTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.TypeComboBox_SelectedIndexChanged);
             // 
             // DomainNicknameBox
             // 
-            this.DomainNicknameBox.Location = new System.Drawing.Point(291, 243);
+            this.DomainNicknameBox.Location = new System.Drawing.Point(142, 158);
             this.DomainNicknameBox.Margin = new System.Windows.Forms.Padding(9, 10, 9, 10);
             this.DomainNicknameBox.Name = "DomainNicknameBox";
-            this.DomainNicknameBox.Size = new System.Drawing.Size(801, 55);
+            this.DomainNicknameBox.Size = new System.Drawing.Size(881, 55);
             this.DomainNicknameBox.TabIndex = 14;
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(89, 243);
+            this.nameLabel.Location = new System.Drawing.Point(142, 100);
             this.nameLabel.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(115, 48);
+            this.nameLabel.Size = new System.Drawing.Size(243, 48);
             this.nameLabel.TabIndex = 15;
-            this.nameLabel.Text = "Name";
+            this.nameLabel.Text = "Session Name";
             // 
             // Typelabel2
             // 
             this.Typelabel2.AutoSize = true;
-            this.Typelabel2.Location = new System.Drawing.Point(89, 346);
+            this.Typelabel2.Location = new System.Drawing.Point(142, 246);
             this.Typelabel2.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.Typelabel2.Name = "Typelabel2";
             this.Typelabel2.Size = new System.Drawing.Size(94, 48);
             this.Typelabel2.TabIndex = 16;
             this.Typelabel2.Text = "Type";
             // 
+            // ftpRadioButton
+            // 
+            this.ftpRadioButton.AutoSize = true;
+            this.ftpRadioButton.Location = new System.Drawing.Point(146, 328);
+            this.ftpRadioButton.Name = "ftpRadioButton";
+            this.ftpRadioButton.Size = new System.Drawing.Size(121, 52);
+            this.ftpRadioButton.TabIndex = 17;
+            this.ftpRadioButton.TabStop = true;
+            this.ftpRadioButton.Text = "FTP";
+            this.ftpRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // s3radioButton
+            // 
+            this.s3radioButton.AutoSize = true;
+            this.s3radioButton.Location = new System.Drawing.Point(353, 328);
+            this.s3radioButton.Name = "s3radioButton";
+            this.s3radioButton.Size = new System.Drawing.Size(102, 52);
+            this.s3radioButton.TabIndex = 18;
+            this.s3radioButton.TabStop = true;
+            this.s3radioButton.Text = "S3";
+            this.s3radioButton.UseVisualStyleBackColor = true;
+            // 
+            // scpRadioButton
+            // 
+            this.scpRadioButton.AutoSize = true;
+            this.scpRadioButton.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.scpRadioButton.Location = new System.Drawing.Point(564, 328);
+            this.scpRadioButton.Name = "scpRadioButton";
+            this.scpRadioButton.Size = new System.Drawing.Size(125, 52);
+            this.scpRadioButton.TabIndex = 19;
+            this.scpRadioButton.TabStop = true;
+            this.scpRadioButton.Text = "SCP";
+            this.scpRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Gold;
+            this.button1.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.button1.Location = new System.Drawing.Point(146, 523);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(225, 69);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "Cancel";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // MethodSelect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(20F, 48F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1326, 672);
+            this.ClientSize = new System.Drawing.Size(1217, 681);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.scpRadioButton);
+            this.Controls.Add(this.s3radioButton);
+            this.Controls.Add(this.ftpRadioButton);
             this.Controls.Add(this.Typelabel2);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.DomainNicknameBox);
-            this.Controls.Add(this.FileTypeComboBox);
             this.Controls.Add(this.nextButton);
             this.Margin = new System.Windows.Forms.Padding(9, 10, 9, 10);
             this.MaximizeBox = false;
@@ -111,11 +150,15 @@ namespace StatZilla.Forms
         }
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Label Typelabel2;
-        private System.Windows.Forms.ComboBox FileTypeComboBox;
         private System.Windows.Forms.TextBox DomainNicknameBox;
         private System.Windows.Forms.Label nameLabel;
-        
+
 
         #endregion
+
+        private System.Windows.Forms.RadioButton ftpRadioButton;
+        private System.Windows.Forms.RadioButton s3radioButton;
+        private System.Windows.Forms.RadioButton scpRadioButton;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -11,8 +11,8 @@ namespace StatZilla.Source.Models
     {
         public string sessionName { get; set; }
         public MethodType sessionType { get; set; }
-        public string filename { get; set; }
-        public bool status { get; set; }
-        public int lastUpdate { get; set; }
+        public string sessionFilename { get; set; }
+        public bool sessionStatus { get; set; }
+        public int sessionLastUpdate { get; set; }
     } 
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StatZilla.Source.Models;
 
 namespace StatZilla.Models
 {
-    public class Scp 
+    public class Scp : Session
     {
         public bool isActive { get; set; }
         public string user { get; set; }
@@ -24,6 +25,5 @@ namespace StatZilla.Models
             path = destination;
             port = portNum;
         }
-  
     }
 }
