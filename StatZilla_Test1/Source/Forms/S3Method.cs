@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StatZilla.Models;
 
 namespace StatZilla.Forms
 {
-    public partial class S3Method : Form
+    public partial class S3_Protocol : Form
     {
-        public S3Method()
+        public S3Bucket newS3Buckets;
+
+        public S3_Protocol()
         {
             InitializeComponent();
         }
@@ -22,44 +25,18 @@ namespace StatZilla.Forms
 
         }
 
-        private void accessKeyBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pathLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void awsAccessKeyLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void secretKeyBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pathBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void profileNameBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void awsProfileLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void addMethod_Click(object sender, EventArgs e)
+        {
+            S3Bucket temp = new S3Bucket(clientBox.Text, bucketBox.Text, profileNameBox.Text, pathBox.Text, secretKeyBox.Text, accessKeyBox.Text);
+            
+            newS3Buckets = temp;
+
+            this.Close();
         }
     }
 }

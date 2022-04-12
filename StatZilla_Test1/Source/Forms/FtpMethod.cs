@@ -14,6 +14,13 @@ namespace StatZilla.Forms
     public partial class FtpProtocol : Form
     {
         public Ftp ftpMethod {  get; set; }
+
+        public FtpProtocol(Ftp currentMethod)
+        {
+            ftpMethod = currentMethod;
+            InitializeComponent();
+        }
+
         public FtpProtocol()
         {
             InitializeComponent();
@@ -52,6 +59,14 @@ namespace StatZilla.Forms
                 return false;
             }
             return true;
+        }
+
+        public void displayMethod()
+        {
+            usernameBox.Text = ftpMethod.user;
+            passwdBox.Text = ftpMethod.pass;
+            hostBox.Text = ftpMethod.ftpDomain;
+            hostDestinationPath.Text = ftpMethod.domainDestinationPath;
         }
 
         private void pswdLabel_Click(object sender, EventArgs e)
