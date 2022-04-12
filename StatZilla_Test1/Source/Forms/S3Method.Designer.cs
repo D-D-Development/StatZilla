@@ -48,7 +48,7 @@ namespace StatZilla.Forms
             // clientLabel
             // 
             this.clientLabel.AutoSize = true;
-            this.clientLabel.Location = new System.Drawing.Point(80, 73);
+            this.clientLabel.Location = new System.Drawing.Point(90, 48);
             this.clientLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.clientLabel.Name = "clientLabel";
             this.clientLabel.Size = new System.Drawing.Size(119, 48);
@@ -58,7 +58,7 @@ namespace StatZilla.Forms
             // bucketLabel
             // 
             this.bucketLabel.AutoSize = true;
-            this.bucketLabel.Location = new System.Drawing.Point(80, 140);
+            this.bucketLabel.Location = new System.Drawing.Point(90, 176);
             this.bucketLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.bucketLabel.Name = "bucketLabel";
             this.bucketLabel.Size = new System.Drawing.Size(240, 48);
@@ -68,7 +68,7 @@ namespace StatZilla.Forms
             // pathLabel
             // 
             this.pathLabel.AutoSize = true;
-            this.pathLabel.Location = new System.Drawing.Point(80, 357);
+            this.pathLabel.Location = new System.Drawing.Point(80, 425);
             this.pathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pathLabel.Name = "pathLabel";
             this.pathLabel.Size = new System.Drawing.Size(287, 48);
@@ -77,7 +77,7 @@ namespace StatZilla.Forms
             // 
             // pathBox
             // 
-            this.pathBox.Location = new System.Drawing.Point(378, 284);
+            this.pathBox.Location = new System.Drawing.Point(90, 336);
             this.pathBox.Margin = new System.Windows.Forms.Padding(4);
             this.pathBox.Name = "pathBox";
             this.pathBox.Size = new System.Drawing.Size(716, 55);
@@ -85,7 +85,7 @@ namespace StatZilla.Forms
             // 
             // bucketBox
             // 
-            this.bucketBox.Location = new System.Drawing.Point(378, 134);
+            this.bucketBox.Location = new System.Drawing.Point(90, 221);
             this.bucketBox.Margin = new System.Windows.Forms.Padding(4);
             this.bucketBox.Name = "bucketBox";
             this.bucketBox.Size = new System.Drawing.Size(326, 55);
@@ -93,7 +93,7 @@ namespace StatZilla.Forms
             // 
             // clientBox
             // 
-            this.clientBox.Location = new System.Drawing.Point(378, 67);
+            this.clientBox.Location = new System.Drawing.Point(90, 100);
             this.clientBox.Margin = new System.Windows.Forms.Padding(4);
             this.clientBox.Name = "clientBox";
             this.clientBox.Size = new System.Drawing.Size(326, 55);
@@ -102,7 +102,7 @@ namespace StatZilla.Forms
             // awsProfileLabel
             // 
             this.awsProfileLabel.AutoSize = true;
-            this.awsProfileLabel.Location = new System.Drawing.Point(80, 290);
+            this.awsProfileLabel.Location = new System.Drawing.Point(90, 284);
             this.awsProfileLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.awsProfileLabel.Name = "awsProfileLabel";
             this.awsProfileLabel.Size = new System.Drawing.Size(235, 48);
@@ -113,7 +113,7 @@ namespace StatZilla.Forms
             // awsAccessKeyLabel
             // 
             this.awsAccessKeyLabel.AutoSize = true;
-            this.awsAccessKeyLabel.Location = new System.Drawing.Point(80, 424);
+            this.awsAccessKeyLabel.Location = new System.Drawing.Point(90, 553);
             this.awsAccessKeyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.awsAccessKeyLabel.Name = "awsAccessKeyLabel";
             this.awsAccessKeyLabel.Size = new System.Drawing.Size(201, 48);
@@ -123,7 +123,7 @@ namespace StatZilla.Forms
             // secretLabel
             // 
             this.secretLabel.AutoSize = true;
-            this.secretLabel.Location = new System.Drawing.Point(80, 492);
+            this.secretLabel.Location = new System.Drawing.Point(90, 680);
             this.secretLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.secretLabel.Name = "secretLabel";
             this.secretLabel.Size = new System.Drawing.Size(194, 48);
@@ -132,7 +132,7 @@ namespace StatZilla.Forms
             // 
             // profileNameBox
             // 
-            this.profileNameBox.Location = new System.Drawing.Point(378, 351);
+            this.profileNameBox.Location = new System.Drawing.Point(90, 477);
             this.profileNameBox.Margin = new System.Windows.Forms.Padding(4);
             this.profileNameBox.Name = "profileNameBox";
             this.profileNameBox.Size = new System.Drawing.Size(716, 55);
@@ -140,7 +140,7 @@ namespace StatZilla.Forms
             // 
             // accessKeyBox
             // 
-            this.accessKeyBox.Location = new System.Drawing.Point(378, 419);
+            this.accessKeyBox.Location = new System.Drawing.Point(90, 605);
             this.accessKeyBox.Margin = new System.Windows.Forms.Padding(4);
             this.accessKeyBox.Name = "accessKeyBox";
             this.accessKeyBox.Size = new System.Drawing.Size(716, 55);
@@ -148,7 +148,7 @@ namespace StatZilla.Forms
             // 
             // secretKeyBox
             // 
-            this.secretKeyBox.Location = new System.Drawing.Point(378, 486);
+            this.secretKeyBox.Location = new System.Drawing.Point(90, 732);
             this.secretKeyBox.Margin = new System.Windows.Forms.Padding(4);
             this.secretKeyBox.Name = "secretKeyBox";
             this.secretKeyBox.Size = new System.Drawing.Size(716, 55);
@@ -156,30 +156,35 @@ namespace StatZilla.Forms
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(38, 712);
+            this.backButton.BackColor = System.Drawing.Color.Gold;
+            this.backButton.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.backButton.Location = new System.Drawing.Point(90, 873);
             this.backButton.Margin = new System.Windows.Forms.Padding(4);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(224, 69);
             this.backButton.TabIndex = 12;
             this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.UseVisualStyleBackColor = false;
             // 
             // addMethod
             // 
-            this.addMethod.Location = new System.Drawing.Point(938, 712);
+            this.addMethod.BackColor = System.Drawing.Color.Gold;
+            this.addMethod.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.addMethod.Location = new System.Drawing.Point(900, 873);
             this.addMethod.Margin = new System.Windows.Forms.Padding(4);
             this.addMethod.Name = "addMethod";
             this.addMethod.Size = new System.Drawing.Size(274, 69);
             this.addMethod.TabIndex = 13;
             this.addMethod.Text = "Add Method";
-            this.addMethod.UseVisualStyleBackColor = true;
+            this.addMethod.UseVisualStyleBackColor = false;
             this.addMethod.Click += new System.EventHandler(this.addMethod_Click);
             // 
             // S3_Protocol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(20F, 48F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1288, 1050);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1356, 1047);
             this.Controls.Add(this.addMethod);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.secretKeyBox);

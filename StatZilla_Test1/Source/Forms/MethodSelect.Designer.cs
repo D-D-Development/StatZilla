@@ -43,7 +43,7 @@ namespace StatZilla.Forms
             // 
             this.nextButton.BackColor = System.Drawing.Color.Gold;
             this.nextButton.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.nextButton.Location = new System.Drawing.Point(899, 518);
+            this.nextButton.Location = new System.Drawing.Point(900, 518);
             this.nextButton.Margin = new System.Windows.Forms.Padding(9, 10, 9, 10);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(214, 74);
