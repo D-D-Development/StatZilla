@@ -18,7 +18,7 @@ namespace StatZilla.Forms
     public partial class MethodSelect : Form
     {
         public string Name { get; set; }
-        public int Type { get; set; }
+        public string Type { get; set; }
 
         public MethodSelect()
         {
@@ -31,17 +31,30 @@ namespace StatZilla.Forms
             {
 
                 this.Name = DomainNicknameBox.Text;
-                this.Type =  FileTypeComboBox.SelectedIndex;
+                this.Type = getType();
       
                 this.Close();
             }
            
         }
 
+        private string getType()
+        {
+            string currentType = "FTP";
+
+            if (scpRadioButton.Checked == true)
+                currentType = "SCP";
+            else if (s3radioButton.Checked == true)
+                currentType =  "S3";
+            else if(ftpRadioButton.Checked == false)
+                MessageBox.Show("Please Select a transfer type.");
+
+            return currentType;
+        }
         private bool textBox_Validator()
         {
             // Check if text box empty 
-            if (DomainNicknameBox.Text == "" || FileTypeComboBox.SelectedItem == null)
+            if (DomainNicknameBox.Text == "" || getType() == null)
             {
                 MessageBox.Show("Please do not leave any text box empty");
                 // Log error

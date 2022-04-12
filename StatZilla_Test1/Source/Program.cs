@@ -18,7 +18,6 @@ namespace StatZilla
         static Stream logFileStream;
         static DateTime RunDateTime = DateTime.Now;
 
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
