@@ -22,22 +22,50 @@ namespace StatZilla.Forms
     }
     public partial class MainPage : Form
     {
-        public List<Models.Ftp> ftps = new List<Models.Ftp>();
-        // Create Dictionary of all methods 
-        Dictionary<string, Ftp> ftpTable = new Dictionary<string, Ftp>();
-        Dictionary<string, Scp> scpTable = new Dictionary<string, Scp>();
-        Dictionary<string, S3Bucket> s3Buckets = new Dictionary<string, S3Bucket>();
+        /// <summary>
+        /// Declares local Log for the Main page
+        /// Declares Dictionaries for all methods
+        /// Declares File Selector
+        /// Declares selected file Path and Name
+        /// </summary>
+        #region global variables
 
+        public List<Models.Ftp> ftps;
+        Dictionary<string, Ftp> ftpTable;
+        Dictionary<string, Scp> scpTable;
+        Dictionary<string, S3Bucket> s3Buckets;
         public Log Formlog;
-        OpenFileDialog fileSelector = new OpenFileDialog();
+        OpenFileDialog fileSelector;
         string filePath, fileName;
-  
+
+        #endregion
+
         public MainPage(Log log)
         {
-            Formlog = log;
+            Setup(log);
             InitializeComponent();
            
         }
+        /// <summary>
+        /// Quick setup funtion.
+        /// Initializes required dictionaries and other global variables. 
+        /// </summary>
+        private void Setup(Log log)
+        {
+            // Add new initializations here!!
+
+            ftpTable = new Dictionary<string, Ftp>();
+            scpTable = new Dictionary<string, Scp>();
+            s3Buckets = new Dictionary<string, S3Bucket>();
+            ftps = new List<Models.Ftp>();
+            fileSelector = new OpenFileDialog();
+            Formlog = log;
+        }
+        /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="sender"></param>
+      /// <param name="e"></param>
         private void addMethod_Click(object sender, EventArgs e)
         {
             if (fileSelectorValidator()) {
@@ -56,18 +84,28 @@ namespace StatZilla.Forms
             }
           
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainPage_Load(object sender, EventArgs e)
         {
             resizeListViewColumns();
             
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void MyrefeshMethod()
         {
  
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             foreach(KeyValuePair<string, Models.Ftp> f in ftpTable)
@@ -84,7 +122,11 @@ namespace StatZilla.Forms
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if(masterSwitchButton.Checked == true)
@@ -110,6 +152,11 @@ namespace StatZilla.Forms
                 lockButton.Enabled = false;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void enterClickedLV(object sender, PreviewKeyDownEventArgs e)
         {   
             // If a session is selected and the key "Enter" is pressed, get the item's type to search in the list else do nothing
@@ -120,14 +167,21 @@ namespace StatZilla.Forms
                 editSession(searchedItemType);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fileTransferList(object sender, EventArgs e)
         {
             // Get the currently selected item in the transfer list
             string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
             editSession(searchedItemType);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
         private void editSession(string type)
         {
             /// Look up the item in the list of ftps and open the a form with its value in the 
@@ -181,7 +235,10 @@ namespace StatZilla.Forms
             // Open form to edit the selection
             //  updateFTPMethod(selectedItem);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
         private void updateFTPMethod(Ftp item)
         {
             Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpDomain);
@@ -207,14 +264,20 @@ namespace StatZilla.Forms
             // Update the Ftp table data set
             //updateFTPTable(item,updated);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="newItem"></param>
         private void updateFTPTable(string item, Ftp newItem)
         {
             // Replace ftp element with new edited values 
             ftpTable[item] = newItem;
             //ftpTable.Add(newItem.ftpDomain, newItem);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void addNewFTPMethod()
         {
             Formlog.WriteLine(Log.Type.INFO, "Next form Loading");
@@ -228,7 +291,10 @@ namespace StatZilla.Forms
             //newFtp.pass = newMethod.pswField;
             //newFtp.filenamePath = filePath;//newMethod.fileNamePath;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private MethodType createNewMethod()
         {
        
@@ -304,14 +370,22 @@ namespace StatZilla.Forms
 
             return currentType;
         }
-
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void resizeListViewColumns() {
             // Auto resize column
             this.listviewTransferList.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.ColumnContent);
             this.listviewTransferList.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sessionName"></param>
+        /// <param name="fileName"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="lastUpdated"></param>
         private void addToList(string sessionName, string fileName, string type, string status, string lastUpdated)
         {
             // Create an array of containing information about session to add a new row in the list of sessions 
@@ -324,7 +398,14 @@ namespace StatZilla.Forms
             resizeListViewColumns();
             
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session_name"></param>
+        /// <param name="file_name"></param>
+        /// <param name="type"></param>
+        /// <param name="status"></param>
+        /// <param name="lastUpdate"></param>
         private void updateItemList(string session_name, string file_name, string type, string status, string lastUpdate)
         {
             // Replace the selected row value by new value entered 
@@ -334,19 +415,27 @@ namespace StatZilla.Forms
             listviewTransferList.SelectedItems[0].SubItems[3].Text = status;
             listviewTransferList.SelectedItems[0].SubItems[4].Text = lastUpdate;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private void removeItem()
         {
             if (MessageBox.Show("Are you sure you want to delete this? ", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                 listviewTransferList.Items.RemoveAt(listviewTransferList.SelectedIndices[0]);
         }
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectorBox_TextChanged(object sender, EventArgs e)
         {
             //fileSelectorValidator();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private bool fileSelectorValidator()
         {
             string checkFIle = selectorBox.Text.ToString();
@@ -360,7 +449,11 @@ namespace StatZilla.Forms
             return false;
            
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void browserClick(object sender, EventArgs e)
         {
             if(selectorBox.Enabled == false)
@@ -368,19 +461,31 @@ namespace StatZilla.Forms
             else
                 selectFile();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectorBox_Enter(object sender, EventArgs e)
         {
             if (!fileSelectorValidator())
                 MessageBox.Show("Select a valid File.");
             
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectorBox_Validating(object sender, CancelEventArgs e)
         {
             fileSelectorValidator();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lockButton_Click(object sender, EventArgs e)
         {
             if(selectorBox.Enabled == false)
@@ -394,8 +499,9 @@ namespace StatZilla.Forms
                 selectorBox.Enabled = false;
             }
         }
-
-    
+        /// <summary>
+        /// 
+        /// </summary>
         private void selectFile()
         {
             if(fileSelector.ShowDialog() == DialogResult.OK)
