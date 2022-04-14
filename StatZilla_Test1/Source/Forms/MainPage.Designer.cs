@@ -102,7 +102,7 @@ namespace StatZilla.Forms
             // 
             // masterSwitchButton
             // 
-            this.masterSwitchButton.Location = new System.Drawing.Point(816, 148);
+            this.masterSwitchButton.Location = new System.Drawing.Point(600, 150);
             this.masterSwitchButton.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
             this.masterSwitchButton.Name = "masterSwitchButton";
             this.masterSwitchButton.Size = new System.Drawing.Size(326, 52);
@@ -125,7 +125,7 @@ namespace StatZilla.Forms
             this.listviewTransferList.FullRowSelect = true;
             this.listviewTransferList.HideSelection = false;
             this.listviewTransferList.Location = new System.Drawing.Point(64, 480);
-            this.listviewTransferList.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.listviewTransferList.Margin = new System.Windows.Forms.Padding(6);
             this.listviewTransferList.Name = "listviewTransferList";
             this.listviewTransferList.Size = new System.Drawing.Size(1522, 417);
             this.listviewTransferList.TabIndex = 11;
@@ -173,7 +173,7 @@ namespace StatZilla.Forms
             // 
             this.selectorBox.Enabled = false;
             this.selectorBox.Location = new System.Drawing.Point(64, 311);
-            this.selectorBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.selectorBox.Margin = new System.Windows.Forms.Padding(4);
             this.selectorBox.Name = "selectorBox";
             this.selectorBox.Size = new System.Drawing.Size(1074, 55);
             this.selectorBox.TabIndex = 13;
@@ -183,7 +183,7 @@ namespace StatZilla.Forms
             // 
             this.browseButton.Enabled = false;
             this.browseButton.Location = new System.Drawing.Point(1224, 311);
-            this.browseButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.browseButton.Margin = new System.Windows.Forms.Padding(4);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(200, 55);
             this.browseButton.TabIndex = 12;
@@ -195,8 +195,8 @@ namespace StatZilla.Forms
             // 
             this.playButton.Enabled = false;
             this.playButton.Image = ((System.Drawing.Image)(resources.GetObject("playButton.Image")));
-            this.playButton.Location = new System.Drawing.Point(1596, 480);
-            this.playButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.playButton.Location = new System.Drawing.Point(1438, 399);
+            this.playButton.Margin = new System.Windows.Forms.Padding(4);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(70, 67);
             this.playButton.TabIndex = 15;
@@ -206,8 +206,8 @@ namespace StatZilla.Forms
             // 
             this.stopButton.Enabled = false;
             this.stopButton.Image = ((System.Drawing.Image)(resources.GetObject("stopButton.Image")));
-            this.stopButton.Location = new System.Drawing.Point(1674, 480);
-            this.stopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.stopButton.Location = new System.Drawing.Point(1516, 399);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(4);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(70, 67);
             this.stopButton.TabIndex = 16;
@@ -218,7 +218,7 @@ namespace StatZilla.Forms
             this.lockButton.Enabled = false;
             this.lockButton.Image = global::StatZilla.Properties.Resources.Lock_Lock_icon;
             this.lockButton.Location = new System.Drawing.Point(1146, 311);
-            this.lockButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lockButton.Margin = new System.Windows.Forms.Padding(4);
             this.lockButton.Name = "lockButton";
             this.lockButton.Size = new System.Drawing.Size(70, 55);
             this.lockButton.TabIndex = 18;
