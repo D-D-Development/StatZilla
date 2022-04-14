@@ -84,7 +84,7 @@ namespace StatZilla.Forms
             MasterModel.ftpDict.Add("trsvrdag", temp2);
             MasterModel.ftpDict.Add("trsvrdga", temp2);
         
-            write_json();
+            //write_json();
 
         }
         #endregion
@@ -125,6 +125,35 @@ namespace StatZilla.Forms
                 MessageBox.Show("Please. Select a valid file");
             }
           
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void start_Button(object sender, EventArgs e)
+        {
+            if(listviewTransferList.SelectedItems.Count > 0)
+            {
+                var currentSession = this.listviewTransferList.SelectedItems;
+                MessageBox.Show("You have Started Method" + currentSession[0].SubItems[0].Text.ToString());
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void stop_Button(object sender, EventArgs e)
+        {
+            if (listviewTransferList.SelectedItems.Count > 0)
+            {
+                var currentSession = this.listviewTransferList.SelectedItems;
+                MessageBox.Show("You have Stopped Method" + currentSession[0].SubItems[0].Text.ToString());
+            }
         }
 
         /// <summary>
@@ -574,6 +603,7 @@ namespace StatZilla.Forms
         {
             fileSelectorValidator();
         }
+
 
         /// <summary>
         /// 
