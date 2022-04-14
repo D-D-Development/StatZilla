@@ -61,7 +61,7 @@ namespace StatZilla.Forms
             this.addMethodButton.TabIndex = 0;
             this.addMethodButton.Text = "Add Method";
             this.addMethodButton.UseVisualStyleBackColor = false;
-            this.addMethodButton.Click += new System.EventHandler(this.addMethod_Click);
+            this.addMethodButton.Click += new System.EventHandler(this.addMethod_Button);
             // 
             // lblAppName
             // 
@@ -98,7 +98,7 @@ namespace StatZilla.Forms
             this.sendMethodButton.TabIndex = 3;
             this.sendMethodButton.Text = "Send";
             this.sendMethodButton.UseVisualStyleBackColor = false;
-            this.sendMethodButton.Click += new System.EventHandler(this.button1_Click);
+            this.sendMethodButton.Click += new System.EventHandler(this.REmoveThisButton);
             // 
             // masterSwitchButton
             // 
@@ -189,7 +189,7 @@ namespace StatZilla.Forms
             this.browseButton.TabIndex = 12;
             this.browseButton.Text = "Browse";
             this.browseButton.UseVisualStyleBackColor = true;
-            this.browseButton.Click += new System.EventHandler(this.browserClick);
+            this.browseButton.Click += new System.EventHandler(this.fileBrowser_Button);
             // 
             // playButton
             // 
@@ -223,7 +223,7 @@ namespace StatZilla.Forms
             this.lockButton.Size = new System.Drawing.Size(70, 55);
             this.lockButton.TabIndex = 18;
             this.lockButton.UseVisualStyleBackColor = true;
-            this.lockButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lockButton_Click);
+            this.lockButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lockIcon_Button);
             // 
             // MainPage
             // 
