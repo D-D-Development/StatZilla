@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;       // For SCP Transfer
 using System.IO;
-using StatZilla_Test1.Models;
+using StatZilla.Models;
 
-namespace StatZilla_Test1.Source
+namespace StatZilla.Forms
 {
   
 
     public partial class MethodSelect : Form
     {
         public string Name { get; set; }
-        public int Type { get; set; }
+        public string Type { get; set; }
 
-        public MethodSelect(Models.Ftp currentItem)
+        public MethodSelect()
         {
             InitializeComponent();
         }
@@ -31,17 +31,30 @@ namespace StatZilla_Test1.Source
             {
 
                 this.Name = DomainNicknameBox.Text;
-                this.Type =  FileTypeComboBox.SelectedIndex;
+                this.Type = getType();
       
                 this.Close();
             }
            
         }
 
+        private string getType()
+        {
+            string currentType = "FTP";
+
+            if (scpRadioButton.Checked == true)
+                currentType = "SCP";
+            else if (s3radioButton.Checked == true)
+                currentType =  "S3";
+            else if(ftpRadioButton.Checked == false)
+                MessageBox.Show("Please Select a transfer type.");
+
+            return currentType;
+        }
         private bool textBox_Validator()
         {
             // Check if text box empty 
-            if (DomainNicknameBox.Text == "" || FileTypeComboBox.SelectedItem == null)
+            if (DomainNicknameBox.Text == "" || getType() == null)
             {
                 MessageBox.Show("Please do not leave any text box empty");
                 // Log error
@@ -52,6 +65,11 @@ namespace StatZilla_Test1.Source
         }
 
         private void TypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MethodSelect_Load(object sender, EventArgs e)
         {
 
         }

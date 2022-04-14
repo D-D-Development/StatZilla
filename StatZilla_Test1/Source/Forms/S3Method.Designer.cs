@@ -1,7 +1,7 @@
 ﻿
-namespace StatZilla_Test1
+namespace StatZilla.Forms
 {
-    partial class S3Method
+    partial class S3_Protocol
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,7 @@ namespace StatZilla_Test1
             this.clientBox = new System.Windows.Forms.TextBox();
             this.awsProfileLabel = new System.Windows.Forms.Label();
             this.awsAccessKeyLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.secretLabel = new System.Windows.Forms.Label();
             this.profileNameBox = new System.Windows.Forms.TextBox();
             this.accessKeyBox = new System.Windows.Forms.TextBox();
             this.secretKeyBox = new System.Windows.Forms.TextBox();
@@ -48,66 +48,64 @@ namespace StatZilla_Test1
             // clientLabel
             // 
             this.clientLabel.AutoSize = true;
-            this.clientLabel.Location = new System.Drawing.Point(40, 38);
-            this.clientLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.clientLabel.Location = new System.Drawing.Point(90, 48);
+            this.clientLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.clientLabel.Name = "clientLabel";
-            this.clientLabel.Size = new System.Drawing.Size(60, 25);
+            this.clientLabel.Size = new System.Drawing.Size(119, 48);
             this.clientLabel.TabIndex = 0;
             this.clientLabel.Text = "Client:";
             // 
             // bucketLabel
             // 
             this.bucketLabel.AutoSize = true;
-            this.bucketLabel.Location = new System.Drawing.Point(40, 73);
-            this.bucketLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.bucketLabel.Location = new System.Drawing.Point(90, 176);
+            this.bucketLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.bucketLabel.Name = "bucketLabel";
-            this.bucketLabel.Size = new System.Drawing.Size(120, 25);
+            this.bucketLabel.Size = new System.Drawing.Size(240, 48);
             this.bucketLabel.TabIndex = 1;
             this.bucketLabel.Text = "Bucket Name:";
             // 
             // pathLabel
             // 
             this.pathLabel.AutoSize = true;
-            this.pathLabel.Location = new System.Drawing.Point(40, 186);
-            this.pathLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.pathLabel.Location = new System.Drawing.Point(80, 425);
+            this.pathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pathLabel.Name = "pathLabel";
-            this.pathLabel.Size = new System.Drawing.Size(145, 25);
+            this.pathLabel.Size = new System.Drawing.Size(287, 48);
             this.pathLabel.TabIndex = 2;
             this.pathLabel.Text = "Destination Path:";
-            this.pathLabel.Click += new System.EventHandler(this.pathLabel_Click);
             // 
             // pathBox
             // 
-            this.pathBox.Location = new System.Drawing.Point(189, 148);
-            this.pathBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pathBox.Location = new System.Drawing.Point(90, 336);
+            this.pathBox.Margin = new System.Windows.Forms.Padding(4);
             this.pathBox.Name = "pathBox";
-            this.pathBox.Size = new System.Drawing.Size(360, 31);
+            this.pathBox.Size = new System.Drawing.Size(716, 55);
             this.pathBox.TabIndex = 3;
-            this.pathBox.TextChanged += new System.EventHandler(this.pathBox_TextChanged);
             // 
             // bucketBox
             // 
-            this.bucketBox.Location = new System.Drawing.Point(189, 70);
-            this.bucketBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bucketBox.Location = new System.Drawing.Point(90, 221);
+            this.bucketBox.Margin = new System.Windows.Forms.Padding(4);
             this.bucketBox.Name = "bucketBox";
-            this.bucketBox.Size = new System.Drawing.Size(165, 31);
+            this.bucketBox.Size = new System.Drawing.Size(326, 55);
             this.bucketBox.TabIndex = 4;
             // 
             // clientBox
             // 
-            this.clientBox.Location = new System.Drawing.Point(189, 35);
-            this.clientBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clientBox.Location = new System.Drawing.Point(90, 100);
+            this.clientBox.Margin = new System.Windows.Forms.Padding(4);
             this.clientBox.Name = "clientBox";
-            this.clientBox.Size = new System.Drawing.Size(165, 31);
+            this.clientBox.Size = new System.Drawing.Size(326, 55);
             this.clientBox.TabIndex = 5;
             // 
             // awsProfileLabel
             // 
             this.awsProfileLabel.AutoSize = true;
-            this.awsProfileLabel.Location = new System.Drawing.Point(40, 151);
-            this.awsProfileLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.awsProfileLabel.Location = new System.Drawing.Point(90, 284);
+            this.awsProfileLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.awsProfileLabel.Name = "awsProfileLabel";
-            this.awsProfileLabel.Size = new System.Drawing.Size(118, 25);
+            this.awsProfileLabel.Size = new System.Drawing.Size(235, 48);
             this.awsProfileLabel.TabIndex = 6;
             this.awsProfileLabel.Text = "Profile Name:";
             this.awsProfileLabel.Click += new System.EventHandler(this.awsProfileLabel_Click);
@@ -115,83 +113,84 @@ namespace StatZilla_Test1
             // awsAccessKeyLabel
             // 
             this.awsAccessKeyLabel.AutoSize = true;
-            this.awsAccessKeyLabel.Location = new System.Drawing.Point(40, 221);
-            this.awsAccessKeyLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.awsAccessKeyLabel.Location = new System.Drawing.Point(90, 553);
+            this.awsAccessKeyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.awsAccessKeyLabel.Name = "awsAccessKeyLabel";
-            this.awsAccessKeyLabel.Size = new System.Drawing.Size(102, 25);
+            this.awsAccessKeyLabel.Size = new System.Drawing.Size(201, 48);
             this.awsAccessKeyLabel.TabIndex = 7;
             this.awsAccessKeyLabel.Text = "Access Key:";
-            this.awsAccessKeyLabel.Click += new System.EventHandler(this.awsAccessKeyLabel_Click);
             // 
-            // label1
+            // secretLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 256);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 25);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Secret Key:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.secretLabel.AutoSize = true;
+            this.secretLabel.Location = new System.Drawing.Point(90, 680);
+            this.secretLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.secretLabel.Name = "secretLabel";
+            this.secretLabel.Size = new System.Drawing.Size(194, 48);
+            this.secretLabel.TabIndex = 8;
+            this.secretLabel.Text = "Secret Key:";
             // 
             // profileNameBox
             // 
-            this.profileNameBox.Location = new System.Drawing.Point(189, 183);
-            this.profileNameBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.profileNameBox.Location = new System.Drawing.Point(90, 477);
+            this.profileNameBox.Margin = new System.Windows.Forms.Padding(4);
             this.profileNameBox.Name = "profileNameBox";
-            this.profileNameBox.Size = new System.Drawing.Size(360, 31);
+            this.profileNameBox.Size = new System.Drawing.Size(716, 55);
             this.profileNameBox.TabIndex = 9;
-            this.profileNameBox.TextChanged += new System.EventHandler(this.profileNameBox_TextChanged);
             // 
             // accessKeyBox
             // 
-            this.accessKeyBox.Location = new System.Drawing.Point(189, 218);
-            this.accessKeyBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.accessKeyBox.Location = new System.Drawing.Point(90, 605);
+            this.accessKeyBox.Margin = new System.Windows.Forms.Padding(4);
             this.accessKeyBox.Name = "accessKeyBox";
-            this.accessKeyBox.Size = new System.Drawing.Size(360, 31);
+            this.accessKeyBox.Size = new System.Drawing.Size(716, 55);
             this.accessKeyBox.TabIndex = 10;
-            this.accessKeyBox.TextChanged += new System.EventHandler(this.accessKeyBox_TextChanged);
             // 
             // secretKeyBox
             // 
-            this.secretKeyBox.Location = new System.Drawing.Point(189, 253);
-            this.secretKeyBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.secretKeyBox.Location = new System.Drawing.Point(90, 732);
+            this.secretKeyBox.Margin = new System.Windows.Forms.Padding(4);
             this.secretKeyBox.Name = "secretKeyBox";
-            this.secretKeyBox.Size = new System.Drawing.Size(360, 31);
+            this.secretKeyBox.Size = new System.Drawing.Size(716, 55);
             this.secretKeyBox.TabIndex = 11;
-            this.secretKeyBox.TextChanged += new System.EventHandler(this.secretKeyBox_TextChanged);
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(19, 371);
-            this.backButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.backButton.BackColor = System.Drawing.Color.Gold;
+            this.backButton.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.backButton.Location = new System.Drawing.Point(90, 873);
+            this.backButton.Margin = new System.Windows.Forms.Padding(4);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(112, 36);
+            this.backButton.Size = new System.Drawing.Size(224, 69);
             this.backButton.TabIndex = 12;
             this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.UseVisualStyleBackColor = false;
             // 
             // addMethod
             // 
-            this.addMethod.Location = new System.Drawing.Point(469, 371);
-            this.addMethod.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addMethod.BackColor = System.Drawing.Color.Gold;
+            this.addMethod.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.addMethod.Location = new System.Drawing.Point(900, 873);
+            this.addMethod.Margin = new System.Windows.Forms.Padding(4);
             this.addMethod.Name = "addMethod";
-            this.addMethod.Size = new System.Drawing.Size(137, 36);
+            this.addMethod.Size = new System.Drawing.Size(274, 69);
             this.addMethod.TabIndex = 13;
             this.addMethod.Text = "Add Method";
-            this.addMethod.UseVisualStyleBackColor = true;
+            this.addMethod.UseVisualStyleBackColor = false;
+            this.addMethod.Click += new System.EventHandler(this.addMethod_Click);
             // 
-            // S3Method
+            // S3_Protocol
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(20F, 48F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 547);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1356, 1047);
             this.Controls.Add(this.addMethod);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.secretKeyBox);
             this.Controls.Add(this.accessKeyBox);
             this.Controls.Add(this.profileNameBox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.secretLabel);
             this.Controls.Add(this.awsAccessKeyLabel);
             this.Controls.Add(this.awsProfileLabel);
             this.Controls.Add(this.clientBox);
@@ -200,8 +199,8 @@ namespace StatZilla_Test1
             this.Controls.Add(this.pathLabel);
             this.Controls.Add(this.bucketLabel);
             this.Controls.Add(this.clientLabel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "S3Method";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "S3_Protocol";
             this.Text = "S3 Method";
             this.Load += new System.EventHandler(this.S3Method_Load);
             this.ResumeLayout(false);
@@ -219,7 +218,7 @@ namespace StatZilla_Test1
         private System.Windows.Forms.TextBox clientBox;
         private System.Windows.Forms.Label awsProfileLabel;
         private System.Windows.Forms.Label awsAccessKeyLabel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label secretLabel;
         private System.Windows.Forms.TextBox profileNameBox;
         private System.Windows.Forms.TextBox accessKeyBox;
         private System.Windows.Forms.TextBox secretKeyBox;

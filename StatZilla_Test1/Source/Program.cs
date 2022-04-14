@@ -5,18 +5,18 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using StatZilla_Test1.Models;
-using StatZilla_Test1.Utility;
-namespace StatZilla_Test1
+using StatZilla.Models;
+using StatZilla.Utility;
+using StatZilla.Forms;
+namespace StatZilla
 {
     static class Program
     {
-
+        // This is a test Comment
         public static Log Log;
         static string logFilePath;
         static Stream logFileStream;
         static DateTime RunDateTime = DateTime.Now;
-
 
         /// <summary>
         ///  The main entry point for the application.

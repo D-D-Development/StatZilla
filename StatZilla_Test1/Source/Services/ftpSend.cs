@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Renci.SshNet;
-namespace StatZilla_Test1.Services
+namespace StatZilla.Services
 {
     public class ftpSend
     {

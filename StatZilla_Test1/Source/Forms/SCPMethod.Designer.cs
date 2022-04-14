@@ -1,7 +1,7 @@
 ﻿
-namespace StatZilla_Test1
+namespace StatZilla.Forms
 {
-    partial class SCPMethod
+    partial class SCP_Protocol
     {
         /// <summary>
         /// Required designer variable.
@@ -46,120 +46,124 @@ namespace StatZilla_Test1
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(40, 28);
-            this.usernameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.usernameLabel.Location = new System.Drawing.Point(90, 54);
+            this.usernameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(95, 25);
+            this.usernameLabel.Size = new System.Drawing.Size(188, 48);
             this.usernameLabel.TabIndex = 0;
             this.usernameLabel.Text = "Username:";
             // 
             // passwordLabel
             // 
             this.passwordLabel.AutoSize = true;
-            this.passwordLabel.Location = new System.Drawing.Point(40, 63);
-            this.passwordLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.passwordLabel.Location = new System.Drawing.Point(90, 165);
+            this.passwordLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.passwordLabel.Name = "passwordLabel";
-            this.passwordLabel.Size = new System.Drawing.Size(91, 25);
+            this.passwordLabel.Size = new System.Drawing.Size(176, 48);
             this.passwordLabel.TabIndex = 1;
             this.passwordLabel.Text = "Password:";
             // 
             // Port
             // 
             this.Port.AutoSize = true;
-            this.Port.Location = new System.Drawing.Point(40, 201);
-            this.Port.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Port.Location = new System.Drawing.Point(90, 558);
+            this.Port.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Port.Name = "Port";
-            this.Port.Size = new System.Drawing.Size(48, 25);
+            this.Port.Size = new System.Drawing.Size(93, 48);
             this.Port.TabIndex = 2;
             this.Port.Text = "Port:";
             // 
             // hostLabel
             // 
             this.hostLabel.AutoSize = true;
-            this.hostLabel.Location = new System.Drawing.Point(40, 131);
-            this.hostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.hostLabel.Location = new System.Drawing.Point(90, 339);
+            this.hostLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.hostLabel.Name = "hostLabel";
-            this.hostLabel.Size = new System.Drawing.Size(54, 25);
+            this.hostLabel.Size = new System.Drawing.Size(102, 48);
             this.hostLabel.TabIndex = 3;
             this.hostLabel.Text = "Host:";
             // 
             // usernameBox
             // 
-            this.usernameBox.Location = new System.Drawing.Point(169, 25);
-            this.usernameBox.Margin = new System.Windows.Forms.Padding(2);
+            this.usernameBox.Location = new System.Drawing.Point(90, 106);
+            this.usernameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.usernameBox.Name = "usernameBox";
-            this.usernameBox.Size = new System.Drawing.Size(256, 31);
+            this.usernameBox.Size = new System.Drawing.Size(508, 55);
             this.usernameBox.TabIndex = 4;
             // 
             // passwdBox
             // 
-            this.passwdBox.Location = new System.Drawing.Point(169, 60);
-            this.passwdBox.Margin = new System.Windows.Forms.Padding(2);
+            this.passwdBox.Location = new System.Drawing.Point(90, 217);
+            this.passwdBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.passwdBox.Name = "passwdBox";
-            this.passwdBox.Size = new System.Drawing.Size(256, 31);
+            this.passwdBox.Size = new System.Drawing.Size(508, 55);
             this.passwdBox.TabIndex = 5;
             // 
             // hostBox
             // 
-            this.hostBox.Location = new System.Drawing.Point(169, 128);
-            this.hostBox.Margin = new System.Windows.Forms.Padding(2);
+            this.hostBox.Location = new System.Drawing.Point(90, 391);
+            this.hostBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.hostBox.Name = "hostBox";
-            this.hostBox.Size = new System.Drawing.Size(256, 31);
+            this.hostBox.Size = new System.Drawing.Size(508, 55);
             this.hostBox.TabIndex = 6;
             // 
             // portBox
             // 
-            this.portBox.Location = new System.Drawing.Point(169, 198);
-            this.portBox.Margin = new System.Windows.Forms.Padding(2);
+            this.portBox.Location = new System.Drawing.Point(90, 610);
+            this.portBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.portBox.Name = "portBox";
-            this.portBox.Size = new System.Drawing.Size(92, 31);
+            this.portBox.Size = new System.Drawing.Size(180, 55);
             this.portBox.TabIndex = 7;
             // 
             // hostDirectoryLabel
             // 
             this.hostDirectoryLabel.AutoSize = true;
-            this.hostDirectoryLabel.Location = new System.Drawing.Point(40, 166);
-            this.hostDirectoryLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.hostDirectoryLabel.Location = new System.Drawing.Point(90, 450);
+            this.hostDirectoryLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.hostDirectoryLabel.Name = "hostDirectoryLabel";
-            this.hostDirectoryLabel.Size = new System.Drawing.Size(127, 25);
+            this.hostDirectoryLabel.Size = new System.Drawing.Size(253, 48);
             this.hostDirectoryLabel.TabIndex = 8;
             this.hostDirectoryLabel.Text = "Directory Path:";
             // 
             // pathBox
             // 
-            this.pathBox.Location = new System.Drawing.Point(169, 163);
-            this.pathBox.Margin = new System.Windows.Forms.Padding(2);
+            this.pathBox.Location = new System.Drawing.Point(90, 502);
+            this.pathBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pathBox.Name = "pathBox";
-            this.pathBox.Size = new System.Drawing.Size(441, 31);
+            this.pathBox.Size = new System.Drawing.Size(878, 55);
             this.pathBox.TabIndex = 9;
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(42, 366);
-            this.backButton.Margin = new System.Windows.Forms.Padding(2);
+            this.backButton.BackColor = System.Drawing.Color.Gold;
+            this.backButton.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.backButton.Location = new System.Drawing.Point(90, 733);
+            this.backButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(112, 36);
+            this.backButton.Size = new System.Drawing.Size(224, 69);
             this.backButton.TabIndex = 10;
             this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.UseVisualStyleBackColor = false;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // addMethodButton
             // 
-            this.addMethodButton.Location = new System.Drawing.Point(442, 366);
-            this.addMethodButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addMethodButton.BackColor = System.Drawing.Color.Gold;
+            this.addMethodButton.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.addMethodButton.Location = new System.Drawing.Point(900, 733);
+            this.addMethodButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.addMethodButton.Name = "addMethodButton";
-            this.addMethodButton.Size = new System.Drawing.Size(123, 36);
+            this.addMethodButton.Size = new System.Drawing.Size(246, 69);
             this.addMethodButton.TabIndex = 11;
             this.addMethodButton.Text = "Add Method";
-            this.addMethodButton.UseVisualStyleBackColor = true;
+            this.addMethodButton.UseVisualStyleBackColor = false;
             this.addMethodButton.Click += new System.EventHandler(this.addMethodButton_Click);
             // 
-            // SCPMethod
+            // SCP_Protocol
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(20F, 48F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 434);
+            this.ClientSize = new System.Drawing.Size(1242, 833);
             this.Controls.Add(this.addMethodButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.pathBox);
@@ -172,8 +176,8 @@ namespace StatZilla_Test1
             this.Controls.Add(this.Port);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.usernameLabel);
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "SCPMethod";
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "SCP_Protocol";
             this.Text = "SCP Protocol";
             this.Load += new System.EventHandler(this.SCPMethod_Load);
             this.ResumeLayout(false);

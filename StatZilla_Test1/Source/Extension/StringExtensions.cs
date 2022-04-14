@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace StatZilla_Test1.Extensions
+namespace StatZilla.Extensions
 {
     /// <summary>
     /// A collection of extension methods provided to simplify string operations

@@ -2,9 +2,9 @@
 using System;
 using System.IO;
 using System.Text;
-using StatZilla_Test1.Extensions;
+using StatZilla.Extensions;
 
-namespace StatZilla_Test1.Utility
+namespace StatZilla.Utility
 {
     /// <summary>
     /// An iterface which represents a message log
