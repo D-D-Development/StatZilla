@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using StatZilla.Models;
@@ -22,6 +24,8 @@ namespace StatZilla.Forms
     }
     public partial class MainPage : Form
     {
+        #region Initializing and Setup
+
         /// <summary>
         /// Declares local Log for the Main page
         /// Declares Dictionaries for all methods
@@ -30,13 +34,11 @@ namespace StatZilla.Forms
         /// </summary>
         #region global variables
 
-        public List<Models.Ftp> ftps;
-        Dictionary<string, Ftp> ftpTable;
-        Dictionary<string, Scp> scpTable;
-        Dictionary<string, S3Bucket> s3Buckets;
+        GodModel MasterModel;
         public Log Formlog;
         OpenFileDialog fileSelector;
         string filePath, fileName;
+        string JsonFilePath, JsonFileName;
 
         #endregion
 
@@ -53,20 +55,60 @@ namespace StatZilla.Forms
         private void Setup(Log log)
         {
             // Add new initializations here!!
-
-            ftpTable = new Dictionary<string, Ftp>();
-            scpTable = new Dictionary<string, Scp>();
-            s3Buckets = new Dictionary<string, S3Bucket>();
-            ftps = new List<Models.Ftp>();
+            MasterModel = new GodModel();
             fileSelector = new OpenFileDialog();
             Formlog = log;
+            JsonFilePath = ConfigurationManager.AppSettings["Json-Path"];
+            JsonFileName = ConfigurationManager.AppSettings["Json-File"];
+
+            Ftp temp = new Ftp();
+            Ftp temp2 = new Ftp();
+            Scp Temp3 = new Scp();
+            S3Bucket Temp5 = new S3Bucket();
+            temp.user = "gfef";
+            temp.isActive = false;
+            temp.pass = "fesf";
+            temp.sessionFilename = "Nothing.txt";
+            temp2.user = "gfef";
+            temp2.isActive = false;
+            temp2.pass = "fesf";
+            temp2.sessionFilename = "Nothing.txt";
+            Temp3.isActive = true;
+            Temp3.password = "tesfg";
+            Temp5.isActive = true;
+            Temp5.sessionName = "test";
+            MasterModel.ftpDict.Add("trsvrda", temp);
+            MasterModel.ftpDict.Add("trsvrdasfg", temp);
+            MasterModel.ftpDict.Add("trsvrdafd", temp);
+            MasterModel.ftpDict.Add("trsvrdagh", temp);
+            MasterModel.ftpDict.Add("trsvrdag", temp2);
+            MasterModel.ftpDict.Add("trsvrdga", temp2);
+        
+            write_json();
+
         }
+        #endregion
+
+        #region JSON Handling
         /// <summary>
-      /// 
-      /// </summary>
-      /// <param name="sender"></param>
-      /// <param name="e"></param>
-        private void addMethod_Click(object sender, EventArgs e)
+        /// This function converts the MasterModel into a json string.
+        /// </summary>
+        private void write_json()
+        {
+            string file = JsonFilePath + JsonFileName;
+            var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(MasterModel);
+            File.WriteAllText(file, jsonString);
+        }
+
+        #endregion
+
+        #region BUTTONS
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addMethod_Button(object sender, EventArgs e)
         {
             if (fileSelectorValidator()) {
                 try
@@ -84,31 +126,15 @@ namespace StatZilla.Forms
             }
           
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainPage_Load(object sender, EventArgs e)
+        /// <param name="e"></param> ///REMOVE THIS!
+        private void REmoveThisButton(object sender, EventArgs e)
         {
-            resizeListViewColumns();
-            
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public void MyrefeshMethod()
-        {
- 
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            foreach(KeyValuePair<string, Models.Ftp> f in ftpTable)
+            foreach (KeyValuePair<string, Models.Ftp> f in MasterModel.ftpDict)
             {
                 try
                 {
@@ -116,125 +142,50 @@ namespace StatZilla.Forms
                     ftpSend send = new ftpSend(f.Value.ftpDomain, f.Value.user, f.Value.pass);
                     send.Send();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Formlog.WriteLine(Log.Type.ERROR, ex.Message);
                 }
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void lockIcon_Button(object sender, EventArgs e)
         {
-            if(masterSwitchButton.Checked == true)
+            if (selectorBox.Enabled == false)
             {
-                addMethodButton.Enabled = true;
-                sendMethodButton.Enabled = true;
-                listviewTransferList.Enabled = true;
-                browseButton.Enabled = true;
+
                 selectorBox.Enabled = true;
-                playButton.Enabled = true;
-                stopButton.Enabled = true;
-                lockButton.Enabled = true;
             }
-            else if(masterSwitchButton.Checked == false)
+            else if (selectorBox.Enabled == true)
             {
-                addMethodButton.Enabled = false;
-                sendMethodButton.Enabled = false;
-                listviewTransferList.Enabled = false;
-                browseButton.Enabled = false;
+
                 selectorBox.Enabled = false;
-                playButton.Enabled = false;
-                stopButton.Enabled = false;
-                lockButton.Enabled = false;
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void enterClickedLV(object sender, PreviewKeyDownEventArgs e)
-        {   
-            // If a session is selected and the key "Enter" is pressed, get the item's type to search in the list else do nothing
-            if (e.KeyCode == Keys.Enter && listviewTransferList.SelectedItems.Count > 0)
-            {
-                string searchedItemType = "";
-                searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
-                editSession(searchedItemType);
-            }
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void fileTransferList(object sender, EventArgs e)
+        private void fileBrowser_Button(object sender, EventArgs e)
         {
-            // Get the currently selected item in the transfer list
-            string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
-            editSession(searchedItemType);
+            if (selectorBox.Enabled == false)
+                MessageBox.Show("Unlock File Selector before proceeding.");
+            else
+                selectFile();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        private void editSession(string type)
-        {
-            /// Look up the item in the list of ftps and open the a form with its value in the 
-            if (type == "FTP")
-            {
-                // Find the selected item values using as a key the session name  
-                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-                var selected = ftpTable[itemName];
 
-                // Open selected form with values from the Dictionary List
-                FtpProtocol editFTP = new FtpProtocol(selected);
-                editFTP.displayMethod();
-                editFTP.ShowDialog();
 
-                // Update list of FTP 
-                updateFTPTable(itemName, editFTP.ftpMethod);
 
-                // Update list view
-                
-            }
-            else if (type == "SCP")
-            {
-                // Find the selected item values using as a key the session name  
-                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-                var selected = scpTable[itemName];
+        #endregion
 
-                // Open selected form with values from the Dictionary List
-                SCP_Protocol editSCP = new SCP_Protocol();
-                editSCP.ShowDialog();
-
-                // Update list of FTP 
-                //updateSCPTable(scpTable[itemName], editSCP.scpMethod);
-            }
-            else if (type == "S3")
-            {
-                // Find the selected item values using as a key the session name  
-                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-                var selected = s3Buckets[itemName];
-
-                S3_Protocol editS3 = new S3_Protocol();
-
-                //updateS3Table(scpTable[itemName], editS3.newS3Buckets);
-                editS3.ShowDialog();
-                // Update list view 
-                
-            }
-
-            // Find values of the item 
-            // var selectedItem = ftpTable[searchedItem];
-
-            // Open form to edit the selection
-            //  updateFTPMethod(selectedItem);
-        }
+        #region FTP
         /// <summary>
         /// 
         /// </summary>
@@ -243,7 +194,7 @@ namespace StatZilla.Forms
         {
             Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpDomain);
             //MethodSelect methodSelected = new MethodSelect();
-            
+
             // Open the form
             //methodSelected.ShowDialog();
 
@@ -272,8 +223,9 @@ namespace StatZilla.Forms
         private void updateFTPTable(string item, Ftp newItem)
         {
             // Replace ftp element with new edited values 
-            ftpTable[item] = newItem;
-            //ftpTable.Add(newItem.ftpDomain, newItem);
+            MasterModel.ftpDict[item] = newItem;
+
+            //MasterModel.ftpDict.Add(newItem.ftpDomain, newItem);
         }
         /// <summary>
         /// 
@@ -291,6 +243,40 @@ namespace StatZilla.Forms
             //newFtp.pass = newMethod.pswField;
             //newFtp.filenamePath = filePath;//newMethod.fileNamePath;
         }
+        #endregion
+
+        #region SCP
+
+        #endregion
+
+        #region S3Buckets
+        #endregion
+
+        #region ObjStore
+        #endregion
+
+        #region Reload Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainPage_Load(object sender, EventArgs e)
+        {
+            resizeListViewColumns();
+            
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void MyrefeshMethod()
+        {
+ 
+        }
+        #endregion
+
+        #region Add Method Module
+
         /// <summary>
         /// 
         /// </summary>
@@ -324,7 +310,7 @@ namespace StatZilla.Forms
                     newFtp.sessionLastUpdate = 0;
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
-                    ftpTable.Add(newFtp.sessionName, newFtp);
+                    MasterModel.ftpDict.Add(newFtp.sessionName, newFtp);
                     addToList(newFtp.sessionName, newFtp.sessionFilename, "FTP", "OFF", "Now");
                     //JSON function will go here
                     //ftps.Add(newFtp);
@@ -345,7 +331,7 @@ namespace StatZilla.Forms
                         newSCP.sessionLastUpdate = 0;
                     }
 
-                    //ftpTable.Add(sessionName, newFtp);
+                    //MasterModel.ftpDict.Add(sessionName, newFtp);
                     addToList(newSCP.sessionName, newSCP.sessionFilename, "SCP", "OFF", "Now");
                 }
                 //JSON function will go here
@@ -370,10 +356,75 @@ namespace StatZilla.Forms
 
             return currentType;
         }
+
+        #endregion
+
+        #region List View Properties
+
+
         /// <summary>
         /// 
         /// </summary>
-        private void resizeListViewColumns() {
+        /// <param name="type"></param>
+        private void editSession(string type)
+        {
+            /// Look up the item in the list of ftps and open the a form with its value in the 
+            if (type == "FTP")
+            {
+                // Find the selected item values using as a key the session name  
+                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+                var selected = MasterModel.ftpDict[itemName];
+
+                // Open selected form with values from the Dictionary List
+                FtpProtocol editFTP = new FtpProtocol(selected);
+                editFTP.displayMethod();
+                editFTP.ShowDialog();
+
+                // Update list of FTP 
+                updateFTPTable(itemName, editFTP.ftpMethod);
+
+                // Update list view
+
+            }
+            else if (type == "SCP")
+            {
+                // Find the selected item values using as a key the session name  
+                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+                var selected = MasterModel.SCPDict[itemName];
+
+                // Open selected form with values from the Dictionary List
+                SCP_Protocol editSCP = new SCP_Protocol();
+                editSCP.ShowDialog();
+
+                // Update list of FTP 
+                //updateSCPTable(MasterModel.SCPDict[itemName], editSCP.scpMethod);
+            }
+            else if (type == "S3")
+            {
+                // Find the selected item values using as a key the session name  
+                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+                var selected = MasterModel.S3Dict[itemName];
+
+                S3_Protocol editS3 = new S3_Protocol();
+
+                //updateS3Table(MasterModel.SCPDict[itemName], editS3.newS3Buckets);
+                editS3.ShowDialog();
+                // Update list view 
+
+            }
+
+            // Find values of the item 
+            // var selectedItem = MasterModel.ftpDict[searchedItem];
+
+            // Open form to edit the selection
+            //  updateFTPMethod(selectedItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void resizeListViewColumns()
+        {
             // Auto resize column
             this.listviewTransferList.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.ColumnContent);
             this.listviewTransferList.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -396,7 +447,7 @@ namespace StatZilla.Forms
             // Add the new row to the list
             listviewTransferList.Items.Add(item);
             resizeListViewColumns();
-            
+
         }
         /// <summary>
         /// 
@@ -428,10 +479,63 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void selectorBox_TextChanged(object sender, EventArgs e)
+        private void enterClickedLV(object sender, PreviewKeyDownEventArgs e)
         {
-            //fileSelectorValidator();
+            // If a session is selected and the key "Enter" is pressed, get the item's type to search in the list else do nothing
+            if (e.KeyCode == Keys.Enter && listviewTransferList.SelectedItems.Count > 0)
+            {
+                string searchedItemType = "";
+                searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+                editSession(searchedItemType);
+            }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void fileTransferList(object sender, EventArgs e)
+        {
+            // Get the currently selected item in the transfer list
+            string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+            editSession(searchedItemType);
+        }
+        #endregion
+
+        #region Master Switch
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (masterSwitchButton.Checked == true)
+            {
+                addMethodButton.Enabled = true;
+                sendMethodButton.Enabled = true;
+                listviewTransferList.Enabled = true;
+                browseButton.Enabled = true;
+                selectorBox.Enabled = true;
+                playButton.Enabled = true;
+                stopButton.Enabled = true;
+                lockButton.Enabled = true;
+            }
+            else if (masterSwitchButton.Checked == false)
+            {
+                addMethodButton.Enabled = false;
+                sendMethodButton.Enabled = false;
+                listviewTransferList.Enabled = false;
+                browseButton.Enabled = false;
+                selectorBox.Enabled = false;
+                playButton.Enabled = false;
+                stopButton.Enabled = false;
+                lockButton.Enabled = false;
+            }
+        }
+        #endregion
+
+        #region File Browser
         /// <summary>
         /// 
         /// </summary>
@@ -449,18 +553,7 @@ namespace StatZilla.Forms
             return false;
            
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void browserClick(object sender, EventArgs e)
-        {
-            if(selectorBox.Enabled == false)
-                MessageBox.Show("Unlock File Selector before proceeding.");
-            else
-                selectFile();
-        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -481,24 +574,7 @@ namespace StatZilla.Forms
         {
             fileSelectorValidator();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void lockButton_Click(object sender, EventArgs e)
-        {
-            if(selectorBox.Enabled == false)
-            {
- 
-                selectorBox.Enabled = true;
-            }
-            else if(selectorBox.Enabled == true)
-            {
-         
-                selectorBox.Enabled = false;
-            }
-        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -515,6 +591,17 @@ namespace StatZilla.Forms
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void selectorBox_TextChanged(object sender, EventArgs e)
+        {
+            //fileSelectorValidator();
+        }
+
+        #endregion
     }
 
 
