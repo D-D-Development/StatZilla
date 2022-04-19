@@ -13,7 +13,7 @@ namespace StatZilla.Forms
 {
     public partial class FtpProtocol : Form
     {
-        public Ftp ftpMethod {  get; set; }
+        public Ftp ftpMethod { get; set; }
 
         public FtpProtocol(Ftp currentMethod)
         {
@@ -35,24 +35,30 @@ namespace StatZilla.Forms
         {
             if (textBox_Validator())
             {
-                Ftp newFtp = new Ftp(hostBox.Text, usernameBox.Text, passwdBox.Text, hostDestinationPath.Text);
                 // Save values in the FTP class
-
-                ftpMethod = newFtp;
+                setFTPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, hostDestinationPath.Text);
 
                 //this.ftpMethod.user = usernameBox.Text;
                 //this.ftpMethod.pass = passwdBox.Text;
-               // this.ftpMethod.ftpDomain = hostBox.Text;
+                // this.ftpMethod.ftpDomain = hostBox.Text;
                 //this.ftpMethod.domainDestinationPath = hostDestinationPath.Text;
 
                 this.Close();
             }
         }
+        private void setFTPConfiguration(string filename, string user, string pass,string host, string dest)
+        {
+            ftpMethod.user = user;
+            ftpMethod.pass = pass;
+            ftpMethod.ftpDomain = host;
+            ftpMethod.domainDestinationPath = dest;
+            ftpMethod.sessionFilename = filename;
 
+        }
         private bool textBox_Validator()
         {
             // Check if text box empty 
-            if (usernameBox.Text == "" || passwdBox.Text == "" || hostBox.Text == "" || hostPathLabel.Text == "")
+            if (usernameBox.Text == "" || passwdBox.Text == "" || hostBox.Text == "" || hostPathLabel.Text == "" || filenameBox.Text == "")
             {
                 MessageBox.Show("Please do not leave any text box empty");
                 // Log error
@@ -63,30 +69,11 @@ namespace StatZilla.Forms
 
         public void displayMethod()
         {
+            filenameBox.Text = ftpMethod.sessionFilename;
             usernameBox.Text = ftpMethod.user;
             passwdBox.Text = ftpMethod.pass;
             hostBox.Text = ftpMethod.ftpDomain;
             hostDestinationPath.Text = ftpMethod.domainDestinationPath;
-        }
-
-        private void pswdLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void passwdBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void hostPathLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void hostDestinationPath_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

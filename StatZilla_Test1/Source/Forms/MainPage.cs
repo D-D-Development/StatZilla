@@ -37,16 +37,16 @@ namespace StatZilla.Forms
         GodModel MasterModel;
         public Log Formlog;
         OpenFileDialog fileSelector;
-        string filePath, fileName;
+        string filePath, masterFile;
         string JsonFilePath, JsonFileName;
 
         #endregion
 
         public MainPage(Log log)
         {
-            Setup(log);
+            
             InitializeComponent();
-           
+            Setup(log);
         }
         /// <summary>
         /// Quick setup funtion.
@@ -65,10 +65,18 @@ namespace StatZilla.Forms
             Ftp temp2 = new Ftp();
             Scp Temp3 = new Scp();
             S3Bucket Temp5 = new S3Bucket();
-            temp.user = "gfef";
+
+            // TEST DATA
             temp.isActive = false;
-            temp.pass = "fesf";
-            temp.sessionFilename = "Nothing.txt";
+            temp.sessionName = "TEST 1";
+            temp.sessionFilename = "fileTest.txt";
+            temp.sessionType = "FTP";
+            temp.sessionStatus = "OFF";
+            temp.user = "tester1";
+            temp.pass = "abcd1234";
+            temp.ftpDomain = "MY DOMAIN";
+            temp.domainDestinationPath = "Desktop";
+
             temp2.user = "gfef";
             temp2.isActive = false;
             temp2.pass = "fesf";
@@ -77,13 +85,14 @@ namespace StatZilla.Forms
             Temp3.password = "tesfg";
             Temp5.isActive = true;
             Temp5.sessionName = "test";
-            MasterModel.ftpDict.Add("trsvrda", temp);
+            MasterModel.ftpDict.Add(temp.sessionName, temp);
             MasterModel.ftpDict.Add("trsvrdasfg", temp);
             MasterModel.ftpDict.Add("trsvrdafd", temp);
             MasterModel.ftpDict.Add("trsvrdagh", temp);
             MasterModel.ftpDict.Add("trsvrdag", temp2);
             MasterModel.ftpDict.Add("trsvrdga", temp2);
-        
+
+            addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, temp.sessionStatus, "NOT STarted");
             //write_json();
 
         }
@@ -138,6 +147,7 @@ namespace StatZilla.Forms
             {
                 var currentSession = this.listviewTransferList.SelectedItems;
                 MessageBox.Show("You have Started Method" + currentSession[0].SubItems[0].Text.ToString());
+                this.listviewTransferList.SelectedItems[0].SubItems[3].Text = "ON";
             }
 
         }
@@ -153,6 +163,7 @@ namespace StatZilla.Forms
             {
                 var currentSession = this.listviewTransferList.SelectedItems;
                 MessageBox.Show("You have Stopped Method" + currentSession[0].SubItems[0].Text.ToString());
+                this.listviewTransferList.SelectedItems[0].SubItems[3].Text = "OFF";
             }
         }
 
@@ -253,8 +264,6 @@ namespace StatZilla.Forms
         {
             // Replace ftp element with new edited values 
             MasterModel.ftpDict[item] = newItem;
-
-            //MasterModel.ftpDict.Add(newItem.ftpDomain, newItem);
         }
         /// <summary>
         /// 
@@ -304,7 +313,7 @@ namespace StatZilla.Forms
         }
         #endregion
 
-        #region Add Method Module
+        #region Create New Method Module
 
         /// <summary>
         /// 
@@ -312,40 +321,38 @@ namespace StatZilla.Forms
         /// <returns></returns>
         private MethodType createNewMethod()
         {
-       
-
+  
             MethodType currentType = MethodType.FTP;
 
             // Open a new Form to insert new FTP method variables 
             MethodSelect newMethod = new MethodSelect();
             newMethod.ShowDialog();
 
-            string index = newMethod.Type;
+            string transfterMethod = newMethod.Type;
             string sessionName = newMethod.Name.ToString();
+            string sessionStartTime = "Not Started";
 
-            if (index == "FTP") {
+            if (transfterMethod == "FTP") {
                 FtpProtocol newFtpMethod = new FtpProtocol();
                 newFtpMethod.ShowDialog();
 
-           
-                //StatZilla.Source.methodAdd.passTextBox.Text;
+                // Create a new instance of the FTP method
                 Ftp newFtp = newFtpMethod.ftpMethod;
                 {
                     // Initialize Session values
                     newFtp.sessionName = sessionName;
-                    newFtp.sessionFilename = fileName;
-                    newFtp.sessionType = MethodType.FTP;
-                    newFtp.sessionStatus = false;
-                    newFtp.sessionLastUpdate = 0;
+                    newFtp.sessionType = transfterMethod;
+                    newFtp.sessionStatus = "OFF";
+                    newFtp.sessionLastUpdate = DateTime.Now;
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
                     MasterModel.ftpDict.Add(newFtp.sessionName, newFtp);
-                    addToList(newFtp.sessionName, newFtp.sessionFilename, "FTP", "OFF", "Now");
+                    addToList(newFtp.sessionName, newFtp.sessionFilename, newFtp.sessionType, newFtp.sessionStatus, sessionStartTime);
                     //JSON function will go here
                     //ftps.Add(newFtp);
                 }
             }
-            else if (index == "SCP") {
+            else if (transfterMethod == "SCP") {
                 SCP_Protocol newScpMethod = new SCP_Protocol();
                 newScpMethod.ShowDialog();
 
@@ -354,18 +361,16 @@ namespace StatZilla.Forms
                     Scp newSCP = newScpMethod.scpMethod;
                     {
                         newSCP.sessionName = sessionName;
-                        newSCP.sessionFilename = fileName;
-                        newSCP.sessionType = MethodType.SCP;
-                        newSCP.sessionStatus = false;
-                        newSCP.sessionLastUpdate = 0;
+                        newSCP.sessionType = transfterMethod;
+                        newSCP.sessionStatus = "OFF";
+                        newSCP.sessionLastUpdate = DateTime.Now;
                     }
-
                     //MasterModel.ftpDict.Add(sessionName, newFtp);
-                    addToList(newSCP.sessionName, newSCP.sessionFilename, "SCP", "OFF", "Now");
+                    addToList(newSCP.sessionName, newSCP.sessionFilename, newSCP.sessionType, newSCP.sessionStatus, sessionStartTime);
                 }
                 //JSON function will go here
             }
-            else if (index == "S3") {
+            else if (transfterMethod == "S3") {
                 S3_Protocol newS3Method = new S3_Protocol();
                 newS3Method.ShowDialog();
 
@@ -374,12 +379,11 @@ namespace StatZilla.Forms
                     S3Bucket newS3 = newS3Method.newS3Buckets;
                     {
                         newS3.sessionName = sessionName;
-                        newS3.sessionFilename = fileName;
-                        newS3.sessionType = MethodType.S3;
-                        newS3.sessionStatus = false;
-                        newS3.sessionLastUpdate = 0;
+                        newS3.sessionType = transfterMethod;
+                        newS3.sessionStatus = "OFF";
+                        newS3.sessionLastUpdate = DateTime.Now;
                     }
-                    addToList(newS3.sessionName, newS3.sessionFilename, "S3", "OFF", "Now");
+                    addToList(newS3.sessionName, newS3.sessionFilename, newS3.sessionType, newS3.sessionStatus, sessionStartTime);
                 }
             }
 
@@ -397,29 +401,31 @@ namespace StatZilla.Forms
         /// <param name="type"></param>
         private void editSession(string type)
         {
+            // Find the selected item values using as a key the session name  
+            var currentSession = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+
             /// Look up the item in the list of ftps and open the a form with its value in the 
             if (type == "FTP")
             {
-                // Find the selected item values using as a key the session name  
-                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-                var selected = MasterModel.ftpDict[itemName];
-
+                
+                var selected = MasterModel.ftpDict[currentSession];
                 // Open selected form with values from the Dictionary List
                 FtpProtocol editFTP = new FtpProtocol(selected);
                 editFTP.displayMethod();
                 editFTP.ShowDialog();
 
+                Ftp updatedFTP = editFTP.ftpMethod;
+                
                 // Update list of FTP 
-                updateFTPTable(itemName, editFTP.ftpMethod);
+                updateFTPTable(currentSession, updatedFTP);
 
                 // Update list view
+                updateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, updatedFTP.sessionStatus, "Not Started");
 
             }
             else if (type == "SCP")
             {
-                // Find the selected item values using as a key the session name  
-                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-                var selected = MasterModel.SCPDict[itemName];
+                var selected = MasterModel.SCPDict[currentSession];
 
                 // Open selected form with values from the Dictionary List
                 SCP_Protocol editSCP = new SCP_Protocol();
@@ -430,9 +436,7 @@ namespace StatZilla.Forms
             }
             else if (type == "S3")
             {
-                // Find the selected item values using as a key the session name  
-                var itemName = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-                var selected = MasterModel.S3Dict[itemName];
+                var selected = MasterModel.S3Dict[currentSession];
 
                 S3_Protocol editS3 = new S3_Protocol();
 
@@ -476,7 +480,6 @@ namespace StatZilla.Forms
             // Add the new row to the list
             listviewTransferList.Items.Add(item);
             resizeListViewColumns();
-
         }
         /// <summary>
         /// 
@@ -542,7 +545,6 @@ namespace StatZilla.Forms
             if (masterSwitchButton.Checked == true)
             {
                 addMethodButton.Enabled = true;
-                sendMethodButton.Enabled = true;
                 listviewTransferList.Enabled = true;
                 browseButton.Enabled = true;
                 selectorBox.Enabled = true;
@@ -553,7 +555,6 @@ namespace StatZilla.Forms
             else if (masterSwitchButton.Checked == false)
             {
                 addMethodButton.Enabled = false;
-                sendMethodButton.Enabled = false;
                 listviewTransferList.Enabled = false;
                 browseButton.Enabled = false;
                 selectorBox.Enabled = false;
@@ -617,7 +618,7 @@ namespace StatZilla.Forms
 
                 // Parse the file path for filename 
                 string[] path = filePath.Split('\\');
-                fileName = path[path.Length - 1];
+                masterFile = path[path.Length - 1];
             }
         }
 
