@@ -5,6 +5,7 @@ namespace StatZilla.Models
     public class GodModel
     {
         public bool IsMasterActive { get; set; }
+        public string masterFilePath;
         // public List<Ftp> ftpList;
         public Dictionary<string,Ftp> ftpDict;
         public Dictionary<string, Scp> SCPDict;

@@ -14,12 +14,19 @@ namespace StatZilla.Forms
     public partial class S3_Protocol : Form
     {
         public S3Bucket newS3Buckets;
+        public MethodSelect backToMethodSelect;
 
         public S3_Protocol()
         {
             InitializeComponent();
+        }      
+        
+        public S3_Protocol(MethodSelect prevForm)
+        {
+            InitializeComponent();
+            backToMethodSelect = prevForm;
         }
-
+       
         private void S3Method_Load(object sender, EventArgs e)
         {
 
@@ -35,7 +42,8 @@ namespace StatZilla.Forms
             S3Bucket temp = new S3Bucket(clientBox.Text, bucketBox.Text, profileNameBox.Text, pathBox.Text, secretKeyBox.Text, accessKeyBox.Text);
             
             newS3Buckets = temp;
-
+            // Close Both Previous Method
+            backToMethodSelect.Close();
             this.Close();
         }
     }
