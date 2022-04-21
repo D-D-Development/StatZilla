@@ -33,7 +33,7 @@ namespace StatZilla
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainPage(Log));
+            Application.Run(new MainPage(Log, intial_Master));
             //logFileStream.Close();
             //System.Diagnostics.Process.Start(logFilePath);
 

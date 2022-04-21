@@ -32,29 +32,33 @@ namespace StatZilla.Forms
         public Log Formlog;
         OpenFileDialog fileSelector;
         string masterFilename;
+        string directory;
         string JsonFilePath, JsonFileName;
 
         #endregion
 
-        public MainPage(Log log)
+        public MainPage(Log log, GodModel Initial_Master)
         {
             
             InitializeComponent();
-            Setup(log);
+            Setup(log, Initial_Master);
         }
         /// <summary>
         /// Quick setup funtion.
         /// Initializes required dictionaries and other global variables. 
         /// </summary>
-        private void Setup(Log log)
+        private void Setup(Log log, GodModel Initial_Master)
         {
-            // Add new initializations here!!
+            // Add new initializations here!!S
             MasterModel = new GodModel();
+            MasterModel = Initial_Master;
             fileSelector = new OpenFileDialog();
             Formlog = log;
             JsonFilePath = ConfigurationManager.AppSettings["Json-Path"];
             JsonFileName = ConfigurationManager.AppSettings["Json-File"];
+            directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
 
+<<<<<<< HEAD
             Ftp temp = new Ftp();
             Ftp temp2 = new Ftp();
             Scp Temp3 = new Scp();
@@ -88,6 +92,8 @@ namespace StatZilla.Forms
 
             addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
             //write_json();
+=======
+>>>>>>> Dev
 
         }
         #endregion
@@ -98,7 +104,9 @@ namespace StatZilla.Forms
         /// </summary>
         private void write_json()
         {
-            string file = JsonFilePath + JsonFileName;
+
+            string file = Path.Combine(Path.Combine(directory, JsonFilePath), JsonFileName);
+
             var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(MasterModel);
             File.WriteAllText(file, jsonString);
         }
@@ -326,10 +334,9 @@ namespace StatZilla.Forms
             string transfterMethod = newMethod.Type;
             string sessionName = newMethod.Name.ToString();
             string sessionStartTime = "Not Started";
-            if (newMethod.ShowDialog() == DialogResult.Cancel) { }
-            else
+            
             {
-       if (transfterMethod == "FTP") {
+       if ( transfterMethod == "FTP") {
                 //FtpProtocol newFtpMethod = new FtpProtocol(newMethod);
                 //newFtpMethod.ShowDialog();
 

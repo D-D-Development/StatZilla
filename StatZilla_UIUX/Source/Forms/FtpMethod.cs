@@ -13,7 +13,7 @@ namespace StatZilla.Forms
 {
     public partial class FtpProtocol : Form
     {
-        public Ftp ftpMethod { get; set; }
+        public Ftp ftpMethod = new Ftp();
         public MethodSelect backToMethodSelect;
 
         // Passing the Selector Method Form instance as a parameter to the constructor of FTP Method to be able to return to the previous page
@@ -59,7 +59,7 @@ namespace StatZilla.Forms
                 // this.ftpMethod.ftpDomain = hostBox.Text;
                 //this.ftpMethod.domainDestinationPath = hostDestinationPath.Text;
                 if (backToMethodSelect != null) { backToMethodSelect.Close(); }
-                else { this.Close(); }
+                this.Close();
 
             }
         }
@@ -75,7 +75,7 @@ namespace StatZilla.Forms
         private bool textBox_Validator()
         {
             // Check if text box empty 
-            if (usernameBox.Text == "" || passwdBox.Text == "" || hostBox.Text == "" || hostPathLabel.Text == "" || filenameBox.Text == "")
+            if (usernameBox.Text == "" || passwdBox.Text == "" || hostBox.Text == "" || hostDestinationPath.Text == "" || filenameBox.Text == "")
             {
                 MessageBox.Show("Please do not leave any text box empty");
                 // Log error
