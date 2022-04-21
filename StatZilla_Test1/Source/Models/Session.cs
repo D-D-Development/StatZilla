@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StatZilla.Forms;
 
-namespace StatZilla.Source.Models
+namespace StatZilla.Models
 {
     public class Session
     {

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StatZilla.Source.Models;
-
-namespace StatZilla.Models
+﻿namespace StatZilla.Models
 {
     public class Ftp:Session
     {

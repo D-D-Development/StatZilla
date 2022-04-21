@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
-
 namespace StatZilla.Models
 {
     public class GodModel
