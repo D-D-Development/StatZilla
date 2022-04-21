@@ -9,6 +9,13 @@ namespace StatZilla_Services
         {
             var exitCode = HostFactory.Run( x => {
 
+                x.StartAutomatically(); // Start the service automatically
+
+                x.EnableServiceRecovery(rc =>
+                {
+                    rc.RestartService(1); // restart the service after 1 minute
+                });
+
                 x.Service<StatZillaService>(s => {
 
                     s.ConstructUsing(statzilla => new StatZillaService());
