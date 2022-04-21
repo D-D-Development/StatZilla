@@ -71,6 +71,7 @@ namespace StatZilla_Services
             watcherJson.Error += OnError;
             watcherJson.Filter = "*.json";
         }
+
         private void WatchAndSend_F2S()
         {
             watcherF2S = new FileSystemWatcher();
