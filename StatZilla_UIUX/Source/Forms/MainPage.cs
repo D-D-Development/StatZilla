@@ -86,7 +86,7 @@ namespace StatZilla.Forms
             MasterModel.ftpDict.Add("trsvrdag", temp2);
             MasterModel.ftpDict.Add("trsvrdga", temp2);
 
-            addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "NOT STarted");
+            addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
             //write_json();
 
         }
@@ -573,6 +573,7 @@ namespace StatZilla.Forms
         {
             if (masterSwitchButton.Checked == true)
             {
+                
                 MasterModel.IsMasterActive = true;
                 addMethodButton.Enabled = true;
                 listviewTransferList.Enabled = true;
@@ -581,6 +582,7 @@ namespace StatZilla.Forms
                 playButton.Enabled = true;
                 stopButton.Enabled = true;
                 lockButton.Enabled = true;
+                saveButton.Enabled = true;
             }
             else if (masterSwitchButton.Checked == false)
             {
@@ -592,6 +594,7 @@ namespace StatZilla.Forms
                 playButton.Enabled = false;
                 stopButton.Enabled = false;
                 lockButton.Enabled = false;
+                saveButton.Enabled = false;
             }
         }
         #endregion
