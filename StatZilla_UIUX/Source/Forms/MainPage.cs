@@ -32,62 +32,32 @@ namespace StatZilla.Forms
         public Log Formlog;
         OpenFileDialog fileSelector;
         string masterFilename;
+        string directory;
         string JsonFilePath, JsonFileName;
 
         #endregion
 
-        public MainPage(Log log)
+        public MainPage(Log log, GodModel Initial_Master)
         {
             
             InitializeComponent();
-            Setup(log);
+            Setup(log, Initial_Master);
         }
         /// <summary>
         /// Quick setup funtion.
         /// Initializes required dictionaries and other global variables. 
         /// </summary>
-        private void Setup(Log log)
+        private void Setup(Log log, GodModel Initial_Master)
         {
-            // Add new initializations here!!
+            // Add new initializations here!!S
             MasterModel = new GodModel();
+            MasterModel = Initial_Master;
             fileSelector = new OpenFileDialog();
             Formlog = log;
             JsonFilePath = ConfigurationManager.AppSettings["Json-Path"];
             JsonFileName = ConfigurationManager.AppSettings["Json-File"];
+            directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
 
-            Ftp temp = new Ftp();
-            Ftp temp2 = new Ftp();
-            Scp Temp3 = new Scp();
-            S3Bucket Temp5 = new S3Bucket();
-
-            // TEST DATA
-            temp.isActive = false;
-            temp.sessionName = "TEST 1";
-            temp.sessionFilename = "fileTest.txt";
-            temp.sessionType = "FTP";
-            temp.sessionStatus = false;
-            temp.user = "tester1";
-            temp.pass = "abcd1234";
-            temp.ftpDomain = "MY DOMAIN";
-            temp.domainDestinationPath = "Desktop";
-
-            temp2.user = "gfef";
-            temp2.isActive = false;
-            temp2.pass = "fesf";
-            temp2.sessionFilename = "Nothing.txt";
-            Temp3.isActive = true;
-            Temp3.password = "tesfg";
-            Temp5.isActive = true;
-            Temp5.sessionName = "test";
-            MasterModel.ftpDict.Add(temp.sessionName, temp);
-            MasterModel.ftpDict.Add("trsvrdasfg", temp);
-            MasterModel.ftpDict.Add("trsvrdafd", temp);
-            MasterModel.ftpDict.Add("trsvrdagh", temp);
-            MasterModel.ftpDict.Add("trsvrdag", temp2);
-            MasterModel.ftpDict.Add("trsvrdga", temp2);
-
-            addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "NOT STarted");
-            //write_json();
 
         }
         #endregion
@@ -98,7 +68,9 @@ namespace StatZilla.Forms
         /// </summary>
         private void write_json()
         {
-            string file = JsonFilePath + JsonFileName;
+
+            string file = Path.Combine(Path.Combine(directory, JsonFilePath), JsonFileName);
+
             var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(MasterModel);
             File.WriteAllText(file, jsonString);
         }
@@ -326,10 +298,9 @@ namespace StatZilla.Forms
             string transfterMethod = newMethod.Type;
             string sessionName = newMethod.Name.ToString();
             string sessionStartTime = "Not Started";
-            if (newMethod.ShowDialog() == DialogResult.Cancel) { }
-            else
+            
             {
-       if (transfterMethod == "FTP") {
+       if ( transfterMethod == "FTP") {
                 //FtpProtocol newFtpMethod = new FtpProtocol(newMethod);
                 //newFtpMethod.ShowDialog();
 
@@ -581,6 +552,7 @@ namespace StatZilla.Forms
                 playButton.Enabled = true;
                 stopButton.Enabled = true;
                 lockButton.Enabled = true;
+                saveButton.Enabled = true;
             }
             else if (masterSwitchButton.Checked == false)
             {
@@ -592,6 +564,7 @@ namespace StatZilla.Forms
                 playButton.Enabled = false;
                 stopButton.Enabled = false;
                 lockButton.Enabled = false;
+                saveButton.Enabled = false;
             }
         }
         #endregion

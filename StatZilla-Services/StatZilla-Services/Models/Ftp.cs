@@ -13,16 +13,17 @@ namespace StatZilla_Services.Models
         public string pass { get; set; }
         public string ftpDomain { get; set; }
         public string domainDestinationPath { get; set; }
-        
-        
-        
+
+
+
         public Ftp() { }
-        public Ftp( string domain, string username, string pswd, string path)
+        public Ftp(string domain, string username, string pswd, string path, string filename)
         {
             ftpDomain = domain;
-            user = username ;
+            user = username;
             pass = pswd;
             domainDestinationPath = path;
+            sessionFilename = filename;
         }
     }
 }

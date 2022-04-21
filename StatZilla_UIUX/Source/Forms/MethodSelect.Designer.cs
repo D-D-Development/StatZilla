@@ -29,6 +29,7 @@ namespace StatZilla.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MethodSelect));
             this.nextButton = new System.Windows.Forms.Button();
             this.DomainNicknameBox = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
@@ -43,10 +44,9 @@ namespace StatZilla.Forms
             // 
             this.nextButton.BackColor = System.Drawing.Color.Gold;
             this.nextButton.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.nextButton.Location = new System.Drawing.Point(900, 518);
-            this.nextButton.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
+            this.nextButton.Location = new System.Drawing.Point(315, 162);
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(214, 75);
+            this.nextButton.Size = new System.Drawing.Size(75, 23);
             this.nextButton.TabIndex = 6;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = false;
@@ -54,39 +54,36 @@ namespace StatZilla.Forms
             // 
             // DomainNicknameBox
             // 
-            this.DomainNicknameBox.Location = new System.Drawing.Point(142, 157);
-            this.DomainNicknameBox.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
+            this.DomainNicknameBox.Location = new System.Drawing.Point(50, 49);
             this.DomainNicknameBox.Name = "DomainNicknameBox";
-            this.DomainNicknameBox.Size = new System.Drawing.Size(968, 55);
+            this.DomainNicknameBox.Size = new System.Drawing.Size(341, 23);
             this.DomainNicknameBox.TabIndex = 14;
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(142, 100);
-            this.nameLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.nameLabel.Location = new System.Drawing.Point(50, 31);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(243, 48);
+            this.nameLabel.Size = new System.Drawing.Size(81, 15);
             this.nameLabel.TabIndex = 15;
             this.nameLabel.Text = "Session Name";
             // 
             // Typelabel2
             // 
             this.Typelabel2.AutoSize = true;
-            this.Typelabel2.Location = new System.Drawing.Point(142, 246);
-            this.Typelabel2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.Typelabel2.Location = new System.Drawing.Point(50, 77);
             this.Typelabel2.Name = "Typelabel2";
-            this.Typelabel2.Size = new System.Drawing.Size(94, 48);
+            this.Typelabel2.Size = new System.Drawing.Size(31, 15);
             this.Typelabel2.TabIndex = 16;
             this.Typelabel2.Text = "Type";
             // 
             // ftpRadioButton
             // 
             this.ftpRadioButton.AutoSize = true;
-            this.ftpRadioButton.Location = new System.Drawing.Point(146, 328);
-            this.ftpRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ftpRadioButton.Location = new System.Drawing.Point(51, 102);
+            this.ftpRadioButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.ftpRadioButton.Name = "ftpRadioButton";
-            this.ftpRadioButton.Size = new System.Drawing.Size(121, 52);
+            this.ftpRadioButton.Size = new System.Drawing.Size(44, 19);
             this.ftpRadioButton.TabIndex = 17;
             this.ftpRadioButton.TabStop = true;
             this.ftpRadioButton.Text = "FTP";
@@ -95,10 +92,10 @@ namespace StatZilla.Forms
             // s3radioButton
             // 
             this.s3radioButton.AutoSize = true;
-            this.s3radioButton.Location = new System.Drawing.Point(352, 328);
-            this.s3radioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.s3radioButton.Location = new System.Drawing.Point(123, 102);
+            this.s3radioButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.s3radioButton.Name = "s3radioButton";
-            this.s3radioButton.Size = new System.Drawing.Size(102, 52);
+            this.s3radioButton.Size = new System.Drawing.Size(37, 19);
             this.s3radioButton.TabIndex = 18;
             this.s3radioButton.TabStop = true;
             this.s3radioButton.Text = "S3";
@@ -108,10 +105,10 @@ namespace StatZilla.Forms
             // 
             this.scpRadioButton.AutoSize = true;
             this.scpRadioButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.scpRadioButton.Location = new System.Drawing.Point(564, 328);
-            this.scpRadioButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scpRadioButton.Location = new System.Drawing.Point(197, 102);
+            this.scpRadioButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.scpRadioButton.Name = "scpRadioButton";
-            this.scpRadioButton.Size = new System.Drawing.Size(125, 52);
+            this.scpRadioButton.Size = new System.Drawing.Size(46, 19);
             this.scpRadioButton.TabIndex = 19;
             this.scpRadioButton.TabStop = true;
             this.scpRadioButton.Text = "SCP";
@@ -121,10 +118,10 @@ namespace StatZilla.Forms
             // 
             this.button1.BackColor = System.Drawing.Color.Gold;
             this.button1.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.button1.Location = new System.Drawing.Point(146, 522);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(51, 163);
+            this.button1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(224, 69);
+            this.button1.Size = new System.Drawing.Size(78, 22);
             this.button1.TabIndex = 20;
             this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = false;
@@ -132,9 +129,9 @@ namespace StatZilla.Forms
             // 
             // MethodSelect
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(20F, 48F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1216, 682);
+            this.ClientSize = new System.Drawing.Size(426, 213);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.scpRadioButton);
             this.Controls.Add(this.s3radioButton);
@@ -143,7 +140,7 @@ namespace StatZilla.Forms
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.DomainNicknameBox);
             this.Controls.Add(this.nextButton);
-            this.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MethodSelect";
