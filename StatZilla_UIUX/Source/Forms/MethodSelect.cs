@@ -19,21 +19,43 @@ namespace StatZilla.Forms
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public FtpProtocol FtpForm;
+        public SCP_Protocol ScpForm;
+        public S3_Protocol s3Form;
 
         public MethodSelect()
         {
             InitializeComponent();
         }
 
+        public MethodSelect(MethodSelect returnToForm)
+        {
+            InitializeComponent();
+            returnToForm.Show();
+        }
+
+        private void changeForm()
+        {
+            this.Hide();
+
+            if (ftpRadioButton.Checked == true) { FtpForm = new FtpProtocol(this);  FtpForm.ShowDialog(); }
+               
+            else if (s3radioButton.Checked == true) { s3Form = new S3_Protocol(this); s3Form.ShowDialog(); }
+               
+            else if (scpRadioButton.Checked == true) { ScpForm = new SCP_Protocol(this); ScpForm.ShowDialog(); }
+              
+            else
+                MessageBox.Show("Please Select a transfer type.");
+        }
+
         private void nextButton_Click(object sender, EventArgs e)
         {
             if(textBox_Validator())
             {
-
                 this.Name = DomainNicknameBox.Text;
                 this.Type = getType();
-      
-                this.Close();
+                
+                changeForm();
             }
            
         }
@@ -72,6 +94,11 @@ namespace StatZilla.Forms
         private void MethodSelect_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

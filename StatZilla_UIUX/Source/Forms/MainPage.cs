@@ -31,7 +31,7 @@ namespace StatZilla.Forms
         GodModel MasterModel;
         public Log Formlog;
         OpenFileDialog fileSelector;
-        string filePath, masterFile;
+        string masterFilename;
         string JsonFilePath, JsonFileName;
 
         #endregion
@@ -215,6 +215,10 @@ namespace StatZilla.Forms
                 selectFile();
         }
 
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            write_json();
+        }
 
 
         #endregion
@@ -322,13 +326,15 @@ namespace StatZilla.Forms
             string transfterMethod = newMethod.Type;
             string sessionName = newMethod.Name.ToString();
             string sessionStartTime = "Not Started";
-
-            if (transfterMethod == "FTP") {
-                FtpProtocol newFtpMethod = new FtpProtocol();
-                newFtpMethod.ShowDialog();
+            if (newMethod.ShowDialog() == DialogResult.Cancel) { }
+            else
+            {
+       if (transfterMethod == "FTP") {
+                //FtpProtocol newFtpMethod = new FtpProtocol(newMethod);
+                //newFtpMethod.ShowDialog();
 
                 // Create a new instance of the FTP method
-                Ftp newFtp = newFtpMethod.ftpMethod;
+                Ftp newFtp = newMethod.FtpForm.ftpMethod;//newFtpMethod.ftpMethod;
                 {
                     // Initialize Session values
                     newFtp.sessionName = sessionName;
@@ -378,6 +384,9 @@ namespace StatZilla.Forms
                 }
             }
 
+            }
+     
+
             
         }
 
@@ -385,6 +394,7 @@ namespace StatZilla.Forms
 
         #region List View Properties
 
+        
         string ONorOFF(bool status)
         {
             if (status) return "ON";
@@ -407,8 +417,7 @@ namespace StatZilla.Forms
                 var selected = MasterModel.ftpDict[currentSession];
                 // Open selected form with values from the Dictionary List
                 FtpProtocol editFTP = new FtpProtocol(selected);
-                editFTP.displayMethod();
-                editFTP.ShowDialog();
+                
 
                 Ftp updatedFTP = editFTP.ftpMethod;
                 
@@ -498,10 +507,21 @@ namespace StatZilla.Forms
         /// <summary>
         /// 
         /// </summary>
-        private void removeItem()
+        private void removeItem(string type)
         {
-            if (MessageBox.Show("Are you sure you want to delete this? ", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            var sessionToDelete = listviewTransferList.SelectedItems[0].SubItems[0].Text;
+            if (MessageBox.Show("Are you sure you want to delete *"+ sessionToDelete + "* ?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            {
+                // Update List view 
                 listviewTransferList.Items.RemoveAt(listviewTransferList.SelectedIndices[0]);
+                // Updade Dictionaries
+                if (type == "FTP")
+                    MasterModel.ftpDict.Remove(sessionToDelete);
+                else if (type == "SCP")
+                    MasterModel.SCPDict.Remove(sessionToDelete);
+                else if (type == "S3")
+                    MasterModel.S3Dict.Remove(sessionToDelete);
+            }   
         }
         /// <summary>
         /// 
@@ -529,6 +549,18 @@ namespace StatZilla.Forms
             string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
             editSession(searchedItemType);
         }
+
+        private void listviewTransferList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                if(listviewTransferList.SelectedItems.Count > 0)
+                {
+                    string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+                    removeItem(searchedItemType);
+                }
+            }
+        }
         #endregion
 
         #region Master Switch
@@ -541,6 +573,7 @@ namespace StatZilla.Forms
         {
             if (masterSwitchButton.Checked == true)
             {
+                MasterModel.IsMasterActive = true;
                 addMethodButton.Enabled = true;
                 listviewTransferList.Enabled = true;
                 browseButton.Enabled = true;
@@ -551,6 +584,7 @@ namespace StatZilla.Forms
             }
             else if (masterSwitchButton.Checked == false)
             {
+                MasterModel.IsMasterActive = false;
                 addMethodButton.Enabled = false;
                 listviewTransferList.Enabled = false;
                 browseButton.Enabled = false;
@@ -611,13 +645,82 @@ namespace StatZilla.Forms
             if(fileSelector.ShowDialog() == DialogResult.OK)
             {
                 selectorBox.Text = fileSelector.FileName;
-                filePath = fileSelector.FileName;
-
+                MasterModel.masterFilePath = fileSelector.FileName;
+                
                 // Parse the file path for filename 
-                string[] path = filePath.Split('\\');
-                masterFile = path[path.Length - 1];
+                //string[] path = MasterModel.masterFilePath.Split('\\');
+                //masterFilename = path[path.Length - 1];
+
+                //fileSelector.InitialDirectory.ToString();
+                CreateFileWatcher();
             }
         }
+
+
+
+        public void CreateFileWatcher()
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher();
+
+            watcher = new FileSystemWatcher();
+            watcher.Path = Path.GetDirectoryName(MasterModel.masterFilePath);
+            watcher.Filter = Path.GetFileName(MasterModel.masterFilePath);
+            /* Watch for changes in LastWrite times, and the renaming of files or directories. */
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.Changed += OnChanged;
+            //watcher.Renamed += new RenamedEventHandler(OnRenamed);
+
+            // Begin watching.
+            watcher.EnableRaisingEvents = true;
+        }
+
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            // If notified changed not equal to specified one exit function
+            if (e.ChangeType != WatcherChangeTypes.Changed)
+                return;
+
+            FileInfo file = new FileInfo(MasterModel.masterFilePath);
+            var lastModified = file.LastWriteTime;
+            // List view Item are updated one at the time, So Call BegingUpdate to ensure
+            // The list is painted only once, rather than as each list item is updated
+            listviewTransferList.BeginUpdate();
+            // Update FTP List 
+            foreach (var ftp in MasterModel.ftpDict)
+            {
+                if (ftp.Value.sessionStatus)
+                {
+                    // If the current FTP session is active update last time the master file was modified
+                    ftp.Value.sessionLastUpdate = lastModified;
+                }
+            }
+
+            // Update SCP List
+            foreach (var scp in MasterModel.SCPDict)
+            {
+                if (scp.Value.sessionStatus)
+                {
+                    // If the current scp session is active update last time the master file was modified
+                }
+            }
+            // Update S3 List 
+            foreach (var s3 in MasterModel.ftpDict)
+            {
+                if (s3.Value.sessionStatus)
+                {
+                    // If the current s3 session is active update last time the master file was modified
+                }
+            }
+
+            listviewTransferList.EndUpdate();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+ 
+        }
+
+
 
         /// <summary>
         /// 

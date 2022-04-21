@@ -14,6 +14,8 @@ namespace StatZilla.Forms
     public partial class SCP_Protocol : Form
     {
         public Scp scpMethod { set; get; }
+        public MethodSelect backToMethodSelect;
+
 
         public SCP_Protocol(Scp currentMethod)
         {
@@ -22,6 +24,11 @@ namespace StatZilla.Forms
         public SCP_Protocol()
         {
             InitializeComponent();
+        }
+        public SCP_Protocol(MethodSelect prevForm)
+        {
+            InitializeComponent();
+            backToMethodSelect = prevForm;
         }
 
         private void SCPMethod_Load(object sender, EventArgs e)
@@ -40,6 +47,8 @@ namespace StatZilla.Forms
 
             scpMethod = temp;
 
+            // Close Both Previous Method
+            backToMethodSelect.Close();
             this.Close();
         }
 

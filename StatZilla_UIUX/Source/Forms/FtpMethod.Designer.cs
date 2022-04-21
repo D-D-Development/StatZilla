@@ -67,7 +67,7 @@ namespace StatZilla.Forms
             // usernameBox
             // 
             this.usernameBox.Location = new System.Drawing.Point(46, 134);
-            this.usernameBox.Margin = new System.Windows.Forms.Padding(2);
+            this.usernameBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.usernameBox.Name = "usernameBox";
             this.usernameBox.Size = new System.Drawing.Size(650, 31);
             this.usernameBox.TabIndex = 2;
@@ -75,7 +75,7 @@ namespace StatZilla.Forms
             // hostBox
             // 
             this.hostBox.Location = new System.Drawing.Point(46, 281);
-            this.hostBox.Margin = new System.Windows.Forms.Padding(2);
+            this.hostBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.hostBox.Name = "hostBox";
             this.hostBox.Size = new System.Drawing.Size(650, 31);
             this.hostBox.TabIndex = 4;
@@ -93,7 +93,7 @@ namespace StatZilla.Forms
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Margin = new System.Windows.Forms.Padding(2);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(4, 512);
             this.splitter1.TabIndex = 6;
@@ -112,7 +112,7 @@ namespace StatZilla.Forms
             // hostDestinationPath
             // 
             this.hostDestinationPath.Location = new System.Drawing.Point(46, 341);
-            this.hostDestinationPath.Margin = new System.Windows.Forms.Padding(2);
+            this.hostDestinationPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.hostDestinationPath.Name = "hostDestinationPath";
             this.hostDestinationPath.Size = new System.Drawing.Size(650, 31);
             this.hostDestinationPath.TabIndex = 8;
@@ -122,7 +122,7 @@ namespace StatZilla.Forms
             this.addNewMethodButton.BackColor = System.Drawing.Color.Gold;
             this.addNewMethodButton.ForeColor = System.Drawing.SystemColors.Desktop;
             this.addNewMethodButton.Location = new System.Drawing.Point(515, 425);
-            this.addNewMethodButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addNewMethodButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addNewMethodButton.Name = "addNewMethodButton";
             this.addNewMethodButton.Size = new System.Drawing.Size(180, 36);
             this.addNewMethodButton.TabIndex = 9;
@@ -135,17 +135,18 @@ namespace StatZilla.Forms
             this.returnToSelectMethodButton.BackColor = System.Drawing.Color.Gold;
             this.returnToSelectMethodButton.ForeColor = System.Drawing.SystemColors.Desktop;
             this.returnToSelectMethodButton.Location = new System.Drawing.Point(46, 425);
-            this.returnToSelectMethodButton.Margin = new System.Windows.Forms.Padding(2);
+            this.returnToSelectMethodButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.returnToSelectMethodButton.Name = "returnToSelectMethodButton";
             this.returnToSelectMethodButton.Size = new System.Drawing.Size(125, 36);
             this.returnToSelectMethodButton.TabIndex = 10;
             this.returnToSelectMethodButton.Text = "Back";
             this.returnToSelectMethodButton.UseVisualStyleBackColor = false;
+            this.returnToSelectMethodButton.Click += new System.EventHandler(this.returnToSelectMethodButton_Click);
             // 
             // passwdBox
             // 
             this.passwdBox.Location = new System.Drawing.Point(46, 204);
-            this.passwdBox.Margin = new System.Windows.Forms.Padding(2);
+            this.passwdBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.passwdBox.Name = "passwdBox";
             this.passwdBox.PasswordChar = '*';
             this.passwdBox.Size = new System.Drawing.Size(650, 31);
@@ -154,7 +155,7 @@ namespace StatZilla.Forms
             // filenameBox
             // 
             this.filenameBox.Location = new System.Drawing.Point(46, 74);
-            this.filenameBox.Margin = new System.Windows.Forms.Padding(2);
+            this.filenameBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.filenameBox.Name = "filenameBox";
             this.filenameBox.Size = new System.Drawing.Size(650, 31);
             this.filenameBox.TabIndex = 11;
@@ -187,10 +188,11 @@ namespace StatZilla.Forms
             this.Controls.Add(this.usernameBox);
             this.Controls.Add(this.pswdLabel);
             this.Controls.Add(this.usernameLabel);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FtpProtocol";
             this.Text = "FTP Protocol";
             this.Load += new System.EventHandler(this.FtpProtocol_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FtpProtocol_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
