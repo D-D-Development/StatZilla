@@ -15,7 +15,11 @@ namespace StatZilla
         // This is a test Comment
         public static Log Log;
         static string logFilePath;
+        static string jsonPath;
+        static string jsonFile;
         static Stream logFileStream;
+        static string directory;
+        static GodModel intial_Master;
         static DateTime RunDateTime = DateTime.Now;
 
         /// <summary>
@@ -36,24 +40,54 @@ namespace StatZilla
 
 
         }
+        static void ReadCurrentSettings()
+        {
+            GodModel tempModel = new GodModel();
+            string json = "";
+            string jsoninitialPath = Path.Combine(Path.Combine(directory, jsonPath), jsonFile);
+            using (StreamReader r = new StreamReader(jsoninitialPath))
+            {
+                json = r.ReadToEnd();
+                r.Close();
+                r.Dispose();
+            }
+            if (json != "")
+            {
+                tempModel = Newtonsoft.Json.JsonConvert.DeserializeObject<GodModel>(json);
+                
+            }
+
+            intial_Master = tempModel;
+        }
 
 
         static void Setup()
         {
             // Setting up log directory
             var logPath = ConfigurationManager.AppSettings["log"];
-            if (!Directory.Exists(logPath))
+            directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
+            if (!Directory.Exists(Path.Combine(directory,logPath)))
             {
-                Directory.CreateDirectory(logPath);
+                Directory.CreateDirectory(Path.Combine(directory, logPath));
             }
-
             var logFormat = ConfigurationManager.AppSettings["log-format"];
-            logFilePath = Path.Combine(logPath, $"{RunDateTime.ToString(logFormat)}.log");
+            logFilePath = Path.Combine(Path.Combine(directory, logPath), $"{RunDateTime.ToString(logFormat)}.log");
             logFileStream = File.Open(logFilePath, FileMode.Append, FileAccess.Write);
             Log = new Log(logFileStream, Console.OpenStandardOutput());
 
+            //setting up Json directory
+             jsonPath = ConfigurationManager.AppSettings["Json-Path"];
+             jsonFile = ConfigurationManager.AppSettings["Json-File"];
+            if (!Directory.Exists(Path.Combine(directory, jsonPath)))
+            {
+                Directory.CreateDirectory(Path.Combine(directory, jsonPath));
+            }
+            if(!File.Exists(Path.Combine(Path.Combine(directory, jsonPath), jsonFile)))
+            {
+                File.Create(Path.Combine(Path.Combine(directory, jsonPath), jsonFile));
+            }
 
-
+            ReadCurrentSettings();
         }
        
     }
