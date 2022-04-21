@@ -16,12 +16,6 @@ using StatZilla.Utility;
 
 namespace StatZilla.Forms
 {
-    public enum MethodType
-    {
-        FTP,
-        SCP,
-        S3,
-    }
     public partial class MainPage : Form
     {
         #region Initializing and Setup
@@ -71,7 +65,7 @@ namespace StatZilla.Forms
             temp.sessionName = "TEST 1";
             temp.sessionFilename = "fileTest.txt";
             temp.sessionType = "FTP";
-            temp.sessionStatus = "OFF";
+            temp.sessionStatus = false;
             temp.user = "tester1";
             temp.pass = "abcd1234";
             temp.ftpDomain = "MY DOMAIN";
@@ -92,7 +86,7 @@ namespace StatZilla.Forms
             MasterModel.ftpDict.Add("trsvrdag", temp2);
             MasterModel.ftpDict.Add("trsvrdga", temp2);
 
-            addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, temp.sessionStatus, "NOT STarted");
+            addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "NOT STarted");
             //write_json();
 
         }
@@ -319,11 +313,8 @@ namespace StatZilla.Forms
         /// 
         /// </summary>
         /// <returns></returns>
-        private MethodType createNewMethod()
+        private void createNewMethod()
         {
-  
-            MethodType currentType = MethodType.FTP;
-
             // Open a new Form to insert new FTP method variables 
             MethodSelect newMethod = new MethodSelect();
             newMethod.ShowDialog();
@@ -342,12 +333,12 @@ namespace StatZilla.Forms
                     // Initialize Session values
                     newFtp.sessionName = sessionName;
                     newFtp.sessionType = transfterMethod;
-                    newFtp.sessionStatus = "OFF";
+                    newFtp.sessionStatus = false;
                     newFtp.sessionLastUpdate = DateTime.Now;
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
                     MasterModel.ftpDict.Add(newFtp.sessionName, newFtp);
-                    addToList(newFtp.sessionName, newFtp.sessionFilename, newFtp.sessionType, newFtp.sessionStatus, sessionStartTime);
+                    addToList(newFtp.sessionName, newFtp.sessionFilename, newFtp.sessionType, ONorOFF(newFtp.sessionStatus), sessionStartTime);
                     //JSON function will go here
                     //ftps.Add(newFtp);
                 }
@@ -362,11 +353,11 @@ namespace StatZilla.Forms
                     {
                         newSCP.sessionName = sessionName;
                         newSCP.sessionType = transfterMethod;
-                        newSCP.sessionStatus = "OFF";
+                        newSCP.sessionStatus = false;
                         newSCP.sessionLastUpdate = DateTime.Now;
                     }
                     //MasterModel.ftpDict.Add(sessionName, newFtp);
-                    addToList(newSCP.sessionName, newSCP.sessionFilename, newSCP.sessionType, newSCP.sessionStatus, sessionStartTime);
+                    addToList(newSCP.sessionName, newSCP.sessionFilename, newSCP.sessionType, ONorOFF(newSCP.sessionStatus), sessionStartTime);
                 }
                 //JSON function will go here
             }
@@ -380,20 +371,25 @@ namespace StatZilla.Forms
                     {
                         newS3.sessionName = sessionName;
                         newS3.sessionType = transfterMethod;
-                        newS3.sessionStatus = "OFF";
+                        newS3.sessionStatus = false;
                         newS3.sessionLastUpdate = DateTime.Now;
                     }
-                    addToList(newS3.sessionName, newS3.sessionFilename, newS3.sessionType, newS3.sessionStatus, sessionStartTime);
+                    addToList(newS3.sessionName, newS3.sessionFilename, newS3.sessionType, ONorOFF(newS3.sessionStatus), sessionStartTime);
                 }
             }
 
-            return currentType;
+            
         }
 
         #endregion
 
         #region List View Properties
 
+        string ONorOFF(bool status)
+        {
+            if (status) return "ON";
+            else return "OFF";
+        }
 
         /// <summary>
         /// 
@@ -419,8 +415,9 @@ namespace StatZilla.Forms
                 // Update list of FTP 
                 updateFTPTable(currentSession, updatedFTP);
 
-                // Update list view
-                updateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, updatedFTP.sessionStatus, "Not Started");
+                
+                if(updatedFTP.sessionStatus == true) updateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, ONorOFF(updatedFTP.sessionStatus), "Not Started");
+                else updateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, "ON", "Not Started");
 
             }
             else if (type == "SCP")
