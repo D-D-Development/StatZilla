@@ -10,9 +10,9 @@ namespace StatZilla.Source.Models
     public class Session
     {
         public string sessionName { get; set; }
-        public MethodType sessionType { get; set; }
+        public string sessionType { get; set; }
         public string sessionFilename { get; set; }
-        public bool sessionStatus { get; set; }
-        public int sessionLastUpdate { get; set; }
+        public string sessionStatus { get; set; }
+        public DateTime sessionLastUpdate { get; set; }
     } 
 }

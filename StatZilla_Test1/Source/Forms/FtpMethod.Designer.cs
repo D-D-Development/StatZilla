@@ -40,94 +40,93 @@ namespace StatZilla.Forms
             this.addNewMethodButton = new System.Windows.Forms.Button();
             this.returnToSelectMethodButton = new System.Windows.Forms.Button();
             this.passwdBox = new System.Windows.Forms.TextBox();
+            this.filenameBox = new System.Windows.Forms.TextBox();
+            this.filenameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usernameLabel
             // 
             this.usernameLabel.AutoSize = true;
-            this.usernameLabel.Location = new System.Drawing.Point(90, 77);
-            this.usernameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.usernameLabel.Location = new System.Drawing.Point(46, 107);
+            this.usernameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(188, 48);
+            this.usernameLabel.Size = new System.Drawing.Size(95, 25);
             this.usernameLabel.TabIndex = 0;
             this.usernameLabel.Text = "Username:";
             // 
             // pswdLabel
             // 
             this.pswdLabel.AutoSize = true;
-            this.pswdLabel.Location = new System.Drawing.Point(90, 211);
-            this.pswdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pswdLabel.Location = new System.Drawing.Point(46, 177);
+            this.pswdLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.pswdLabel.Name = "pswdLabel";
-            this.pswdLabel.Size = new System.Drawing.Size(176, 48);
+            this.pswdLabel.Size = new System.Drawing.Size(91, 25);
             this.pswdLabel.TabIndex = 1;
             this.pswdLabel.Text = "Password:";
-            this.pswdLabel.Click += new System.EventHandler(this.pswdLabel_Click);
             // 
             // usernameBox
             // 
-            this.usernameBox.Location = new System.Drawing.Point(90, 129);
-            this.usernameBox.Margin = new System.Windows.Forms.Padding(4);
+            this.usernameBox.Location = new System.Drawing.Point(46, 134);
+            this.usernameBox.Margin = new System.Windows.Forms.Padding(2);
             this.usernameBox.Name = "usernameBox";
-            this.usernameBox.Size = new System.Drawing.Size(504, 55);
+            this.usernameBox.Size = new System.Drawing.Size(650, 31);
             this.usernameBox.TabIndex = 2;
             // 
             // hostBox
             // 
-            this.hostBox.Location = new System.Drawing.Point(90, 410);
-            this.hostBox.Margin = new System.Windows.Forms.Padding(4);
+            this.hostBox.Location = new System.Drawing.Point(46, 281);
+            this.hostBox.Margin = new System.Windows.Forms.Padding(2);
             this.hostBox.Name = "hostBox";
-            this.hostBox.Size = new System.Drawing.Size(712, 55);
+            this.hostBox.Size = new System.Drawing.Size(650, 31);
             this.hostBox.TabIndex = 4;
             // 
             // hostLabel
             // 
             this.hostLabel.AutoSize = true;
-            this.hostLabel.Location = new System.Drawing.Point(90, 358);
-            this.hostLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.hostLabel.Location = new System.Drawing.Point(46, 253);
+            this.hostLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.hostLabel.Name = "hostLabel";
-            this.hostLabel.Size = new System.Drawing.Size(102, 48);
+            this.hostLabel.Size = new System.Drawing.Size(54, 25);
             this.hostLabel.TabIndex = 5;
             this.hostLabel.Text = "Host:";
             // 
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Margin = new System.Windows.Forms.Padding(4);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(2);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(8, 983);
+            this.splitter1.Size = new System.Drawing.Size(4, 512);
             this.splitter1.TabIndex = 6;
             this.splitter1.TabStop = false;
             // 
             // hostPathLabel
             // 
             this.hostPathLabel.AutoSize = true;
-            this.hostPathLabel.Location = new System.Drawing.Point(90, 475);
-            this.hostPathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.hostPathLabel.Location = new System.Drawing.Point(46, 314);
+            this.hostPathLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.hostPathLabel.Name = "hostPathLabel";
-            this.hostPathLabel.Size = new System.Drawing.Size(97, 48);
+            this.hostPathLabel.Size = new System.Drawing.Size(50, 25);
             this.hostPathLabel.TabIndex = 7;
             this.hostPathLabel.Text = "Path:";
-            this.hostPathLabel.Click += new System.EventHandler(this.hostPathLabel_Click);
             // 
             // hostDestinationPath
             // 
-            this.hostDestinationPath.Location = new System.Drawing.Point(90, 527);
-            this.hostDestinationPath.Margin = new System.Windows.Forms.Padding(4);
+            this.hostDestinationPath.Location = new System.Drawing.Point(46, 341);
+            this.hostDestinationPath.Margin = new System.Windows.Forms.Padding(2);
             this.hostDestinationPath.Name = "hostDestinationPath";
-            this.hostDestinationPath.Size = new System.Drawing.Size(1372, 55);
+            this.hostDestinationPath.Size = new System.Drawing.Size(650, 31);
             this.hostDestinationPath.TabIndex = 8;
-            this.hostDestinationPath.TextChanged += new System.EventHandler(this.hostDestinationPath_TextChanged);
             // 
             // addNewMethodButton
             // 
             this.addNewMethodButton.BackColor = System.Drawing.Color.Gold;
             this.addNewMethodButton.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.addNewMethodButton.Location = new System.Drawing.Point(1154, 697);
-            this.addNewMethodButton.Margin = new System.Windows.Forms.Padding(4);
+            this.addNewMethodButton.Location = new System.Drawing.Point(515, 425);
+            this.addNewMethodButton.Margin = new System.Windows.Forms.Padding(2);
             this.addNewMethodButton.Name = "addNewMethodButton";
-            this.addNewMethodButton.Size = new System.Drawing.Size(308, 69);
+            this.addNewMethodButton.Size = new System.Drawing.Size(180, 36);
             this.addNewMethodButton.TabIndex = 9;
-            this.addNewMethodButton.Text = "Add Method";
+            this.addNewMethodButton.Text = "Add New Session";
             this.addNewMethodButton.UseVisualStyleBackColor = false;
             this.addNewMethodButton.Click += new System.EventHandler(this.addNewMethodButton_Click);
             // 
@@ -135,29 +134,48 @@ namespace StatZilla.Forms
             // 
             this.returnToSelectMethodButton.BackColor = System.Drawing.Color.Gold;
             this.returnToSelectMethodButton.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.returnToSelectMethodButton.Location = new System.Drawing.Point(58, 697);
-            this.returnToSelectMethodButton.Margin = new System.Windows.Forms.Padding(4);
+            this.returnToSelectMethodButton.Location = new System.Drawing.Point(46, 425);
+            this.returnToSelectMethodButton.Margin = new System.Windows.Forms.Padding(2);
             this.returnToSelectMethodButton.Name = "returnToSelectMethodButton";
-            this.returnToSelectMethodButton.Size = new System.Drawing.Size(224, 69);
+            this.returnToSelectMethodButton.Size = new System.Drawing.Size(125, 36);
             this.returnToSelectMethodButton.TabIndex = 10;
             this.returnToSelectMethodButton.Text = "Back";
             this.returnToSelectMethodButton.UseVisualStyleBackColor = false;
             // 
             // passwdBox
             // 
-            this.passwdBox.Location = new System.Drawing.Point(90, 263);
-            this.passwdBox.Margin = new System.Windows.Forms.Padding(4);
+            this.passwdBox.Location = new System.Drawing.Point(46, 204);
+            this.passwdBox.Margin = new System.Windows.Forms.Padding(2);
             this.passwdBox.Name = "passwdBox";
             this.passwdBox.PasswordChar = '*';
-            this.passwdBox.Size = new System.Drawing.Size(504, 55);
+            this.passwdBox.Size = new System.Drawing.Size(650, 31);
             this.passwdBox.TabIndex = 3;
-            this.passwdBox.TextChanged += new System.EventHandler(this.passwdBox_TextChanged);
+            // 
+            // filenameBox
+            // 
+            this.filenameBox.Location = new System.Drawing.Point(46, 74);
+            this.filenameBox.Margin = new System.Windows.Forms.Padding(2);
+            this.filenameBox.Name = "filenameBox";
+            this.filenameBox.Size = new System.Drawing.Size(650, 31);
+            this.filenameBox.TabIndex = 11;
+            // 
+            // filenameLabel
+            // 
+            this.filenameLabel.AutoSize = true;
+            this.filenameLabel.Location = new System.Drawing.Point(46, 47);
+            this.filenameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.filenameLabel.Name = "filenameLabel";
+            this.filenameLabel.Size = new System.Drawing.Size(86, 25);
+            this.filenameLabel.TabIndex = 12;
+            this.filenameLabel.Text = "Filename:";
             // 
             // FtpProtocol
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(20F, 48F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1560, 983);
+            this.ClientSize = new System.Drawing.Size(780, 512);
+            this.Controls.Add(this.filenameLabel);
+            this.Controls.Add(this.filenameBox);
             this.Controls.Add(this.returnToSelectMethodButton);
             this.Controls.Add(this.addNewMethodButton);
             this.Controls.Add(this.hostDestinationPath);
@@ -169,7 +187,7 @@ namespace StatZilla.Forms
             this.Controls.Add(this.usernameBox);
             this.Controls.Add(this.pswdLabel);
             this.Controls.Add(this.usernameLabel);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FtpProtocol";
             this.Text = "FTP Protocol";
             this.Load += new System.EventHandler(this.FtpProtocol_Load);
@@ -191,5 +209,7 @@ namespace StatZilla.Forms
         private System.Windows.Forms.Button addNewMethodButton;
         private System.Windows.Forms.Button returnToSelectMethodButton;
         private System.Windows.Forms.TextBox passwdBox;
+        private System.Windows.Forms.TextBox filenameBox;
+        private System.Windows.Forms.Label filenameLabel;
     }
 }

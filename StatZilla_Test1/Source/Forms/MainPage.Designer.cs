@@ -33,7 +33,6 @@ namespace StatZilla.Forms
             this.addMethodButton = new System.Windows.Forms.Button();
             this.lblAppName = new System.Windows.Forms.Label();
             this.currentMethodsLable = new System.Windows.Forms.Label();
-            this.sendMethodButton = new System.Windows.Forms.Button();
             this.masterSwitchButton = new System.Windows.Forms.CheckBox();
             this.listviewTransferList = new System.Windows.Forms.ListView();
             this.sessionName = new System.Windows.Forms.ColumnHeader();
@@ -54,14 +53,14 @@ namespace StatZilla.Forms
             this.addMethodButton.BackColor = System.Drawing.Color.Gold;
             this.addMethodButton.Enabled = false;
             this.addMethodButton.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.addMethodButton.Location = new System.Drawing.Point(64, 913);
+            this.addMethodButton.Location = new System.Drawing.Point(1336, 924);
             this.addMethodButton.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
             this.addMethodButton.Name = "addMethodButton";
             this.addMethodButton.Size = new System.Drawing.Size(250, 100);
             this.addMethodButton.TabIndex = 0;
             this.addMethodButton.Text = "Add Method";
             this.addMethodButton.UseVisualStyleBackColor = false;
-            this.addMethodButton.Click += new System.EventHandler(this.addMethod_Click);
+            this.addMethodButton.Click += new System.EventHandler(this.addMethod_Button);
             // 
             // lblAppName
             // 
@@ -86,23 +85,9 @@ namespace StatZilla.Forms
             this.currentMethodsLable.TabIndex = 2;
             this.currentMethodsLable.Text = "Current Methods";
             // 
-            // sendMethodButton
-            // 
-            this.sendMethodButton.BackColor = System.Drawing.Color.Gold;
-            this.sendMethodButton.Enabled = false;
-            this.sendMethodButton.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.sendMethodButton.Location = new System.Drawing.Point(1336, 913);
-            this.sendMethodButton.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
-            this.sendMethodButton.Name = "sendMethodButton";
-            this.sendMethodButton.Size = new System.Drawing.Size(250, 100);
-            this.sendMethodButton.TabIndex = 3;
-            this.sendMethodButton.Text = "Send";
-            this.sendMethodButton.UseVisualStyleBackColor = false;
-            this.sendMethodButton.Click += new System.EventHandler(this.button1_Click);
-            // 
             // masterSwitchButton
             // 
-            this.masterSwitchButton.Location = new System.Drawing.Point(816, 148);
+            this.masterSwitchButton.Location = new System.Drawing.Point(600, 150);
             this.masterSwitchButton.Margin = new System.Windows.Forms.Padding(8, 10, 8, 10);
             this.masterSwitchButton.Name = "masterSwitchButton";
             this.masterSwitchButton.Size = new System.Drawing.Size(326, 52);
@@ -127,7 +112,7 @@ namespace StatZilla.Forms
             this.listviewTransferList.Location = new System.Drawing.Point(64, 480);
             this.listviewTransferList.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listviewTransferList.Name = "listviewTransferList";
-            this.listviewTransferList.Size = new System.Drawing.Size(1522, 417);
+            this.listviewTransferList.Size = new System.Drawing.Size(1518, 417);
             this.listviewTransferList.TabIndex = 11;
             this.listviewTransferList.UseCompatibleStateImageBehavior = false;
             this.listviewTransferList.View = System.Windows.Forms.View.Details;
@@ -182,48 +167,58 @@ namespace StatZilla.Forms
             // browseButton
             // 
             this.browseButton.Enabled = false;
-            this.browseButton.Location = new System.Drawing.Point(1224, 311);
+            this.browseButton.Location = new System.Drawing.Point(1224, 307);
             this.browseButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(200, 55);
+            this.browseButton.Size = new System.Drawing.Size(220, 67);
             this.browseButton.TabIndex = 12;
             this.browseButton.Text = "Browse";
             this.browseButton.UseVisualStyleBackColor = true;
-            this.browseButton.Click += new System.EventHandler(this.browserClick);
+            this.browseButton.Click += new System.EventHandler(this.fileBrowser_Button);
             // 
             // playButton
             // 
             this.playButton.Enabled = false;
+            this.playButton.FlatAppearance.BorderSize = 0;
+            this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.playButton.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.playButton.Image = ((System.Drawing.Image)(resources.GetObject("playButton.Image")));
-            this.playButton.Location = new System.Drawing.Point(1596, 480);
+            this.playButton.Location = new System.Drawing.Point(1438, 399);
             this.playButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(70, 67);
             this.playButton.TabIndex = 15;
             this.playButton.UseVisualStyleBackColor = true;
+            this.playButton.Click += new System.EventHandler(this.start_Button);
             // 
             // stopButton
             // 
             this.stopButton.Enabled = false;
+            this.stopButton.FlatAppearance.BorderSize = 0;
+            this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.stopButton.Image = ((System.Drawing.Image)(resources.GetObject("stopButton.Image")));
-            this.stopButton.Location = new System.Drawing.Point(1674, 480);
+            this.stopButton.Location = new System.Drawing.Point(1516, 399);
             this.stopButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(70, 67);
             this.stopButton.TabIndex = 16;
             this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.stop_Button);
             // 
             // lockButton
             // 
+            this.lockButton.BackColor = System.Drawing.Color.Transparent;
             this.lockButton.Enabled = false;
+            this.lockButton.FlatAppearance.BorderSize = 0;
+            this.lockButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lockButton.Image = global::StatZilla.Properties.Resources.Lock_Lock_icon;
             this.lockButton.Location = new System.Drawing.Point(1146, 311);
             this.lockButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lockButton.Name = "lockButton";
-            this.lockButton.Size = new System.Drawing.Size(70, 55);
+            this.lockButton.Size = new System.Drawing.Size(70, 56);
             this.lockButton.TabIndex = 18;
-            this.lockButton.UseVisualStyleBackColor = true;
-            this.lockButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lockButton_Click);
+            this.lockButton.UseVisualStyleBackColor = false;
+            this.lockButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lockIcon_Button);
             // 
             // MainPage
             // 
@@ -238,7 +233,6 @@ namespace StatZilla.Forms
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.listviewTransferList);
             this.Controls.Add(this.masterSwitchButton);
-            this.Controls.Add(this.sendMethodButton);
             this.Controls.Add(this.currentMethodsLable);
             this.Controls.Add(this.lblAppName);
             this.Controls.Add(this.addMethodButton);
@@ -256,7 +250,6 @@ namespace StatZilla.Forms
         private System.Windows.Forms.Button addMethodButton;
         private System.Windows.Forms.Label lblAppName;
         private System.Windows.Forms.Label currentMethodsLable;
-        private System.Windows.Forms.Button sendMethodButton;
         private System.Windows.Forms.CheckBox masterSwitchButton;
         private System.Windows.Forms.ListView listviewTransferList;
         private System.Windows.Forms.ColumnHeader sessionName;
