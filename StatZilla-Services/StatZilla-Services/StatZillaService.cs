@@ -1,5 +1,6 @@
 ﻿using StatZilla_Services.Models;
 using StatZilla_Services.Services;
+using StatZilla_Services.Utility;
 using System;
 using System.IO;
 
@@ -10,7 +11,7 @@ namespace StatZilla_Services
     {
         Router uploader;
         GodModel master;
-        string jsonpath = $"output\\json";
+        string jsonpath = $"C:\\ProgramData\\StatZilla\\StatZilla\\output\\json";
         string masterfilepath = "";
         FileSystemWatcher watcherJson;
         FileSystemWatcher watcherF2S; // File 2 Send;
@@ -31,7 +32,7 @@ namespace StatZilla_Services
             
         }
 
-        public void Start()
+        public void Start(Log Log)
         {
             WatchAndUpdate_JSON();
             watcherJson.EnableRaisingEvents = true;
@@ -65,7 +66,7 @@ namespace StatZilla_Services
 
         private void WatchAndUpdate_JSON()
         {
-            watcherJson = new FileSystemWatcher(Directory.GetCurrentDirectory() + "\\" + jsonpath);
+            watcherJson = new FileSystemWatcher(jsonpath);
             watcherJson.NotifyFilter = NotifyFilters.LastWrite;
             watcherJson.Changed += OnChanged_Json;
             watcherJson.Error += OnError;
