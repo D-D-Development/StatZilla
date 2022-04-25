@@ -31,7 +31,6 @@ namespace StatZilla.Forms
         GodModel MasterModel;
         public Log Formlog;
         OpenFileDialog fileSelector;
-        string masterFilename;
         string directory;
         string JsonFilePath, JsonFileName;
 
@@ -58,29 +57,28 @@ namespace StatZilla.Forms
             JsonFileName = ConfigurationManager.AppSettings["Json-File"];
             directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
 
-<<<<<<< HEAD
-            Ftp temp = new Ftp();
-            Ftp temp2 = new Ftp();
-            Scp Temp3 = new Scp();
-            S3Bucket Temp5 = new S3Bucket();
+            Ftp temp = new();
+            Ftp temp2 = new();
+            Scp Temp3 = new();
+            S3Bucket Temp5 = new();
 
             // TEST DATA
-            temp.isActive = false;
+            temp.IsActive = false;
             temp.sessionName = "TEST 1";
             temp.sessionFilename = "fileTest.txt";
             temp.sessionType = "FTP";
             temp.sessionStatus = false;
-            temp.user = "tester1";
-            temp.pass = "abcd1234";
-            temp.ftpDomain = "MY DOMAIN";
-            temp.domainDestinationPath = "Desktop";
+            temp.User = "tester1";
+            temp.Pass = "abcd1234";
+            temp.FtpDomain = "MY DOMAIN";
+            temp.DomainDestinationPath = "Desktop";
 
-            temp2.user = "gfef";
-            temp2.isActive = false;
-            temp2.pass = "fesf";
+            temp2.User = "gfef";
+            temp2.IsActive = false;
+            temp2.Pass = "fesf";
             temp2.sessionFilename = "Nothing.txt";
-            Temp3.isActive = true;
-            Temp3.password = "tesfg";
+            Temp3.IsActive = true;
+            Temp3.Password = "tesfg";
             Temp5.isActive = true;
             Temp5.sessionName = "test";
             MasterModel.ftpDict.Add(temp.sessionName, temp);
@@ -90,10 +88,8 @@ namespace StatZilla.Forms
             MasterModel.ftpDict.Add("trsvrdag", temp2);
             MasterModel.ftpDict.Add("trsvrdga", temp2);
 
-            addToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
+            AddToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
             //write_json();
-=======
->>>>>>> Dev
 
         }
         #endregion
@@ -102,7 +98,7 @@ namespace StatZilla.Forms
         /// <summary>
         /// This function converts the MasterModel into a json string.
         /// </summary>
-        private void write_json()
+        private void Write_json()
         {
 
             string file = Path.Combine(Path.Combine(directory, JsonFilePath), JsonFileName);
@@ -119,12 +115,12 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void addMethod_Button(object sender, EventArgs e)
+        private void AddMethod_Button(object sender, EventArgs e)
         {
-            if (fileSelectorValidator()) {
+            if (FileSelectorValidator()) {
                 try
                 {
-                    addNewFTPMethod();
+                    AddNewFTPMethod();
                     MyrefeshMethod();
                 }
                 catch (Exception ex)
@@ -143,13 +139,23 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void start_Button(object sender, EventArgs e)
+        private void Start_Button(object sender, EventArgs e)
         {
             if(listviewTransferList.SelectedItems.Count > 0)
             {
                 var currentSession = this.listviewTransferList.SelectedItems;
-                MessageBox.Show("You have Started Method" + currentSession[0].SubItems[0].Text.ToString());
-                this.listviewTransferList.SelectedItems[0].SubItems[3].Text = "ON";
+                if (MasterModel.masterFilePath == "" || !FileSelectorValidator()) 
+                {
+                    MessageBox.Show("Please select a valid file before proceeding.", "No valid file selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if(currentSession[0].SubItems[3].Text == "OFF")
+                {
+                    // Change status of current Item in the Master Model
+                    // Find the selected item values using as a key the session name  
+                    // Get the session type to know which dictionary to find the session
+                    var searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+                    EditStatus(searchedItemType, true);
+                }
             }
 
         }
@@ -159,13 +165,20 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void stop_Button(object sender, EventArgs e)
+        private void Stop_Button(object sender, EventArgs e)
         {
             if (listviewTransferList.SelectedItems.Count > 0)
             {
                 var currentSession = this.listviewTransferList.SelectedItems;
-                MessageBox.Show("You have Stopped Method" + currentSession[0].SubItems[0].Text.ToString());
-                this.listviewTransferList.SelectedItems[0].SubItems[3].Text = "OFF";
+                if (currentSession[0].SubItems[3].Text == "ON")
+                {
+                    // Change status of current Item in the Master Model
+                    // Find the selected item values using as a key the session name  
+                    // Get the session type to know which dictionary to find the session
+                    var searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+                    EditStatus(searchedItemType, false);
+                }
+
             }
         }
 
@@ -181,7 +194,7 @@ namespace StatZilla.Forms
                 try
                 {
                     Formlog.WriteLine(Log.Type.INFO, "Initalizing Ftp");
-                    ftpSend send = new ftpSend(f.Value.ftpDomain, f.Value.user, f.Value.pass);
+                    ftpSend send = new(f.Value.FtpDomain, f.Value.User, f.Value.Pass);
                     send.Send();
                 }
                 catch (Exception ex)
@@ -196,16 +209,14 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void lockIcon_Button(object sender, EventArgs e)
+        private void LockIcon_Button(object sender, EventArgs e)
         {
             if (selectorBox.Enabled == false)
             {
-
                 selectorBox.Enabled = true;
             }
             else if (selectorBox.Enabled == true)
             {
-
                 selectorBox.Enabled = false;
             }
         }
@@ -215,85 +226,69 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void fileBrowser_Button(object sender, EventArgs e)
+        private void FileBrowser_Button(object sender, EventArgs e)
         {
             if (selectorBox.Enabled == false)
                 MessageBox.Show("Unlock File Selector before proceeding.");
             else
-                selectFile();
+                SelectFile();
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
-            write_json();
+            Write_json();
         }
 
 
         #endregion
 
         #region FTP
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="item"></param>
-        private void updateFTPMethod(Ftp item)
-        {
-            Formlog.WriteLine(Log.Type.INFO, "Updating FTP Method " + item.ftpDomain);
-            //MethodSelect methodSelected = new MethodSelect();
 
-            // Open the form
-            //methodSelected.ShowDialog();
-
-            // Call Selected method with 
-            //createNewMethod();
-
-            //// Hold updated ftp method 
-            //Models.Ftp updated = new Models.Ftp();
-
-            //updated.ftpDomain = currentMethod.;
-            //updated.user = currentMethod.userNameField;
-            //updated.name = currentMethod.Name;
-            //updated.pass = currentMethod.pswField;
-
-            // Update the list with new item
-            //updateItemList(updated.ftpDomain, updated.user, fileName,filePath, "Now");
-
-            // Update the Ftp table data set
-            //updateFTPTable(item,updated);
-        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="item"></param>
         /// <param name="newItem"></param>
-        private void updateFTPTable(string item, Ftp newItem)
+        private void UpdateFTPTable(string item, Ftp newItem)
         {
             // Replace ftp element with new edited values 
             MasterModel.ftpDict[item] = newItem;
         }
+
         /// <summary>
         /// 
         /// </summary>
-        private void addNewFTPMethod()
+        private void AddNewFTPMethod()
         {
-            Formlog.WriteLine(Log.Type.INFO, "Next form Loading");
-            //.Ftp newFtp = new Models.Ftp();
-
             // Create new method 
-            createNewMethod();
-
-            //newFtp.ftpdomain = newMethod.domainField;       //StatZilla.Source.methodAdd.domainTextBox.Text;
-            //newFtp.user = newMethod.userNameField;          //StatZilla.Source.methodAdd.userTextBox.Text;
-            //newFtp.pass = newMethod.pswField;
-            //newFtp.filenamePath = filePath;//newMethod.fileNamePath;
+            CreateNewMethod();
         }
         #endregion
 
         #region SCP
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="newItem"></param>
+        private void UpdateSCPTable(string item, Scp newItem)
+        {
+            // Replace ftp element with new edited values 
+            MasterModel.SCPDict[item] = newItem;
+        }
         #endregion
 
         #region S3Buckets
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="newItem"></param>
+        private void UpdateS3Table(string item, S3Bucket newItem)
+        {
+            // Replace ftp element with new edited values 
+            MasterModel.S3Dict[item] = newItem;
+        }
         #endregion
 
         #region ObjStore
@@ -307,13 +302,13 @@ namespace StatZilla.Forms
         /// <param name="e"></param>
         private void MainPage_Load(object sender, EventArgs e)
         {
-            resizeListViewColumns();
+            ResizeListViewColumns();
             
         }
         /// <summary>
         /// 
         /// </summary>
-        public void MyrefeshMethod()
+        public static void MyrefeshMethod()
         {
  
         }
@@ -325,21 +320,17 @@ namespace StatZilla.Forms
         /// 
         /// </summary>
         /// <returns></returns>
-        private void createNewMethod()
+        private void CreateNewMethod()
         {
             // Open a new Form to insert new FTP method variables 
-            MethodSelect newMethod = new MethodSelect();
+            MethodSelect newMethod = new();
             newMethod.ShowDialog();
 
             string transfterMethod = newMethod.Type;
             string sessionName = newMethod.Name.ToString();
             string sessionStartTime = "Not Started";
-            
-            {
-       if ( transfterMethod == "FTP") {
-                //FtpProtocol newFtpMethod = new FtpProtocol(newMethod);
-                //newFtpMethod.ShowDialog();
 
+            if ( transfterMethod == "FTP") {
                 // Create a new instance of the FTP method
                 Ftp newFtp = newMethod.FtpForm.ftpMethod;//newFtpMethod.ftpMethod;
                 {
@@ -351,58 +342,49 @@ namespace StatZilla.Forms
                     // Add new ftp method to the list of ftps then store the key in a dictionary 
                     // Key is used to find values of the item 
                     MasterModel.ftpDict.Add(newFtp.sessionName, newFtp);
-                    addToList(newFtp.sessionName, newFtp.sessionFilename, newFtp.sessionType, ONorOFF(newFtp.sessionStatus), sessionStartTime);
+                    AddToList(newFtp.sessionName, newFtp.sessionFilename, newFtp.sessionType, ONorOFF(newFtp.sessionStatus), sessionStartTime);
+                    Formlog.WriteLine(Log.Type.INFO, "FTP Session < " + newFtp.sessionName + " > Added");
                     //JSON function will go here
                     //ftps.Add(newFtp);
                 }
             }
             else if (transfterMethod == "SCP") {
-                SCP_Protocol newScpMethod = new SCP_Protocol();
-                newScpMethod.ShowDialog();
-
                 // Add newly created SCP method to the list
                 {
-                    Scp newSCP = newScpMethod.scpMethod;
+                    Scp newSCP = newMethod.ScpForm.scpMethod;
                     {
                         newSCP.sessionName = sessionName;
                         newSCP.sessionType = transfterMethod;
                         newSCP.sessionStatus = false;
                         newSCP.sessionLastUpdate = DateTime.Now;
                     }
-                    //MasterModel.ftpDict.Add(sessionName, newFtp);
-                    addToList(newSCP.sessionName, newSCP.sessionFilename, newSCP.sessionType, ONorOFF(newSCP.sessionStatus), sessionStartTime);
+                    MasterModel.SCPDict.Add(newSCP.sessionName, newSCP);
+                    AddToList(newSCP.sessionName, newSCP.sessionFilename, newSCP.sessionType, ONorOFF(newSCP.sessionStatus), sessionStartTime);
+                    Formlog.WriteLine(Log.Type.INFO, "SCP Session < " + newSCP.sessionName + " > Added");
                 }
                 //JSON function will go here
             }
             else if (transfterMethod == "S3") {
-                S3_Protocol newS3Method = new S3_Protocol();
-                newS3Method.ShowDialog();
-
-                // Add newly created S3 method to the list 
+                // Create a new instance of the S3 method
+                S3Bucket newS3 = newMethod.s3Form.newS3Buckets;
                 {
-                    S3Bucket newS3 = newS3Method.newS3Buckets;
-                    {
-                        newS3.sessionName = sessionName;
-                        newS3.sessionType = transfterMethod;
-                        newS3.sessionStatus = false;
-                        newS3.sessionLastUpdate = DateTime.Now;
-                    }
-                    addToList(newS3.sessionName, newS3.sessionFilename, newS3.sessionType, ONorOFF(newS3.sessionStatus), sessionStartTime);
+                    newS3.sessionName = sessionName;
+                    newS3.sessionType = transfterMethod;
+                    newS3.sessionStatus = false;
+                    newS3.sessionLastUpdate = DateTime.Now;
                 }
+                MasterModel.S3Dict.Add(newS3.sessionName, newS3);
+                AddToList(newS3.sessionName, newS3.sessionFilename, newS3.sessionType, ONorOFF(newS3.sessionStatus), sessionStartTime);
+                Formlog.WriteLine(Log.Type.INFO, "S3 Session < " + newS3.sessionName + " > Added");
             }
-
-            }
-     
-
-            
         }
 
         #endregion
 
         #region List View Properties
 
-        
-        string ONorOFF(bool status)
+
+        static string ONorOFF(bool status)
         {
             if (status) return "ON";
             else return "OFF";
@@ -412,64 +394,109 @@ namespace StatZilla.Forms
         /// 
         /// </summary>
         /// <param name="type"></param>
-        private void editSession(string type)
+        private void EditSession(string type)
         {
-            // Find the selected item values using as a key the session name  
-            var currentSession = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+            try {
+                // Find the selected item values using as a key the session name  
+                var currentSession = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
 
-            /// Look up the item in the list of ftps and open the a form with its value in the 
-            if (type == "FTP")
-            {
-                
-                var selected = MasterModel.ftpDict[currentSession];
-                // Open selected form with values from the Dictionary List
-                FtpProtocol editFTP = new FtpProtocol(selected);
-                
+                /// Look up the item in the list of ftps and open the a form with its value in the 
+                if (type == "FTP")
+                {
+                    var selected = MasterModel.ftpDict[currentSession];
+                    // Open selected form with values from the Dictionary List
+                    FtpProtocol editFTP = new(selected);
 
-                Ftp updatedFTP = editFTP.ftpMethod;
-                
-                // Update list of FTP 
-                updateFTPTable(currentSession, updatedFTP);
+                    Ftp updatedFTP = editFTP.ftpMethod;
 
-                
-                if(updatedFTP.sessionStatus == true) updateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, ONorOFF(updatedFTP.sessionStatus), "Not Started");
-                else updateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, "ON", "Not Started");
+                    // Update list of FTP 
+                    UpdateFTPTable(currentSession, updatedFTP);
+                    
+                    UpdateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, ONorOFF(updatedFTP.sessionStatus), "Not Started");
 
+                   // Formlog.WriteLine(Log.Type.INFO, "FTP Session < " + updatedFTP.sessionName + " > Edited");
+
+                }
+                else if (type == "SCP")
+                {
+                    var selected = MasterModel.SCPDict[currentSession];
+
+                    // Open selected form with values from the Dictionary List
+                    SCP_Protocol editSCP = new(selected);
+
+                    Scp updatedSCP = editSCP.scpMethod;
+
+                    // Update list of SCP 
+                    UpdateSCPTable(currentSession, updatedSCP);
+                    
+                    UpdateItemList(updatedSCP.sessionName, updatedSCP.sessionFilename, updatedSCP.sessionType, ONorOFF(updatedSCP.sessionStatus), "Not Started");
+
+                    //Formlog.WriteLine(Log.Type.INFO, "SCP Session < " + updatedSCP.sessionName + " > Edited");
+                }
+                else if (type == "S3")
+                {
+                    var selected = MasterModel.S3Dict[currentSession];
+
+                    S3_Protocol editS3 = new(selected);
+
+                    S3Bucket updatedS3 = editS3.newS3Buckets;
+                    // Update list view 
+                    UpdateS3Table(currentSession, updatedS3);
+                    
+                    UpdateItemList(updatedS3.sessionName, updatedS3.sessionFilename, updatedS3.sessionType, ONorOFF(updatedS3.sessionStatus), "Not Started");
+
+                    //Formlog.WriteLine(Log.Type.INFO, "S3 Session < " + updatedS3.sessionName + " > Edited");
+                }
             }
-            else if (type == "SCP")
+            catch (Exception ex)
             {
-                var selected = MasterModel.SCPDict[currentSession];
-
-                // Open selected form with values from the Dictionary List
-                SCP_Protocol editSCP = new SCP_Protocol();
-                editSCP.ShowDialog();
-
-                // Update list of FTP 
-                //updateSCPTable(MasterModel.SCPDict[itemName], editSCP.scpMethod);
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
             }
-            else if (type == "S3")
+        }
+
+        private void EditStatus(string type, bool status)
+        {
+            try
             {
-                var selected = MasterModel.S3Dict[currentSession];
+                // Find the selected item values using as a key the session name  
+                var currentSession = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
 
-                S3_Protocol editS3 = new S3_Protocol();
-
-                //updateS3Table(MasterModel.SCPDict[itemName], editS3.newS3Buckets);
-                editS3.ShowDialog();
-                // Update list view 
-
+                /// Look up the item in the list of ftps and open the a form with its value in the 
+                if (type == "FTP")
+                {
+                    var selected = MasterModel.ftpDict[currentSession];
+                    // Update status of current session
+                    MasterModel.ftpDict[currentSession].sessionStatus = status;
+                    // Update status view in the list table
+                    listviewTransferList.SelectedItems[0].SubItems[3].Text = ONorOFF(status);
+                }
+                else if (type == "SCP")
+                {
+                    var selected = MasterModel.SCPDict[currentSession];
+                    // Update status of current session
+                    MasterModel.SCPDict[currentSession].sessionStatus = status;
+                    // Update status view in the list table
+                    listviewTransferList.SelectedItems[0].SubItems[3].Text = ONorOFF(status);
+                }
+                else if (type == "S3")
+                {
+                    var selected = MasterModel.S3Dict[currentSession];
+                    // Update status of current session
+                    MasterModel.S3Dict[currentSession].sessionStatus = status;
+                    // Update status view in the list table
+                    listviewTransferList.SelectedItems[0].SubItems[3].Text = ONorOFF(status);
+                }
             }
-
-            // Find values of the item 
-            // var selectedItem = MasterModel.ftpDict[searchedItem];
-
-            // Open form to edit the selection
-            //  updateFTPMethod(selectedItem);
+            catch (Exception ex)
+            {
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void resizeListViewColumns()
+        private void ResizeListViewColumns()
         {
             // Auto resize column
             this.listviewTransferList.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -483,16 +510,16 @@ namespace StatZilla.Forms
         /// <param name="type"></param>
         /// <param name="status"></param>
         /// <param name="lastUpdated"></param>
-        private void addToList(string sessionName, string fileName, string type, string status, string lastUpdated)
+        private void AddToList(string sessionName, string fileName, string type, string status, string lastUpdated)
         {
             // Create an array of containing information about session to add a new row in the list of sessions 
             string[] row = { sessionName, fileName, type, status, lastUpdated };
 
-            ListViewItem item = new ListViewItem(row);
+            ListViewItem item = new(row);
 
             // Add the new row to the list
             listviewTransferList.Items.Add(item);
-            resizeListViewColumns();
+            ResizeListViewColumns();
         }
         /// <summary>
         /// 
@@ -502,7 +529,7 @@ namespace StatZilla.Forms
         /// <param name="type"></param>
         /// <param name="status"></param>
         /// <param name="lastUpdate"></param>
-        private void updateItemList(string session_name, string file_name, string type, string status, string lastUpdate)
+        private void UpdateItemList(string session_name, string file_name, string type, string status, string lastUpdate)
         {
             // Replace the selected row value by new value entered 
             listviewTransferList.SelectedItems[0].SubItems[0].Text = session_name;
@@ -514,7 +541,7 @@ namespace StatZilla.Forms
         /// <summary>
         /// 
         /// </summary>
-        private void removeItem(string type)
+        private void RemoveItem(string type)
         {
             var sessionToDelete = listviewTransferList.SelectedItems[0].SubItems[0].Text;
             if (MessageBox.Show("Are you sure you want to delete *"+ sessionToDelete + "* ?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
@@ -535,14 +562,13 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void enterClickedLV(object sender, PreviewKeyDownEventArgs e)
+        private void EnterClickedLV(object sender, PreviewKeyDownEventArgs e)
         {
             // If a session is selected and the key "Enter" is pressed, get the item's type to search in the list else do nothing
             if (e.KeyCode == Keys.Enter && listviewTransferList.SelectedItems.Count > 0)
             {
-                string searchedItemType = "";
-                searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
-                editSession(searchedItemType);
+                string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
+                EditSession(searchedItemType);
             }
         }
         /// <summary>
@@ -550,21 +576,21 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void fileTransferList(object sender, EventArgs e)
+        private void FileTransferList(object sender, EventArgs e)
         {
             // Get the currently selected item in the transfer list
             string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
-            editSession(searchedItemType);
+            EditSession(searchedItemType);
         }
 
-        private void listviewTransferList_KeyDown(object sender, KeyEventArgs e)
+        private void ListviewTransferList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
                 if(listviewTransferList.SelectedItems.Count > 0)
                 {
                     string searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
-                    removeItem(searchedItemType);
+                    RemoveItem(searchedItemType);
                 }
             }
         }
@@ -576,7 +602,7 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (masterSwitchButton.Checked == true)
             {
@@ -611,7 +637,7 @@ namespace StatZilla.Forms
         /// 
         /// </summary>
         /// <returns></returns>
-        private bool fileSelectorValidator()
+        private bool FileSelectorValidator()
         {
             string checkFIle = selectorBox.Text.ToString();
 
@@ -630,9 +656,9 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void selectorBox_Enter(object sender, EventArgs e)
+        private void SelectorBox_Enter(object sender, EventArgs e)
         {
-            if (!fileSelectorValidator())
+            if (!FileSelectorValidator())
                 MessageBox.Show("Select a valid File.");
             
         }
@@ -641,27 +667,23 @@ namespace StatZilla.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void selectorBox_Validating(object sender, CancelEventArgs e)
+        private void SelectorBox_Validating(object sender, CancelEventArgs e)
         {
-            fileSelectorValidator();
+            FileSelectorValidator();
         }
 
 
         /// <summary>
         /// 
         /// </summary>
-        private void selectFile()
+        private void SelectFile()
         {
             if(fileSelector.ShowDialog() == DialogResult.OK)
             {
                 selectorBox.Text = fileSelector.FileName;
                 MasterModel.masterFilePath = fileSelector.FileName;
-                
                 // Parse the file path for filename 
                 //string[] path = MasterModel.masterFilePath.Split('\\');
-                //masterFilename = path[path.Length - 1];
-
-                //fileSelector.InitialDirectory.ToString();
                 CreateFileWatcher();
             }
         }
@@ -670,13 +692,15 @@ namespace StatZilla.Forms
 
         public void CreateFileWatcher()
         {
-            FileSystemWatcher watcher = new FileSystemWatcher();
+            FileSystemWatcher watcher = new();
 
-            watcher = new FileSystemWatcher();
-            watcher.Path = Path.GetDirectoryName(MasterModel.masterFilePath);
-            watcher.Filter = Path.GetFileName(MasterModel.masterFilePath);
-            /* Watch for changes in LastWrite times, and the renaming of files or directories. */
-            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher = new FileSystemWatcher
+            {
+                Path = Path.GetDirectoryName(MasterModel.masterFilePath),
+                Filter = Path.GetFileName(MasterModel.masterFilePath),
+                /* Watch for changes in LastWrite times, and the renaming of files or directories. */
+                NotifyFilter = NotifyFilters.LastWrite
+            };
             watcher.Changed += OnChanged;
             //watcher.Renamed += new RenamedEventHandler(OnRenamed);
 
@@ -689,59 +713,44 @@ namespace StatZilla.Forms
             // If notified changed not equal to specified one exit function
             if (e.ChangeType != WatcherChangeTypes.Changed)
                 return;
-
-            FileInfo file = new FileInfo(MasterModel.masterFilePath);
-            var lastModified = file.LastWriteTime;
-            // List view Item are updated one at the time, So Call BegingUpdate to ensure
-            // The list is painted only once, rather than as each list item is updated
-            listviewTransferList.BeginUpdate();
-            // Update FTP List 
-            foreach (var ftp in MasterModel.ftpDict)
-            {
-                if (ftp.Value.sessionStatus)
+            try {
+                FileInfo file = new(MasterModel.masterFilePath);
+                var lastModified = file.LastWriteTime;
+                // List view Item are updated one at the time, So Call BegingUpdate to ensure
+                // The list is painted only once, rather than as each list item is updated
+                listviewTransferList.BeginUpdate();
+                // Update FTP List 
+                foreach (var ftp in MasterModel.ftpDict)
                 {
-                    // If the current FTP session is active update last time the master file was modified
-                    ftp.Value.sessionLastUpdate = lastModified;
+                    if (ftp.Value.sessionStatus)
+                    {
+                        // If the current FTP session is active update last time the master file was modified
+                        ftp.Value.sessionLastUpdate = lastModified;
+                    }
                 }
-            }
-
-            // Update SCP List
-            foreach (var scp in MasterModel.SCPDict)
-            {
-                if (scp.Value.sessionStatus)
+                // Update SCP List
+                foreach (var scp in MasterModel.SCPDict)
                 {
-                    // If the current scp session is active update last time the master file was modified
+                    if (scp.Value.sessionStatus)
+                    {
+                        // If the current scp session is active update last time the master file was modified
+                    }
                 }
-            }
-            // Update S3 List 
-            foreach (var s3 in MasterModel.ftpDict)
-            {
-                if (s3.Value.sessionStatus)
+                // Update S3 List 
+                foreach (var s3 in MasterModel.ftpDict)
                 {
-                    // If the current s3 session is active update last time the master file was modified
+                    if (s3.Value.sessionStatus)
+                    {
+                        // If the current s3 session is active update last time the master file was modified
+                    }
                 }
+                listviewTransferList.EndUpdate();
             }
-
-            listviewTransferList.EndUpdate();
+            catch(Exception ex)
+            {
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
+            }
         }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
- 
-        }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void selectorBox_TextChanged(object sender, EventArgs e)
-        {
-            //fileSelectorValidator();
-        }
-
         #endregion
     }
 

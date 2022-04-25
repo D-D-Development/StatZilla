@@ -17,7 +17,7 @@ namespace StatZilla.Forms
 
     public partial class MethodSelect : Form
     {
-        public string Name { get; set; }
+        public new string Name { get; set; }
         public string Type { get; set; }
         public FtpProtocol FtpForm;
         public SCP_Protocol ScpForm;
@@ -34,7 +34,7 @@ namespace StatZilla.Forms
             returnToForm.Show();
         }
 
-        private void changeForm()
+        private void ChangeForm()
         {
             this.Hide();
 
@@ -48,19 +48,19 @@ namespace StatZilla.Forms
                 MessageBox.Show("Please Select a transfer type.");
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        private void NextButton_Click(object sender, EventArgs e)
         {
-            if(textBox_Validator())
+            if(TextBox_Validator())
             {
                 this.Name = DomainNicknameBox.Text;
-                this.Type = getType();
+                this.Type = GetType();
                 
-                changeForm();
+                ChangeForm();
             }
            
         }
 
-        private string getType()
+        private new string GetType()
         {
             string currentType = "FTP";
 
@@ -73,10 +73,10 @@ namespace StatZilla.Forms
 
             return currentType;
         }
-        private bool textBox_Validator()
+        private bool TextBox_Validator()
         {
             // Check if text box empty 
-            if (DomainNicknameBox.Text == "" || getType() == null)
+            if (DomainNicknameBox.Text == "" || GetType() == null)
             {
                 MessageBox.Show("Please do not leave any text box empty");
                 // Log error
@@ -96,7 +96,7 @@ namespace StatZilla.Forms
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }

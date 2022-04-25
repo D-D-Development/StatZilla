@@ -13,7 +13,7 @@ namespace StatZilla.Forms
 {
     public partial class FtpProtocol : Form
     {
-        public Ftp ftpMethod = new Ftp();
+        public Ftp ftpMethod = new();
         public MethodSelect backToMethodSelect;
 
         // Passing the Selector Method Form instance as a parameter to the constructor of FTP Method to be able to return to the previous page
@@ -21,7 +21,7 @@ namespace StatZilla.Forms
         {
             ftpMethod = currentMethod;
             InitializeComponent();
-            this.displayMethod();
+            this.DisplayMethod();
             this.ShowDialog();
         }
 
@@ -42,17 +42,17 @@ namespace StatZilla.Forms
 
         }
 
-        private void addNewMethodButton_Click(object sender, EventArgs e)
+        private void AddNewMethodButton_Click(object sender, EventArgs e)
         {
-            confirmConfig();
+            ConfirmConfig();
         }
 
-        private void confirmConfig()
+        private void ConfirmConfig()
         {
-            if (textBox_Validator())
+            if (TextBox_Validator())
             {
                 // Save values in the FTP class
-                setFTPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, hostDestinationPath.Text);
+                SetFTPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, hostDestinationPath.Text);
 
                 //this.ftpMethod.user = usernameBox.Text;
                 //this.ftpMethod.pass = passwdBox.Text;
@@ -63,16 +63,16 @@ namespace StatZilla.Forms
 
             }
         }
-        private void setFTPConfiguration(string filename, string user, string pass,string host, string dest)
+        private void SetFTPConfiguration(string filename, string user, string pass,string host, string dest)
         {
-            ftpMethod.user = user;
-            ftpMethod.pass = pass;
-            ftpMethod.ftpDomain = host;
-            ftpMethod.domainDestinationPath = dest;
+            ftpMethod.User = user;
+            ftpMethod.Pass = pass;
+            ftpMethod.FtpDomain = host;
+            ftpMethod.DomainDestinationPath = dest;
             ftpMethod.sessionFilename = filename;
 
         }
-        private bool textBox_Validator()
+        private bool TextBox_Validator()
         {
             // Check if text box empty 
             if (usernameBox.Text == "" || passwdBox.Text == "" || hostBox.Text == "" || hostDestinationPath.Text == "" || filenameBox.Text == "")
@@ -84,16 +84,16 @@ namespace StatZilla.Forms
             return true;
         }
 
-        public void displayMethod()
+        public void DisplayMethod()
         {
             filenameBox.Text = ftpMethod.sessionFilename;
-            usernameBox.Text = ftpMethod.user;
-            passwdBox.Text = ftpMethod.pass;
-            hostBox.Text = ftpMethod.ftpDomain;
-            hostDestinationPath.Text = ftpMethod.domainDestinationPath;
+            usernameBox.Text = ftpMethod.User;
+            passwdBox.Text = ftpMethod.Pass;
+            hostBox.Text = ftpMethod.FtpDomain;
+            hostDestinationPath.Text = ftpMethod.DomainDestinationPath;
         }
 
-        private void returnToSelectMethodButton_Click(object sender, EventArgs e)
+        private void ReturnToSelectMethodButton_Click(object sender, EventArgs e)
         {
             if(backToMethodSelect != null) {
                 this.Dispose();
@@ -110,7 +110,7 @@ namespace StatZilla.Forms
         private void FtpProtocol_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                confirmConfig();
+                ConfirmConfig();
         }
     }
 }
