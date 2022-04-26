@@ -50,7 +50,7 @@ namespace StatZilla.Forms
             if (TextBox_Validator())
             {
                 // Save values in the FTP class
-                SetSCPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, pathBox.Text, portBox.Text);
+                SetSCPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, pathBox.Text);
 
                 // If Select Method Form open close it, if not do nothing 
                 if (backToMethodSelect != null)
@@ -61,19 +61,18 @@ namespace StatZilla.Forms
 
             }
         }
-        private void SetSCPConfiguration(string filename, string user, string pass, string host, string dest, string port)
+        private void SetSCPConfiguration(string filename, string user, string pass, string host, string dest)
         {
             scpMethod.User = user;
             scpMethod.Password = pass;
             scpMethod.Host = host;
             scpMethod.Path = dest;
-            scpMethod.Port = port;
             scpMethod.sessionFilename = filename;
         }
         private bool TextBox_Validator()
         {
             // Check if text box empty 
-            if (filenameBox.Text == "" || usernameBox.Text == "" || passwdBox.Text == "" || pathBox.Text == "" || hostBox.Text == "" || portBox.Text == "" )
+            if (filenameBox.Text == "" || usernameBox.Text == "" || passwdBox.Text == "" || pathBox.Text == "" || hostBox.Text == "" )
             {
                 MessageBox.Show("Please do not leave any text box empty");
                 // Log error
@@ -87,7 +86,6 @@ namespace StatZilla.Forms
             passwdBox.Text = scpMethod.Password;
             hostBox.Text = scpMethod.Host;
             pathBox.Text = scpMethod.Path;
-            portBox.Text = scpMethod.Port;
 
         }
         private void BackButton_Click(object sender, EventArgs e)
