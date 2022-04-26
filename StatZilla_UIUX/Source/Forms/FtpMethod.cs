@@ -13,14 +13,25 @@ namespace StatZilla.Forms
 {
     public partial class FtpProtocol : Form
     {
-        public Ftp ftpMethod { get; set; }
+        public Ftp ftpMethod = new();
+        public MethodSelect backToMethodSelect;
 
+        // Passing the Selector Method Form instance as a parameter to the constructor of FTP Method to be able to return to the previous page
         public FtpProtocol(Ftp currentMethod)
         {
             ftpMethod = currentMethod;
             InitializeComponent();
+            this.DisplayMethod();
+            this.ShowDialog();
         }
 
+        // Constructor to get back to Method Selector Form
+        public FtpProtocol( MethodSelect previousForm)
+        {
+            backToMethodSelect = previousForm;
+            InitializeComponent();
+        }
+        // Default Constructor
         public FtpProtocol()
         {
             InitializeComponent();
@@ -31,34 +42,40 @@ namespace StatZilla.Forms
 
         }
 
-        private void addNewMethodButton_Click(object sender, EventArgs e)
+        private void AddNewMethodButton_Click(object sender, EventArgs e)
         {
-            if (textBox_Validator())
+            ConfirmConfig();
+        }
+
+        private void ConfirmConfig()
+        {
+            if (TextBox_Validator())
             {
                 // Save values in the FTP class
-                setFTPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, hostDestinationPath.Text);
+                SetFTPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, hostDestinationPath.Text);
 
                 //this.ftpMethod.user = usernameBox.Text;
                 //this.ftpMethod.pass = passwdBox.Text;
                 // this.ftpMethod.ftpDomain = hostBox.Text;
                 //this.ftpMethod.domainDestinationPath = hostDestinationPath.Text;
-
+                if (backToMethodSelect != null) { backToMethodSelect.Close(); }
                 this.Close();
+
             }
         }
-        private void setFTPConfiguration(string filename, string user, string pass,string host, string dest)
+        private void SetFTPConfiguration(string filename, string user, string pass,string host, string dest)
         {
-            ftpMethod.user = user;
-            ftpMethod.pass = pass;
-            ftpMethod.ftpDomain = host;
-            ftpMethod.domainDestinationPath = dest;
+            ftpMethod.User = user;
+            ftpMethod.Pass = pass;
+            ftpMethod.FtpDomain = host;
+            ftpMethod.DomainDestinationPath = dest;
             ftpMethod.sessionFilename = filename;
 
         }
-        private bool textBox_Validator()
+        private bool TextBox_Validator()
         {
             // Check if text box empty 
-            if (usernameBox.Text == "" || passwdBox.Text == "" || hostBox.Text == "" || hostPathLabel.Text == "" || filenameBox.Text == "")
+            if (usernameBox.Text == "" || passwdBox.Text == "" || hostBox.Text == "" || hostDestinationPath.Text == "" || filenameBox.Text == "")
             {
                 MessageBox.Show("Please do not leave any text box empty");
                 // Log error
@@ -67,13 +84,33 @@ namespace StatZilla.Forms
             return true;
         }
 
-        public void displayMethod()
+        public void DisplayMethod()
         {
             filenameBox.Text = ftpMethod.sessionFilename;
-            usernameBox.Text = ftpMethod.user;
-            passwdBox.Text = ftpMethod.pass;
-            hostBox.Text = ftpMethod.ftpDomain;
-            hostDestinationPath.Text = ftpMethod.domainDestinationPath;
+            usernameBox.Text = ftpMethod.User;
+            passwdBox.Text = ftpMethod.Pass;
+            hostBox.Text = ftpMethod.FtpDomain;
+            hostDestinationPath.Text = ftpMethod.DomainDestinationPath;
+        }
+
+        private void ReturnToSelectMethodButton_Click(object sender, EventArgs e)
+        {
+            if(backToMethodSelect != null) {
+                this.Dispose();
+                backToMethodSelect.Show();
+            }
+            else
+            {
+                this.Close();
+            }
+            // MethodSelect m = new MethodSelect(backToMethodSelect);
+            // m.ShowDialog();
+        }
+
+        private void FtpProtocol_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ConfirmConfig();
         }
     }
 }

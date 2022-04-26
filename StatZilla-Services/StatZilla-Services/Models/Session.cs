@@ -13,6 +13,6 @@ namespace StatZilla_Services.Models
         public string sessionType { get; set; }
         public string sessionFilename { get; set; }
         public bool sessionStatus { get; set; }
-        public int sessionLastUpdate { get; set; }
+        public DateTime sessionLastUpdate { get; set; }
     } 
 }

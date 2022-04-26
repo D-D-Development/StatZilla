@@ -13,15 +13,26 @@ namespace StatZilla.Forms
 {
     public partial class SCP_Protocol : Form
     {
-        public Scp scpMethod { set; get; }
+        public Scp scpMethod = new();
+        public MethodSelect backToMethodSelect;
+
+        public SCP_Protocol()
+        {
+            InitializeComponent();
+        }
 
         public SCP_Protocol(Scp currentMethod)
         {
             scpMethod = currentMethod;
+            InitializeComponent();
+            this.DisplayMethod();
+            this.ShowDialog();
         }
-        public SCP_Protocol()
+
+        public SCP_Protocol(MethodSelect prevForm)
         {
             InitializeComponent();
+            backToMethodSelect = prevForm;
         }
 
         private void SCPMethod_Load(object sender, EventArgs e)
@@ -29,28 +40,65 @@ namespace StatZilla.Forms
 
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void AddMethodButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            ConfirmConfig();
         }
 
-        private void addMethodButton_Click(object sender, EventArgs e)
+        private void ConfirmConfig()
         {
-            Scp temp = new Scp(usernameBox.Text, passwdBox.Text, hostBox.Text, pathBox.Text, portBox.Text);
+            if (TextBox_Validator())
+            {
+                // Save values in the FTP class
+                SetSCPConfiguration(filenameBox.Text, usernameBox.Text, passwdBox.Text, hostBox.Text, pathBox.Text);
 
-            scpMethod = temp;
+                // If Select Method Form open close it, if not do nothing 
+                if (backToMethodSelect != null)
+                {
+                    backToMethodSelect.Close();
+                }
+                this.Close();
 
-            this.Close();
+            }
         }
-
-        void displayMethod()
+        private void SetSCPConfiguration(string filename, string user, string pass, string host, string dest)
         {
-            usernameBox.Text = scpMethod.user;
-            passwdBox.Text = scpMethod.password;
-            hostBox.Text = scpMethod.host;
-            pathBox.Text = scpMethod.path;
-            portBox.Text = scpMethod.port;
+            scpMethod.User = user;
+            scpMethod.Password = pass;
+            scpMethod.Host = host;
+            scpMethod.Path = dest;
+            scpMethod.sessionFilename = filename;
+        }
+        private bool TextBox_Validator()
+        {
+            // Check if text box empty 
+            if (filenameBox.Text == "" || usernameBox.Text == "" || passwdBox.Text == "" || pathBox.Text == "" || hostBox.Text == "" )
+            {
+                MessageBox.Show("Please do not leave any text box empty");
+                // Log error
+                return false;
+            }
+            return true;
+        }
+        public void DisplayMethod()
+        {
+            usernameBox.Text = scpMethod.User;
+            passwdBox.Text = scpMethod.Password;
+            hostBox.Text = scpMethod.Host;
+            pathBox.Text = scpMethod.Path;
 
+        }
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            if (backToMethodSelect != null)
+            {
+                this.Dispose();
+                backToMethodSelect.Show();
+            }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }

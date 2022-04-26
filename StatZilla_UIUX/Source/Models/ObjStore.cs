@@ -3,8 +3,8 @@
    
     public class ObjStore 
     {
-        public bool isActive { get; set; }
-        public string name { get; set; }
+        public bool IsActive { get; set; }
+        public string Name { get; set; }
     }
 
 }

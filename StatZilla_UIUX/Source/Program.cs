@@ -33,7 +33,7 @@ namespace StatZilla
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainPage(Log));
+            Application.Run(new MainPage(Log, intial_Master));
             //logFileStream.Close();
             //System.Diagnostics.Process.Start(logFilePath);
 
@@ -64,14 +64,14 @@ namespace StatZilla
         static void Setup()
         {
             // Setting up log directory
-            var logPath = ConfigurationManager.AppSettings["log"];
+            var logPath = Path.Combine(ConfigurationManager.AppSettings["log"], $"{RunDateTime.ToString("yyyy-MM-dd")}");
             directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
             if (!Directory.Exists(Path.Combine(directory,logPath)))
             {
                 Directory.CreateDirectory(Path.Combine(directory, logPath));
             }
             var logFormat = ConfigurationManager.AppSettings["log-format"];
-            logFilePath = Path.Combine(Path.Combine(directory, logPath), $"{RunDateTime.ToString(logFormat)}.log");
+            logFilePath = Path.Combine(Path.Combine(directory, logPath), $"{RunDateTime.ToString(logFormat)}-UI.log");
             logFileStream = File.Open(logFilePath, FileMode.Append, FileAccess.Write);
             Log = new Log(logFileStream, Console.OpenStandardOutput());
 
