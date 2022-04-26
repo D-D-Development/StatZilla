@@ -17,11 +17,11 @@ namespace StatZilla_Services.Services
         {
             foreach (var ftp in model.ftpDict)
             {
-                if (ftp.Value.isActive) ftpSend.Send(ftp.Value.ftpDomain, ftp.Value.user, ftp.Value.pass, model.masterFilePath, ftp.Value.sessionFilename, ServiceLog);
+                if (ftp.Value.IsActive) ftpSend.Send(ftp.Value.FtpDomain, ftp.Value.User, ftp.Value.Pass, model.masterFilePath, ftp.Value.sessionFilename, ServiceLog);
             }
             foreach (var s3 in model.S3Dict)
             {
-                if (s3.Value.isActive) S3Send.Send(s3.Value.accessKey, s3.Value.secretKey, model.masterFilePath, s3.Value.bucketName, s3.Value.destinationPath, s3.Value.sessionFilename, ServiceLog);
+                if (s3.Value.isActive) S3Send.Send(s3.Value.accessKey, s3.Value.secretKey, model.masterFilePath, s3.Value.bucketName, s3.Value.destinationPath, s3.Value.sessionFilename, s3.Value.regEndpoint, ServiceLog);
             }
         }
     }

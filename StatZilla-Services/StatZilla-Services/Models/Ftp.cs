@@ -8,21 +8,22 @@ namespace StatZilla_Services.Models
 {
     public class Ftp:Session
     {
-        public bool isActive { get; set; }
-        public string user { get; set; }
-        public string pass { get; set; }
-        public string ftpDomain { get; set; }
-        public string domainDestinationPath { get; set; }
+
+        public bool IsActive { get; set; }
+        public string User { get; set; }
+        public string Pass { get; set; }
+        public string FtpDomain { get; set; }
+        public string DomainDestinationPath { get; set; }
 
 
 
         public Ftp() { }
         public Ftp(string domain, string username, string pswd, string path, string filename)
         {
-            ftpDomain = domain;
-            user = username;
-            pass = pswd;
-            domainDestinationPath = path;
+            FtpDomain = domain;
+            User = username;
+            Pass = pswd;
+            DomainDestinationPath = path;
             sessionFilename = filename;
         }
     }

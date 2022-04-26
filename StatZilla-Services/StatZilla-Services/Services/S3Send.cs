@@ -12,7 +12,7 @@ namespace StatZilla_Services.Services
 {
     class S3Send
     {
-        public static bool Send(string awsAccessKey, string awsSecretKey, string localFilePath, string bucketName, string subDirectoryInBucket, string fileNameInS3,  Log ServiceLog)
+        public static bool Send(string awsAccessKey, string awsSecretKey, string localFilePath, string bucketName, string subDirectoryInBucket, string fileNameInS3, RegionEndpoint regionEndpoint, Log ServiceLog)
         {
 
             try
@@ -24,7 +24,7 @@ namespace StatZilla_Services.Services
                 ServiceLog.WriteLine(Log.Type.ERROR, ex.Message);
             }
 
-            IAmazonS3 client = new AmazonS3Client(awsAccessKey, awsSecretKey, RegionEndpoint.USEast2);
+            IAmazonS3 client = new AmazonS3Client(awsAccessKey, awsSecretKey, regionEndpoint);
 
             // create a TransferUtility instance passing it the IAmazonS3 created in the first step
             TransferUtility utility = new TransferUtility(client);
