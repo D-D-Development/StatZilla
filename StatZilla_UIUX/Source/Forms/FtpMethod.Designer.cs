@@ -129,7 +129,7 @@ namespace StatZilla.Forms
             this.addNewMethodButton.TabIndex = 9;
             this.addNewMethodButton.Text = "Add New Session";
             this.addNewMethodButton.UseVisualStyleBackColor = false;
-            this.addNewMethodButton.Click += new System.EventHandler(this.addNewMethodButton_Click);
+            this.addNewMethodButton.Click += new System.EventHandler(this.AddNewMethodButton_Click);
             // 
             // returnToSelectMethodButton
             // 
@@ -142,7 +142,7 @@ namespace StatZilla.Forms
             this.returnToSelectMethodButton.TabIndex = 10;
             this.returnToSelectMethodButton.Text = "Back";
             this.returnToSelectMethodButton.UseVisualStyleBackColor = false;
-            this.returnToSelectMethodButton.Click += new System.EventHandler(this.returnToSelectMethodButton_Click);
+            this.returnToSelectMethodButton.Click += new System.EventHandler(this.ReturnToSelectMethodButton_Click);
             // 
             // passwdBox
             // 
