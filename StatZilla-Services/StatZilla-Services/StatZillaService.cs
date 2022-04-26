@@ -9,6 +9,7 @@ namespace StatZilla_Services
 {
     public class StatZillaService
     {
+        Log ServiceLog;
         Router uploader;
         GodModel master;
         string jsonpath = $"C:\\ProgramData\\StatZilla\\StatZilla\\output\\json";
@@ -17,11 +18,13 @@ namespace StatZilla_Services
         FileSystemWatcher watcherF2S; // File 2 Send;
 
 
-        public StatZillaService()
+        public StatZillaService(Log Log)
         {
+            ServiceLog = Log;
             if (File.Exists(jsonpath+ "\\currsetting.json"))
             {
-                master = readJson();
+                ServiceLog.WriteLine(Log.Type.INFO, "StatZilla Service: Found Current Settings");
+                readJson();
             }
 
             else
@@ -32,8 +35,9 @@ namespace StatZilla_Services
             
         }
 
-        public void Start(Log Log)
+        public void Start()
         {
+            ServiceLog.WriteLine(Log.Type.INFO, "StatZilla Service: Now looking for congif");
             WatchAndUpdate_JSON();
             watcherJson.EnableRaisingEvents = true;
         }
@@ -42,9 +46,9 @@ namespace StatZilla_Services
 
         }
 
-        private GodModel readJson()
+        private void readJson()
         {
-            GodModel tempModel = new GodModel();
+            
             string json = "";
             using (StreamReader r = new StreamReader(jsonpath + "\\currsetting.json"))
             {
@@ -54,14 +58,12 @@ namespace StatZilla_Services
             }
            if(json != "")
             {
-                tempModel = Newtonsoft.Json.JsonConvert.DeserializeObject<GodModel>(json);
-                masterfilepath = tempModel.masterFilePath;
+                master = Newtonsoft.Json.JsonConvert.DeserializeObject<GodModel>(json);
+                masterfilepath = master.masterFilePath;
+                WatchAndSend_F2S();
+                watcherF2S.EnableRaisingEvents = true;
+                ServiceLog.WriteLine(Log.Type.INFO, "StatZilla Service: Config sucessfully read and store");
             }
-
-            return tempModel;
-
-
-
         }
 
         private void WatchAndUpdate_JSON()
@@ -88,7 +90,7 @@ namespace StatZilla_Services
             {
                 return;
             }
-            master = readJson();
+            readJson();
  
         }
         private void OnChanged_F2S(object sender, FileSystemEventArgs e)
@@ -97,7 +99,7 @@ namespace StatZilla_Services
             {
                 return;
             }
-            if (master.IsMasterActive) uploader.Send(master);
+            if (master.IsMasterActive) uploader.Send(master, ServiceLog);
 
         }
 

@@ -6,13 +6,23 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Transfer;
+using StatZilla_Services.Utility;
 
 namespace StatZilla_Services.Services
 {
     class S3Send
     {
-        public static bool Send(string awsAccessKey, string awsSecretKey, string localFilePath, string bucketName, string subDirectoryInBucket, string fileNameInS3)
+        public static bool Send(string awsAccessKey, string awsSecretKey, string localFilePath, string bucketName, string subDirectoryInBucket, string fileNameInS3,  Log ServiceLog)
         {
+
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                ServiceLog.WriteLine(Log.Type.ERROR, ex.Message);
+            }
 
             IAmazonS3 client = new AmazonS3Client(awsAccessKey, awsSecretKey, RegionEndpoint.USEast2);
 

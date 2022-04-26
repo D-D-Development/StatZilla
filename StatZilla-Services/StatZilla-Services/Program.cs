@@ -28,8 +28,8 @@ namespace StatZilla_Services
                 x.Service<StatZillaService>(s =>
                 {
 
-                    s.ConstructUsing(statzilla => new StatZillaService());
-                    s.WhenStarted(statzilla => statzilla.Start(Log));
+                    s.ConstructUsing(statzilla => new StatZillaService(Log));
+                    s.WhenStarted(statzilla => statzilla.Start());
                     s.WhenStopped(statzilla => statzilla.Stop());
 
                 });

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Renci.SshNet;
+using StatZilla_Services.Utility;
 
 namespace StatZilla_Services.Services
 {
     public class ftpSend
     {
 
-        public static int Send(string host, string user, string pass, string filepath, string filename)
+        public static int Send(string host, string user, string pass, string filepath, string filename, Log ServiceLog)
         {
             var connectionInfo = new ConnectionInfo(host, user,  new PasswordAuthenticationMethod(user, pass));
 
