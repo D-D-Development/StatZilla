@@ -17,12 +17,17 @@ namespace StatZilla_Services.Services
         {
             foreach (var ftp in model.ftpDict)
             {
-                if (ftp.Value.IsActive) ftpSend.Send(ftp.Value.FtpDomain, ftp.Value.User, ftp.Value.Pass, model.masterFilePath, ftp.Value.sessionFilename, ServiceLog);
+                if (ftp.Value.sessionStatus) ftpSend.Send(ftp.Value.FtpDomain, ftp.Value.User, ftp.Value.Pass, model.masterFilePath, ftp.Value.sessionFilename, ServiceLog);
                 ServiceLog.WriteLine(Log.Type.INFO, $"StatZilla Service: Uploaded Sucessfully to: {ftp.Value.sessionName}");
+            }
+            foreach (var scp in model.SCPDict)
+            {
+                if (scp.Value.sessionStatus) ftpSend.Send(scp.Value.Host, scp.Value.User, scp.Value.Password, model.masterFilePath, scp.Value.sessionFilename, ServiceLog);
+                ServiceLog.WriteLine(Log.Type.INFO, $"StatZilla Service: Uploaded Sucessfully to: {scp.Value.sessionName}");
             }
             foreach (var s3 in model.S3Dict)
             {
-                if (s3.Value.isActive)
+                if (s3.Value.sessionStatus)
                 {
                     if(S3Send.Send(s3.Value.accessKey, s3.Value.secretKey, model.masterFilePath, s3.Value.bucketName, s3.Value.destinationPath, s3.Value.sessionFilename, s3.Value.regEndpoint, ServiceLog));
                     ServiceLog.WriteLine(Log.Type.INFO, $"StatZilla Service: Uploaded Sucessfully to: {s3.Value.sessionName}");

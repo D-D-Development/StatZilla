@@ -56,6 +56,7 @@ namespace StatZilla.Forms
             JsonFilePath = ConfigurationManager.AppSettings["Json-Path"];
             JsonFileName = ConfigurationManager.AppSettings["Json-File"];
             directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
+<<<<<<< HEAD
 
             Ftp temp = new();
             Ftp temp2 = new();
@@ -90,6 +91,8 @@ namespace StatZilla.Forms
 
             AddToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
             //write_json();
+=======
+>>>>>>> 7039732852750aba26b44db79b502c95995354d3
         }
         #endregion
 
@@ -103,6 +106,7 @@ namespace StatZilla.Forms
             {
                 string file = Path.Combine(Path.Combine(directory, JsonFilePath), JsonFileName);
                 var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(MasterModel);
+
                 File.WriteAllText(file, jsonString);
             }
             catch(Exception ex)
