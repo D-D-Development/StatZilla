@@ -163,6 +163,7 @@ namespace StatZilla.Forms
             this.selectorBox.Name = "selectorBox";
             this.selectorBox.Size = new System.Drawing.Size(538, 31);
             this.selectorBox.TabIndex = 13;
+            this.selectorBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SelectorBox_KeyDown);
             this.selectorBox.Validating += new System.ComponentModel.CancelEventHandler(this.SelectorBox_Validating);
             // 
             // browseButton

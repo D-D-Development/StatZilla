@@ -117,7 +117,7 @@ namespace StatZilla.Forms
         /// <param name="e"></param>
         private void AddMethod_Button(object sender, EventArgs e)
         {
-            if (FileSelectorValidator()) {
+            if (FileSelectorValidator(MasterModel.masterFilePath)) {
                 try
                 {
                     AddNewFTPMethod();
@@ -133,7 +133,7 @@ namespace StatZilla.Forms
             }
           
         }
-
+   
         /// <summary>
         /// 
         /// </summary>
@@ -144,9 +144,9 @@ namespace StatZilla.Forms
             if(listviewTransferList.SelectedItems.Count > 0)
             {
                 var currentSession = this.listviewTransferList.SelectedItems;
-                if (MasterModel.masterFilePath == "" || !FileSelectorValidator()) 
+                if (MasterModel.masterFilePath == "" || !FileSelectorValidator(MasterModel.masterFilePath)) 
                 {
-                    MessageBox.Show("Please select a valid file before proceeding.", "No valid file selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PrintFileErrorMessage("","");
                 }
                 else if(currentSession[0].SubItems[3].Text == "OFF")
                 {
@@ -637,20 +637,31 @@ namespace StatZilla.Forms
         /// 
         /// </summary>
         /// <returns></returns>
-        private bool FileSelectorValidator()
+        private bool FileSelectorValidator(string filepath)
         {
-            string checkFIle = selectorBox.Text.ToString();
+            if (File.Exists(filepath))
+                return true;
 
             if (selectorBox.Text == "")
-                return false;
-            
-            if (File.Exists(checkFIle))       
-                return true;
-            
+            {
+                PrintFileErrorMessage("No file Selected", "Empty Selector Box");
+            }
+
+            PrintFileErrorMessage("", "");
             return false;
            
         }
 
+        static void PrintFileErrorMessage(string message, string title)
+        {
+            if (message == "")
+                message = "Please select a valid file before proceeding.";
+
+            if (title == "")
+                title = "No valid file selected";
+
+            MessageBox.Show(message,title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -658,7 +669,7 @@ namespace StatZilla.Forms
         /// <param name="e"></param>
         private void SelectorBox_Enter(object sender, EventArgs e)
         {
-            if (!FileSelectorValidator())
+            if (!FileSelectorValidator(MasterModel.masterFilePath))
                 MessageBox.Show("Select a valid File.");
             
         }
@@ -669,7 +680,7 @@ namespace StatZilla.Forms
         /// <param name="e"></param>
         private void SelectorBox_Validating(object sender, CancelEventArgs e)
         {
-            FileSelectorValidator();
+            FileSelectorValidator(MasterModel.masterFilePath);
         }
 
 
@@ -680,11 +691,20 @@ namespace StatZilla.Forms
         {
             if(fileSelector.ShowDialog() == DialogResult.OK)
             {
-                selectorBox.Text = fileSelector.FileName;
-                MasterModel.masterFilePath = fileSelector.FileName;
-                // Parse the file path for filename 
-                //string[] path = MasterModel.masterFilePath.Split('\\');
-                CreateFileWatcher();
+                // Check whether the file exist or not
+                if (FileSelectorValidator(fileSelector.FileName))
+                {
+                    selectorBox.Text = fileSelector.FileName;
+                    MasterModel.masterFilePath = fileSelector.FileName;
+                    // Parse the file path for filename 
+                    //string[] path = MasterModel.masterFilePath.Split('\\');
+                    CreateFileWatcher();
+                }
+                else
+                {
+                    PrintFileErrorMessage("","");
+                }
+                
             }
         }
 
@@ -706,6 +726,12 @@ namespace StatZilla.Forms
 
             // Begin watching.
             watcher.EnableRaisingEvents = true;
+        }
+
+        private void SelectorBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+               FileSelectorValidator(sender.ToString());
         }
 
         private void OnChanged(object sender, FileSystemEventArgs e)
