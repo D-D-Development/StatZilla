@@ -8,19 +8,15 @@ namespace StatZilla_Services.Models
     {
         public bool IsMasterActive { get; set; }
         public string masterFilePath;
-        public Dictionary<string,Ftp> ftpDict;
-        public Dictionary<string, Scp> SCPDict;
-        public Dictionary<string, S3Bucket> S3Dict;
-        public Dictionary<string, ObjStore> ObjDict;
+        public Dictionary<string,Ftp> ftpDict = new Dictionary<string, Ftp>();
+        public Dictionary<string, Scp> SCPDict = new Dictionary<string, Scp>();
+        public Dictionary<string, S3Bucket> S3Dict = new Dictionary<string, S3Bucket>();
+        public Dictionary<string, ObjStore> ObjDict = new Dictionary<string, ObjStore>();
       
 
         public GodModel()
         {
-            ftpDict = new Dictionary<string, Ftp>();
-            SCPDict = new Dictionary<string, Scp>();
-            S3Dict = new Dictionary<string, S3Bucket>();
-            ObjDict = new Dictionary<string, ObjStore>();
-
+          
         }
     }
 }

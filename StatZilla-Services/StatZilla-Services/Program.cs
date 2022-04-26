@@ -14,7 +14,7 @@ namespace StatZilla_Services
         static void Main(string[] args)
         {
             Program.Setup();
-            Log.WriteLine(Log.Type.INFO, "StatZilla Service Setup Finished");
+            Log.WriteLine(Log.Type.INFO, "StatZilla Service: Setup Finished");
             var exitCode = HostFactory.Run(x =>
             {
 
