@@ -100,11 +100,16 @@ namespace StatZilla.Forms
         /// </summary>
         private void Write_json()
         {
-
-            string file = Path.Combine(Path.Combine(directory, JsonFilePath), JsonFileName);
-
-            var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(MasterModel);
-            File.WriteAllText(file, jsonString);
+            try
+            {
+                string file = Path.Combine(Path.Combine(directory, JsonFilePath), JsonFileName);
+                var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(MasterModel);
+                File.WriteAllText(file, jsonString);
+            }
+            catch(Exception ex)
+            {
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
+            }
         }
 
         #endregion
@@ -117,21 +122,23 @@ namespace StatZilla.Forms
         /// <param name="e"></param>
         private void AddMethod_Button(object sender, EventArgs e)
         {
-            if (FileSelectorValidator(MasterModel.masterFilePath)) {
-                try
+
+            try
+            {
+                if (FileSelectorValidator(MasterModel.masterFilePath))
                 {
                     AddNewFTPMethod();
                     MyrefeshMethod();
                 }
-                catch (Exception ex)
+                else
                 {
-                    Formlog.WriteLine(Log.Type.ERROR, ex.Message);
+                    MessageBox.Show("Please. Select a valid file");
                 }
             }
-            else {
-                MessageBox.Show("Please. Select a valid file");
+            catch (Exception ex)
+            {
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
             }
-          
         }
    
         /// <summary>
@@ -155,9 +162,12 @@ namespace StatZilla.Forms
                     // Get the session type to know which dictionary to find the session
                     var searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
                     EditStatus(searchedItemType, true);
+                    // Update the time session started last
+                    EditStartTime(searchedItemType);
+                    // Log Session Started
+                    Formlog.WriteLine(Log.Type.INFO, $"Session {listviewTransferList.SelectedItems[0].SubItems[0].Text} started");
                 }
             }
-
         }
 
         /// <summary>
@@ -177,8 +187,9 @@ namespace StatZilla.Forms
                     // Get the session type to know which dictionary to find the session
                     var searchedItemType = listviewTransferList.SelectedItems[0].SubItems[2].Text.ToString();
                     EditStatus(searchedItemType, false);
+                    // Log Session stop
+                    Formlog.WriteLine(Log.Type.INFO, $"Session {listviewTransferList.SelectedItems[0].SubItems[0].Text} stopped");
                 }
-
             }
         }
 
@@ -229,7 +240,7 @@ namespace StatZilla.Forms
         private void FileBrowser_Button(object sender, EventArgs e)
         {
             if (selectorBox.Enabled == false)
-                MessageBox.Show("Unlock File Selector before proceeding.");
+                MessageBox.Show("Unlock file selector before proceeding.");
             else
                 SelectFile();
         }
@@ -237,6 +248,8 @@ namespace StatZilla.Forms
         private void SaveButton_Click(object sender, EventArgs e)
         {
             Write_json();
+            MessageBox.Show("StatZilla : Config successfully svaed. ");
+            Formlog.WriteLine(Log.Type.INFO, "Configuration Saved");
         }
 
 
@@ -412,7 +425,7 @@ namespace StatZilla.Forms
                     // Update list of FTP 
                     UpdateFTPTable(currentSession, updatedFTP);
                     
-                    UpdateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, ONorOFF(updatedFTP.sessionStatus), "Not Started");
+                    UpdateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, ONorOFF(updatedFTP.sessionStatus));
 
                    // Formlog.WriteLine(Log.Type.INFO, "FTP Session < " + updatedFTP.sessionName + " > Edited");
 
@@ -429,7 +442,7 @@ namespace StatZilla.Forms
                     // Update list of SCP 
                     UpdateSCPTable(currentSession, updatedSCP);
                     
-                    UpdateItemList(updatedSCP.sessionName, updatedSCP.sessionFilename, updatedSCP.sessionType, ONorOFF(updatedSCP.sessionStatus), "Not Started");
+                    UpdateItemList(updatedSCP.sessionName, updatedSCP.sessionFilename, updatedSCP.sessionType, ONorOFF(updatedSCP.sessionStatus));
 
                     //Formlog.WriteLine(Log.Type.INFO, "SCP Session < " + updatedSCP.sessionName + " > Edited");
                 }
@@ -443,9 +456,48 @@ namespace StatZilla.Forms
                     // Update list view 
                     UpdateS3Table(currentSession, updatedS3);
                     
-                    UpdateItemList(updatedS3.sessionName, updatedS3.sessionFilename, updatedS3.sessionType, ONorOFF(updatedS3.sessionStatus), "Not Started");
+                    UpdateItemList(updatedS3.sessionName, updatedS3.sessionFilename, updatedS3.sessionType, ONorOFF(updatedS3.sessionStatus));
 
                     //Formlog.WriteLine(Log.Type.INFO, "S3 Session < " + updatedS3.sessionName + " > Edited");
+                }
+            }
+            catch (Exception ex)
+            {
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
+            }
+        }
+
+        private void EditStartTime(string type)
+        {
+            try
+            {
+                // Find the selected item values using as a key the session name  
+                var currentSession = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
+
+                // Look up the item in the list of ftps and open the a form with its value in the 
+                if (type == "FTP")
+                {
+                    var selected = MasterModel.ftpDict[currentSession];
+                    // Update status of current session
+                    MasterModel.ftpDict[currentSession].sessionLastUpdate = DateTime.Now;
+                    // Update status view in the list table
+                    listviewTransferList.SelectedItems[0].SubItems[4].Text = MasterModel.ftpDict[currentSession].sessionLastUpdate.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                else if (type == "SCP")
+                {
+                    var selected = MasterModel.SCPDict[currentSession];
+                    // Update status of current session
+                    MasterModel.SCPDict[currentSession].sessionLastUpdate = DateTime.Now;
+                    // Update status view in the list table
+                    listviewTransferList.SelectedItems[0].SubItems[4].Text = MasterModel.SCPDict[currentSession].sessionLastUpdate.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                else if (type == "S3")
+                {
+                    var selected = MasterModel.S3Dict[currentSession];
+                    // Update status of current session
+                    MasterModel.S3Dict[currentSession].sessionLastUpdate = DateTime.Now;
+                    // Update status view in the list table
+                    listviewTransferList.SelectedItems[0].SubItems[4].Text = MasterModel.S3Dict[currentSession].sessionLastUpdate.ToString("yyyy-MM-dd HH:mm:ss");
                 }
             }
             catch (Exception ex)
@@ -464,7 +516,6 @@ namespace StatZilla.Forms
                 /// Look up the item in the list of ftps and open the a form with its value in the 
                 if (type == "FTP")
                 {
-                    var selected = MasterModel.ftpDict[currentSession];
                     // Update status of current session
                     MasterModel.ftpDict[currentSession].sessionStatus = status;
                     // Update status view in the list table
@@ -472,7 +523,6 @@ namespace StatZilla.Forms
                 }
                 else if (type == "SCP")
                 {
-                    var selected = MasterModel.SCPDict[currentSession];
                     // Update status of current session
                     MasterModel.SCPDict[currentSession].sessionStatus = status;
                     // Update status view in the list table
@@ -480,7 +530,6 @@ namespace StatZilla.Forms
                 }
                 else if (type == "S3")
                 {
-                    var selected = MasterModel.S3Dict[currentSession];
                     // Update status of current session
                     MasterModel.S3Dict[currentSession].sessionStatus = status;
                     // Update status view in the list table
@@ -529,14 +578,13 @@ namespace StatZilla.Forms
         /// <param name="type"></param>
         /// <param name="status"></param>
         /// <param name="lastUpdate"></param>
-        private void UpdateItemList(string session_name, string file_name, string type, string status, string lastUpdate)
+        private void UpdateItemList(string session_name, string file_name, string type, string status)
         {
             // Replace the selected row value by new value entered 
             listviewTransferList.SelectedItems[0].SubItems[0].Text = session_name;
             listviewTransferList.SelectedItems[0].SubItems[1].Text = file_name;
             listviewTransferList.SelectedItems[0].SubItems[2].Text = type;
             listviewTransferList.SelectedItems[0].SubItems[3].Text = status;
-            listviewTransferList.SelectedItems[0].SubItems[4].Text = lastUpdate;
         }
         /// <summary>
         /// 
@@ -707,8 +755,6 @@ namespace StatZilla.Forms
                 
             }
         }
-
-
 
         public void CreateFileWatcher()
         {

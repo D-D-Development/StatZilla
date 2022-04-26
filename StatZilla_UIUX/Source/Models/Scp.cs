@@ -9,7 +9,7 @@
         public string Path { get; set; }
         public Scp() { }
 
-        public Scp (string file, string u, string  pswd, string hostname, string destination, string portNum)
+        public Scp (string file, string u, string  pswd, string hostname, string destination)
         {
             sessionFilename = file;
             User = u;
