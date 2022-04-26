@@ -16,24 +16,17 @@ namespace StatZilla_Services.Models
         public string destinationPath;
         public string secretKey;
         public string accessKey;
-        public RegionEndpoint regEndpoint;
+        public string regEndpoint;
 
-
-        [JsonConstructor]
-        public S3Bucket(bool isActive, string bucketName, string destinationPath, string secretKey, string accessKey, RegionEndpoint regEndpoint, string sessionName, string sessionType, string sessionFilename, bool sessionStatus, DateTime sessionLastUpdate)
-
+        public S3Bucket() { }
+        public S3Bucket(string file, string bucket, string path, string secret, string access, string region)
         {
-            this.isActive = isActive;
-            this.bucketName = bucketName;
-            this.destinationPath = destinationPath;
-            this.secretKey = secretKey;
-            this.accessKey = accessKey;
-            this.regEndpoint = GetRegion(regEndpoint.DisplayName);
-            this.sessionName = sessionName;
-            this.sessionType = sessionType;
-            this.sessionFilename = sessionFilename;
-            this.sessionStatus = sessionStatus;
-            this.sessionLastUpdate = sessionLastUpdate;
+            sessionFilename = file;
+            bucketName = bucket;
+            destinationPath = path;
+            secretKey = secret;
+            accessKey = access;
+            regEndpoint = region;
         }
 
         public static string GetStringRegion(RegionEndpoint reg)
