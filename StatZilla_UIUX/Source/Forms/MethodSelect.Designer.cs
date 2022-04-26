@@ -50,7 +50,7 @@ namespace StatZilla.Forms
             this.nextButton.TabIndex = 6;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = false;
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            this.nextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // DomainNicknameBox
             // 
@@ -125,7 +125,7 @@ namespace StatZilla.Forms
             this.button1.TabIndex = 20;
             this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // MethodSelect
             // 
