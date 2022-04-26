@@ -10,7 +10,7 @@ namespace StatZilla_Services
     public class StatZillaService
     {
         Log ServiceLog;
-        Router uploader;
+        Router uploader = new();
         GodModel master;
         string jsonpath = $"C:\\ProgramData\\StatZilla\\StatZilla\\output\\json";
         string masterfilepath = "";
@@ -41,7 +41,7 @@ namespace StatZilla_Services
             WatchAndUpdate_JSON();
             watcherJson.EnableRaisingEvents = true;
         }
-        public void Stop()
+        public static void Stop()
         {
 
         }
@@ -50,7 +50,7 @@ namespace StatZilla_Services
         {
             
             string json = "";
-            using (StreamReader r = new StreamReader(jsonpath + "\\currsetting.json"))
+            using (StreamReader r = new(jsonpath + "\\currsetting.json"))
             {
                 json = r.ReadToEnd();
                 r.Close();
@@ -99,7 +99,7 @@ namespace StatZilla_Services
             {
                 return;
             }
-            if (master.IsMasterActive) uploader.Send(master, ServiceLog);
+            if (master.IsMasterActive) Router.Send(master, ServiceLog);
 
         }
 
@@ -107,7 +107,7 @@ namespace StatZilla_Services
         private void OnError(object sender, ErrorEventArgs e) =>
             PrintException(e.GetException());
 
-        private  void PrintException(Exception? ex)
+        private  void PrintException(Exception ex)
         {
             if (ex != null)
             {

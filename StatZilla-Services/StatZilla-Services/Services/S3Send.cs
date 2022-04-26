@@ -18,34 +18,33 @@ namespace StatZilla_Services.Services
             try
             {
 
+                IAmazonS3 client = new AmazonS3Client(awsAccessKey, awsSecretKey, regionEndpoint);
+
+                // create a TransferUtility instance passing it the IAmazonS3 created in the first step
+                TransferUtility utility = new(client);
+
+                // making a TransferUtilityUploadRequest instance
+                TransferUtilityUploadRequest request = new();
+
+                if (subDirectoryInBucket == "" || subDirectoryInBucket == null)
+                {
+                    request.BucketName = bucketName; //no subdirectory just bucket name
+                }
+                else
+                {   // subdirectory and bucket name
+                    request.BucketName = bucketName + @"/" + subDirectoryInBucket;
+                }
+                request.Key = fileNameInS3; //file name up in S3
+                request.FilePath = localFilePath; //local file name
+                utility.Upload(request); //commensing the transfer
+                return true; //indicate that the file was sent
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                return false;
                 ServiceLog.WriteLine(Log.Type.ERROR, ex.Message);
             }
-
-            IAmazonS3 client = new AmazonS3Client(awsAccessKey, awsSecretKey, regionEndpoint);
-
-            // create a TransferUtility instance passing it the IAmazonS3 created in the first step
-            TransferUtility utility = new TransferUtility(client);
-
-            // making a TransferUtilityUploadRequest instance
-            TransferUtilityUploadRequest request = new TransferUtilityUploadRequest();
-
-            if (subDirectoryInBucket == "" || subDirectoryInBucket == null)
-            {
-                request.BucketName = bucketName; //no subdirectory just bucket name
-            }
-            else
-            {   // subdirectory and bucket name
-                request.BucketName = bucketName + @"/" + subDirectoryInBucket;
-            }
-            request.Key = fileNameInS3; //file name up in S3
-            request.FilePath = localFilePath; //local file name
-            utility.Upload(request); //commensing the transfer
-
-            return true; //indicate that the file was sent
-
 
         }
     }

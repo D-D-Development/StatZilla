@@ -10,7 +10,7 @@ namespace StatZilla_Services
         public static Log Log;
         public static string directory, logFilePath;
         static Stream logFileStream;
-        static DateTime RunDateTime = DateTime.Now;
+        static readonly DateTime RunDateTime = DateTime.Now;
         static void Main(string[] args)
         {
             Program.Setup();
@@ -30,7 +30,7 @@ namespace StatZilla_Services
 
                     s.ConstructUsing(statzilla => new StatZillaService(Log));
                     s.WhenStarted(statzilla => statzilla.Start());
-                    s.WhenStopped(statzilla => statzilla.Stop());
+                    s.WhenStopped(statzilla => StatZillaService.Stop());
 
                 });
 
@@ -49,13 +49,13 @@ namespace StatZilla_Services
         static void Setup()
         {
             // Setting up log directory
-            var logPath = Path.Combine("output/log", $"{RunDateTime.ToString("yyyy-MM-dd")}");
+            var logPath = Path.Combine("output/log", $"{RunDateTime:yyyy-MM-dd}");
             directory = "C:\\ProgramData\\StatZilla\\StatZilla";
             if (!Directory.Exists(Path.Combine(directory, logPath)))
             {
                 Directory.CreateDirectory(Path.Combine(directory, logPath));
             }
-            logFilePath = Path.Combine(Path.Combine(directory, logPath), $"{RunDateTime.ToString("yyyy-MM-dd")}-Service.log");
+            logFilePath = Path.Combine(Path.Combine(directory, logPath), $"{RunDateTime:yyyy-MM-dd}-Service.log");
             logFileStream = File.Open(logFilePath, FileMode.Append, FileAccess.Write);
             Log = new Log(logFileStream, Console.OpenStandardOutput());
 

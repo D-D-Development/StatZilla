@@ -48,7 +48,7 @@ namespace StatZilla_Services.Utility
             // Format the message line
             // All control characters such as carriage return, line feed, and tabs are removed and replaced by their literal representation
             var datetime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZone);
-            var line = $"[{datetime.ToString(TimeFormat)}] {type.ToString().PadRight(9)} {message.ToLiteral()}";
+            var line = $"[{datetime.ToString(TimeFormat)}] {type,-9} {message.ToLiteral()}";
 
             // Write the message for each stream the message should be written to
             foreach (Stream stream in Streams)

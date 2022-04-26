@@ -10,18 +10,23 @@ namespace StatZilla_Services.Services
 {
     class Router
     {
-        ftpSend ftpSend;
-        S3Send S3Send;
+        ftpSend ftpSend = new();
+        S3Send S3Send = new();
 
-        public void Send(GodModel model, Log ServiceLog)
+        public static void Send(GodModel model, Log ServiceLog)
         {
             foreach (var ftp in model.ftpDict)
             {
                 if (ftp.Value.IsActive) ftpSend.Send(ftp.Value.FtpDomain, ftp.Value.User, ftp.Value.Pass, model.masterFilePath, ftp.Value.sessionFilename, ServiceLog);
+                ServiceLog.WriteLine(Log.Type.INFO, $"StatZilla Service: Uploaded Sucessfully to: {ftp.Value.sessionName}");
             }
             foreach (var s3 in model.S3Dict)
             {
-                if (s3.Value.isActive) S3Send.Send(s3.Value.accessKey, s3.Value.secretKey, model.masterFilePath, s3.Value.bucketName, s3.Value.destinationPath, s3.Value.sessionFilename, s3.Value.regEndpoint, ServiceLog);
+                if (s3.Value.isActive)
+                {
+                    if(S3Send.Send(s3.Value.accessKey, s3.Value.secretKey, model.masterFilePath, s3.Value.bucketName, s3.Value.destinationPath, s3.Value.sessionFilename, s3.Value.regEndpoint, ServiceLog));
+                    ServiceLog.WriteLine(Log.Type.INFO, $"StatZilla Service: Uploaded Sucessfully to: {s3.Value.sessionName}");
+                }
             }
         }
     }
