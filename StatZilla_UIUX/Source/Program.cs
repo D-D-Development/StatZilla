@@ -36,16 +36,13 @@ namespace StatZilla
             Application.Run(new MainPage(Log, intial_Master));
             //logFileStream.Close();
             //System.Diagnostics.Process.Start(logFilePath);
-
-
-
         }
         static void ReadCurrentSettings()
         {
-            GodModel tempModel = new GodModel();
+            GodModel tempModel = new();
             string json = "";
             string jsoninitialPath = Path.Combine(Path.Combine(directory, jsonPath), jsonFile);
-            using (StreamReader r = new StreamReader(jsoninitialPath))
+            using (StreamReader r = new(jsoninitialPath))
             {
                 json = r.ReadToEnd();
                 r.Close();

@@ -17,7 +17,7 @@ namespace StatZilla.Models
         public string destinationPath;
         public string secretKey;
         public string accessKey;
-        public RegionEndpoint regEndpoint;
+        public string regEndpoint;
 
         public S3Bucket() { }
         public S3Bucket( string file, string bucket,string path, string secret, string access, string region)
@@ -27,7 +27,7 @@ namespace StatZilla.Models
             destinationPath = path;
             secretKey = secret;
             accessKey = access;
-            regEndpoint = GetRegion(region);
+            regEndpoint = region;
         }
 
         public static string GetStringRegion(RegionEndpoint reg)
