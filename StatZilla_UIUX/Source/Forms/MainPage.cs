@@ -58,38 +58,10 @@ namespace StatZilla.Forms
             directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
 <<<<<<< HEAD
 
-            Ftp temp = new();
-            Ftp temp2 = new();
-            Scp Temp3 = new();
-            S3Bucket Temp5 = new();
-
-            // TEST DATA
-            temp.IsActive = false;
-            temp.sessionName = "TEST 1";
-            temp.sessionFilename = "fileTest.txt";
-            temp.sessionType = "FTP";
-            temp.sessionStatus = false;
-            temp.User = "tester1";
-            temp.Pass = "abcd1234";
-            temp.FtpDomain = "MY DOMAIN";
-            temp.DomainDestinationPath = "Desktop";
-
-            temp2.User = "gfef";
-            temp2.IsActive = false;
-            temp2.Pass = "fesf";
-            temp2.sessionFilename = "Nothing.txt";
-            Temp3.IsActive = true;
-            Temp3.Password = "tesfg";
-            Temp5.isActive = true;
-            Temp5.sessionName = "test";
-            MasterModel.ftpDict.Add(temp.sessionName, temp);
-            MasterModel.ftpDict.Add("trsvrdasfg", temp);
-            MasterModel.ftpDict.Add("trsvrdafd", temp);
-            MasterModel.ftpDict.Add("trsvrdagh", temp);
-            MasterModel.ftpDict.Add("trsvrdag", temp2);
-            MasterModel.ftpDict.Add("trsvrdga", temp2);
-
-            AddToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
+            if (MasterModel != null)
+            {
+                FillList();
+            }
             //write_json();
 =======
 >>>>>>> 7039732852750aba26b44db79b502c95995354d3
@@ -311,7 +283,6 @@ namespace StatZilla.Forms
         private void MainPage_Load(object sender, EventArgs e)
         {
             ResizeListViewColumns();
-            
         }
         /// <summary>
         /// 
@@ -566,6 +537,43 @@ namespace StatZilla.Forms
             listviewTransferList.Items.Add(item);
             ResizeListViewColumns();
         }
+
+        private void FillList()
+        {
+            try
+            {
+                listviewTransferList.BeginUpdate();
+                // Update FTP List 
+                foreach (var ftp in MasterModel.ftpDict)
+                {
+                    {
+                        // If the current FTP session is active update last time the master file was modified
+                        AddToList(ftp.Value.sessionName, ftp.Value.sessionFilename, ftp.Value.sessionType, ONorOFF(ftp.Value.sessionStatus), ftp.Value.sessionLastUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+                // Update SCP List
+                foreach (var scp in MasterModel.SCPDict)
+                {
+                    {
+                        // If the current scp session is active update last time the master file was modified
+                        AddToList(scp.Value.sessionName, scp.Value.sessionFilename, scp.Value.sessionType, ONorOFF(scp.Value.sessionStatus), scp.Value.sessionLastUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+                // Update S3 List 
+                foreach (var s3 in MasterModel.S3Dict)
+                {
+                    {
+                        // If the current s3 session is active update last time the master file was modified
+                        AddToList(s3.Value.sessionName, s3.Value.sessionFilename, s3.Value.sessionType, ONorOFF(s3.Value.sessionStatus), s3.Value.sessionLastUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+                listviewTransferList.EndUpdate();
+            }
+            catch(Exception ex)
+            {
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -599,7 +607,7 @@ namespace StatZilla.Forms
                     MasterModel.SCPDict.Remove(sessionToDelete);
                 else if (type == "S3")
                     MasterModel.S3Dict.Remove(sessionToDelete);
-            }   
+            }
         }
         /// <summary>
         /// 

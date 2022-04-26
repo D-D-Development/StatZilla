@@ -58,7 +58,6 @@ namespace StatZilla.Forms
                     backToMethodSelect.Close();
                 }
                 this.Close();
-
             }
         }
         private void SetSCPConfiguration(string filename, string user, string pass, string host, string dest)
