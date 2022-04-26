@@ -117,5 +117,10 @@ namespace StatZilla.Forms
                 this.Close();
             }
         }
+
+        private void pathBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
