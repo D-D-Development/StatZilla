@@ -7,7 +7,6 @@
         public string Password { get; set; }
         public string Host { get; set; }
         public string Path { get; set; }
-        public string Port { get; set; }
         public Scp() { }
 
         public Scp (string file, string u, string  pswd, string hostname, string destination, string portNum)
@@ -17,7 +16,6 @@
             Password = pswd;
             Host = hostname;
             Path = destination;
-            Port = portNum;
         }
     }
 }
