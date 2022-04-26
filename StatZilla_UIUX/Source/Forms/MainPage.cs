@@ -56,41 +56,6 @@ namespace StatZilla.Forms
             JsonFilePath = ConfigurationManager.AppSettings["Json-Path"];
             JsonFileName = ConfigurationManager.AppSettings["Json-File"];
             directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
-
-            Ftp temp = new();
-            Ftp temp2 = new();
-            Scp Temp3 = new();
-            S3Bucket Temp5 = new();
-
-            // TEST DATA
-            temp.IsActive = false;
-            temp.sessionName = "TEST 1";
-            temp.sessionFilename = "fileTest.txt";
-            temp.sessionType = "FTP";
-            temp.sessionStatus = false;
-            temp.User = "tester1";
-            temp.Pass = "abcd1234";
-            temp.FtpDomain = "MY DOMAIN";
-            temp.DomainDestinationPath = "Desktop";
-
-            temp2.User = "gfef";
-            temp2.IsActive = false;
-            temp2.Pass = "fesf";
-            temp2.sessionFilename = "Nothing.txt";
-            Temp3.IsActive = true;
-            Temp3.Password = "tesfg";
-            Temp5.isActive = true;
-            Temp5.sessionName = "test";
-            MasterModel.ftpDict.Add(temp.sessionName, temp);
-            MasterModel.ftpDict.Add("trsvrdasfg", temp);
-            MasterModel.ftpDict.Add("trsvrdafd", temp);
-            MasterModel.ftpDict.Add("trsvrdagh", temp);
-            MasterModel.ftpDict.Add("trsvrdag", temp2);
-            MasterModel.ftpDict.Add("trsvrdga", temp2);
-
-            AddToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
-            //write_json();
-
         }
         #endregion
 
@@ -104,6 +69,7 @@ namespace StatZilla.Forms
             {
                 string file = Path.Combine(Path.Combine(directory, JsonFilePath), JsonFileName);
                 var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(MasterModel);
+
                 File.WriteAllText(file, jsonString);
             }
             catch(Exception ex)

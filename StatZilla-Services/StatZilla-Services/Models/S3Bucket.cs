@@ -1,4 +1,5 @@
 ﻿using Amazon;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,22 @@ namespace StatZilla_Services.Models
         public string accessKey;
         public RegionEndpoint regEndpoint;
 
-        public S3Bucket() { }
-        public S3Bucket(string file, string bucket, string path, string secret, string access, string region)
+
+        [JsonConstructor]
+        public S3Bucket(bool isActive, string bucketName, string destinationPath, string secretKey, string accessKey, RegionEndpoint regEndpoint, string sessionName, string sessionType, string sessionFilename, bool sessionStatus, DateTime sessionLastUpdate)
+
         {
-            sessionFilename = file;
-            bucketName = bucket;
-            destinationPath = path;
-            secretKey = secret;
-            accessKey = access;
-            regEndpoint = GetRegion(region);
+            this.isActive = isActive;
+            this.bucketName = bucketName;
+            this.destinationPath = destinationPath;
+            this.secretKey = secretKey;
+            this.accessKey = accessKey;
+            this.regEndpoint = GetRegion(regEndpoint.DisplayName);
+            this.sessionName = sessionName;
+            this.sessionType = sessionType;
+            this.sessionFilename = sessionFilename;
+            this.sessionStatus = sessionStatus;
+            this.sessionLastUpdate = sessionLastUpdate;
         }
 
         public static string GetStringRegion(RegionEndpoint reg)
