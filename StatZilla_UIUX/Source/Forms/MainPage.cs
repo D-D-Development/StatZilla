@@ -56,6 +56,43 @@ namespace StatZilla.Forms
             JsonFilePath = ConfigurationManager.AppSettings["Json-Path"];
             JsonFileName = ConfigurationManager.AppSettings["Json-File"];
             directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
+<<<<<<< HEAD
+
+            Ftp temp = new();
+            Ftp temp2 = new();
+            Scp Temp3 = new();
+            S3Bucket Temp5 = new();
+
+            // TEST DATA
+            temp.IsActive = false;
+            temp.sessionName = "TEST 1";
+            temp.sessionFilename = "fileTest.txt";
+            temp.sessionType = "FTP";
+            temp.sessionStatus = false;
+            temp.User = "tester1";
+            temp.Pass = "abcd1234";
+            temp.FtpDomain = "MY DOMAIN";
+            temp.DomainDestinationPath = "Desktop";
+
+            temp2.User = "gfef";
+            temp2.IsActive = false;
+            temp2.Pass = "fesf";
+            temp2.sessionFilename = "Nothing.txt";
+            Temp3.IsActive = true;
+            Temp3.Password = "tesfg";
+            Temp5.isActive = true;
+            Temp5.sessionName = "test";
+            MasterModel.ftpDict.Add(temp.sessionName, temp);
+            MasterModel.ftpDict.Add("trsvrdasfg", temp);
+            MasterModel.ftpDict.Add("trsvrdafd", temp);
+            MasterModel.ftpDict.Add("trsvrdagh", temp);
+            MasterModel.ftpDict.Add("trsvrdag", temp2);
+            MasterModel.ftpDict.Add("trsvrdga", temp2);
+
+            AddToList(temp.sessionName, temp.sessionFilename, temp.sessionType, ONorOFF(temp.sessionStatus), "Not Started");
+            //write_json();
+=======
+>>>>>>> 7039732852750aba26b44db79b502c95995354d3
         }
         #endregion
 
@@ -82,13 +119,15 @@ namespace StatZilla.Forms
 
         #region BUTTONS
         /// <summary>
-        /// 
+        /// Button to add new session 
+        /// Check if the a file has been selected before proceeding
+        /// if File is not valid pop up message notifies the user
+        /// Log error when one occurs
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void AddMethod_Button(object sender, EventArgs e)
         {
-
             try
             {
                 if (FileSelectorValidator(MasterModel.masterFilePath))
@@ -108,7 +147,7 @@ namespace StatZilla.Forms
         }
    
         /// <summary>
-        /// 
+        /// Start button starts selected session when button pressed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -130,14 +169,13 @@ namespace StatZilla.Forms
                     EditStatus(searchedItemType, true);
                     // Update the time session started last
                     EditStartTime(searchedItemType);
-                    // Log Session Started
+                    // Log Session when started
                     Formlog.WriteLine(Log.Type.INFO, $"Session {listviewTransferList.SelectedItems[0].SubItems[0].Text} started");
                 }
             }
         }
-
         /// <summary>
-        /// 
+        /// Stops monitoring selected session when button pressed 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -158,7 +196,6 @@ namespace StatZilla.Forms
                 }
             }
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -180,7 +217,6 @@ namespace StatZilla.Forms
                 }
             }
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -197,7 +233,6 @@ namespace StatZilla.Forms
                 selectorBox.Enabled = false;
             }
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -210,19 +245,14 @@ namespace StatZilla.Forms
             else
                 SelectFile();
         }
-
         private void SaveButton_Click(object sender, EventArgs e)
         {
             Write_json();
-            MessageBox.Show("StatZilla : Config successfully svaed. ");
+            MessageBox.Show("StatZilla : Config successfully saved.");
             Formlog.WriteLine(Log.Type.INFO, "Configuration Saved");
         }
-
-
         #endregion
-
         #region FTP
-
         /// <summary>
         /// 
         /// </summary>
@@ -233,7 +263,6 @@ namespace StatZilla.Forms
             // Replace ftp element with new edited values 
             MasterModel.ftpDict[item] = newItem;
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -304,57 +333,65 @@ namespace StatZilla.Forms
             // Open a new Form to insert new FTP method variables 
             MethodSelect newMethod = new();
             newMethod.ShowDialog();
-
             string transfterMethod = newMethod.Type;
             string sessionName = newMethod.Name.ToString();
             string sessionStartTime = "Not Started";
-
-            if ( transfterMethod == "FTP") {
-                // Create a new instance of the FTP method
-                Ftp newFtp = newMethod.FtpForm.ftpMethod;//newFtpMethod.ftpMethod;
+            try 
+            {
+                if (transfterMethod == "FTP")
                 {
-                    // Initialize Session values
-                    newFtp.sessionName = sessionName;
-                    newFtp.sessionType = transfterMethod;
-                    newFtp.sessionStatus = false;
-                    newFtp.sessionLastUpdate = DateTime.Now;
-                    // Add new ftp method to the list of ftps then store the key in a dictionary 
-                    // Key is used to find values of the item 
-                    MasterModel.ftpDict.Add(newFtp.sessionName, newFtp);
-                    AddToList(newFtp.sessionName, newFtp.sessionFilename, newFtp.sessionType, ONorOFF(newFtp.sessionStatus), sessionStartTime);
-                    Formlog.WriteLine(Log.Type.INFO, "FTP Session < " + newFtp.sessionName + " > Added");
-                    //JSON function will go here
-                    //ftps.Add(newFtp);
-                }
-            }
-            else if (transfterMethod == "SCP") {
-                // Add newly created SCP method to the list
-                {
-                    Scp newSCP = newMethod.ScpForm.scpMethod;
+                    // Create a new instance of the FTP method
+                    Ftp newFtp = newMethod.FtpForm.ftpMethod;//newFtpMethod.ftpMethod;
                     {
-                        newSCP.sessionName = sessionName;
-                        newSCP.sessionType = transfterMethod;
-                        newSCP.sessionStatus = false;
-                        newSCP.sessionLastUpdate = DateTime.Now;
+                        // Initialize Session values
+                        newFtp.sessionName = sessionName;
+                        newFtp.sessionType = transfterMethod;
+                        newFtp.sessionStatus = false;
+                        newFtp.sessionLastUpdate = DateTime.Now;
+                        // Add new ftp method to the list of ftps then store the key in a dictionary 
+                        // Key is used to find values of the item 
+                        MasterModel.ftpDict.Add(newFtp.sessionName, newFtp);
+                        AddToList(newFtp.sessionName, newFtp.sessionFilename, newFtp.sessionType, ONorOFF(newFtp.sessionStatus), sessionStartTime);
+                        Formlog.WriteLine(Log.Type.INFO, "FTP Session < " + newFtp.sessionName + " > Added");
+                        //JSON function will go here
+                        //ftps.Add(newFtp);
                     }
-                    MasterModel.SCPDict.Add(newSCP.sessionName, newSCP);
-                    AddToList(newSCP.sessionName, newSCP.sessionFilename, newSCP.sessionType, ONorOFF(newSCP.sessionStatus), sessionStartTime);
-                    Formlog.WriteLine(Log.Type.INFO, "SCP Session < " + newSCP.sessionName + " > Added");
                 }
-                //JSON function will go here
-            }
-            else if (transfterMethod == "S3") {
-                // Create a new instance of the S3 method
-                S3Bucket newS3 = newMethod.s3Form.newS3Buckets;
+                else if (transfterMethod == "SCP")
                 {
-                    newS3.sessionName = sessionName;
-                    newS3.sessionType = transfterMethod;
-                    newS3.sessionStatus = false;
-                    newS3.sessionLastUpdate = DateTime.Now;
+                    // Add newly created SCP method to the list
+                    {
+                        Scp newSCP = newMethod.ScpForm.scpMethod;
+                        {
+                            newSCP.sessionName = sessionName;
+                            newSCP.sessionType = transfterMethod;
+                            newSCP.sessionStatus = false;
+                            newSCP.sessionLastUpdate = DateTime.Now;
+                        }
+                        MasterModel.SCPDict.Add(newSCP.sessionName, newSCP);
+                        AddToList(newSCP.sessionName, newSCP.sessionFilename, newSCP.sessionType, ONorOFF(newSCP.sessionStatus), sessionStartTime);
+                        Formlog.WriteLine(Log.Type.INFO, "SCP Session < " + newSCP.sessionName + " > Added");
+                    }
+                    //JSON function will go here
                 }
-                MasterModel.S3Dict.Add(newS3.sessionName, newS3);
-                AddToList(newS3.sessionName, newS3.sessionFilename, newS3.sessionType, ONorOFF(newS3.sessionStatus), sessionStartTime);
-                Formlog.WriteLine(Log.Type.INFO, "S3 Session < " + newS3.sessionName + " > Added");
+                else if (transfterMethod == "S3")
+                {
+                    // Create a new instance of the S3 method
+                    S3Bucket newS3 = newMethod.s3Form.newS3Buckets;
+                    {
+                        newS3.sessionName = sessionName;
+                        newS3.sessionType = transfterMethod;
+                        newS3.sessionStatus = false;
+                        newS3.sessionLastUpdate = DateTime.Now;
+                    }
+                    MasterModel.S3Dict.Add(newS3.sessionName, newS3);
+                    AddToList(newS3.sessionName, newS3.sessionFilename, newS3.sessionType, ONorOFF(newS3.sessionStatus), sessionStartTime);
+                    Formlog.WriteLine(Log.Type.INFO, "S3 Session < " + newS3.sessionName + " > Added");
+                }
+            }
+            catch(Exception ex)
+            {
+                Formlog.WriteLine(Log.Type.ERROR, ex.Message);
             }
         }
 
@@ -390,11 +427,8 @@ namespace StatZilla.Forms
 
                     // Update list of FTP 
                     UpdateFTPTable(currentSession, updatedFTP);
-                    
                     UpdateItemList(updatedFTP.sessionName, updatedFTP.sessionFilename, updatedFTP.sessionType, ONorOFF(updatedFTP.sessionStatus));
-
-                   // Formlog.WriteLine(Log.Type.INFO, "FTP Session < " + updatedFTP.sessionName + " > Edited");
-
+                   // Formlog.WriteLine(Log.Type.INFO, "FTP Session < " + updatedFTP.sessionName + " > Edited");s
                 }
                 else if (type == "SCP")
                 {
@@ -439,7 +473,6 @@ namespace StatZilla.Forms
             {
                 // Find the selected item values using as a key the session name  
                 var currentSession = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-
                 // Look up the item in the list of ftps and open the a form with its value in the 
                 if (type == "FTP")
                 {
@@ -478,8 +511,7 @@ namespace StatZilla.Forms
             {
                 // Find the selected item values using as a key the session name  
                 var currentSession = listviewTransferList.SelectedItems[0].SubItems[0].Text.ToString();
-
-                /// Look up the item in the list of ftps and open the a form with its value in the 
+                // Look up the item in the list of ftps and open the a form with its value in the 
                 if (type == "FTP")
                 {
                     // Update status of current session
@@ -529,9 +561,7 @@ namespace StatZilla.Forms
         {
             // Create an array of containing information about session to add a new row in the list of sessions 
             string[] row = { sessionName, fileName, type, status, lastUpdated };
-
             ListViewItem item = new(row);
-
             // Add the new row to the list
             listviewTransferList.Items.Add(item);
             ResizeListViewColumns();
@@ -655,25 +685,20 @@ namespace StatZilla.Forms
         {
             if (File.Exists(filepath))
                 return true;
-
             if (selectorBox.Text == "")
             {
                 PrintFileErrorMessage("No file Selected", "Empty Selector Box");
             }
-
             PrintFileErrorMessage("", "");
             return false;
-           
         }
 
         static void PrintFileErrorMessage(string message, string title)
         {
             if (message == "")
                 message = "Please select a valid file before proceeding.";
-
             if (title == "")
                 title = "No valid file selected";
-
             MessageBox.Show(message,title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         /// <summary>
@@ -685,7 +710,6 @@ namespace StatZilla.Forms
         {
             if (!FileSelectorValidator(MasterModel.masterFilePath))
                 MessageBox.Show("Select a valid File.");
-            
         }
         /// <summary>
         /// 
@@ -696,7 +720,6 @@ namespace StatZilla.Forms
         {
             FileSelectorValidator(MasterModel.masterFilePath);
         }
-
 
         /// <summary>
         /// 
@@ -718,7 +741,6 @@ namespace StatZilla.Forms
                 {
                     PrintFileErrorMessage("","");
                 }
-                
             }
         }
 
@@ -735,7 +757,6 @@ namespace StatZilla.Forms
             };
             watcher.Changed += OnChanged;
             //watcher.Renamed += new RenamedEventHandler(OnRenamed);
-
             // Begin watching.
             watcher.EnableRaisingEvents = true;
         }
@@ -791,6 +812,4 @@ namespace StatZilla.Forms
         }
         #endregion
     }
-
-
 }

@@ -81,7 +81,7 @@ namespace StatZilla.Forms
             newS3Buckets.destinationPath = path;
             newS3Buckets.secretKey = secretkey;
             newS3Buckets.accessKey = accessKey;
-            newS3Buckets.regEndpoint = S3Bucket.GetRegion(region);
+            newS3Buckets.regEndpoint = region;
         }
 
         public void DisplayMethod()
@@ -91,7 +91,7 @@ namespace StatZilla.Forms
             pathBox.Text = newS3Buckets.destinationPath;
             secretKeyBox.Text = newS3Buckets.secretKey;
             accessKeyBox.Text = newS3Buckets.accessKey;
-            regionAWSDropDown.Text = S3Bucket.GetStringRegion(newS3Buckets.regEndpoint);
+            regionAWSDropDown.Text = newS3Buckets.regEndpoint;
         }
 
         private void S3Protocol_KeyDown(object sender, KeyEventArgs e)
