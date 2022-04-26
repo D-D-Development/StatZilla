@@ -15,19 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_070F99A9035442D584E8681BA121A3C8"
+        "MsmKey" = "8:_A6A2580C108B432EA7F67FBF3AA48F34"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C6DB306CA40A45A89A3E910BB8844C32"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D046AE496D61488BA54B1CFDC6165E62"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FC37F65548EB406C8B8C9FD71E65501A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -176,17 +176,6 @@
                 {
                 }
             }
-            "{1525181F-901A-416C-8A58-119130FE478E}:_7F2B1DDFB67A4139B54E10C912D1273C"
-            {
-            "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:ProgramMenuFolder"
-                "Folders"
-                {
-                }
-            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_81A11AE5C0364233B0C721F498AE2CDB"
             {
             "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
@@ -216,7 +205,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:StatZilla"
         "ProductCode" = "8:{780B96AF-52BA-46B5-9F51-689CD979ABCA}"
-        "PackageCode" = "8:{058F57DD-4FC0-4AD7-9C14-587F975DAB77}"
+        "PackageCode" = "8:{DB4CF63B-BF59-4C6A-BED2-D6E085B5401D}"
         "UpgradeCode" = "8:{D9811199-746A-4705-91AF-C10F6CDD1134}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -735,35 +724,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_070F99A9035442D584E8681BA121A3C8"
-            {
-            "SourcePath" = "8:..\\..\\StatZilla-Services\\StatZilla-Services\\obj\\Debug\\net5.0\\apphost.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_81A11AE5C0364233B0C721F498AE2CDB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{A43B5C9D-535E-4E61-8561-11FF3C1B0E49}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FC37F65548EB406C8B8C9FD71E65501A"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A6A2580C108B432EA7F67FBF3AA48F34"
             {
             "SourcePath" = "8:..\\..\\StatZilla_UIUX\\obj\\Debug\\net5.0-windows\\apphost.exe"
             "TargetName" = "8:"
@@ -786,6 +747,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{8847FA3B-B263-4933-8845-E4AAAB558BDB}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C6DB306CA40A45A89A3E910BB8844C32"
+            {
+            "SourcePath" = "8:..\\..\\StatZilla-Services\\StatZilla-Services\\obj\\Debug\\net5.0\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_81A11AE5C0364233B0C721F498AE2CDB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{A43B5C9D-535E-4E61-8561-11FF3C1B0E49}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

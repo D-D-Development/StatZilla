@@ -56,15 +56,12 @@ namespace StatZilla.Forms
             JsonFilePath = ConfigurationManager.AppSettings["Json-Path"];
             JsonFileName = ConfigurationManager.AppSettings["Json-File"];
             directory = System.IO.Directory.GetParent(Application.CommonAppDataPath).ToString();
-<<<<<<< HEAD
 
             if (MasterModel != null)
             {
                 FillList();
             }
-            //write_json();
-=======
->>>>>>> 7039732852750aba26b44db79b502c95995354d3
+
         }
         #endregion
 

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32407.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "StatZilla_Setup", "Setup1\Setup1.vdproj", "{92D9CABB-E276-450D-8A17-1E1F2F32D5B6}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "StatZilla_Setup", "Setup\Setup.vdproj", "{92D9CABB-E276-450D-8A17-1E1F2F32D5B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatZilla-Services", "..\StatZilla-Services\StatZilla-Services\StatZilla-Services.csproj", "{A43B5C9D-535E-4E61-8561-11FF3C1B0E49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatZillaService", "..\StatZilla-Services\StatZilla-Services\StatZillaService.csproj", "{A43B5C9D-535E-4E61-8561-11FF3C1B0E49}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatZilla", "..\StatZilla_UIUX\StatZilla.csproj", "{8847FA3B-B263-4933-8845-E4AAAB558BDB}"
 EndProject
